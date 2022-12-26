@@ -4,16 +4,19 @@
  */
 package com.ufes.sofwareacessousuario.view;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 /**
  *
  * @author heflainrmendes
  */
-public class OptionAcesses extends javax.swing.JInternalFrame {
+public class OptionAcessesView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form OptionAcesses
      */
-    public OptionAcesses() {
+    public OptionAcessesView() {
         initComponents();
     }
 
@@ -26,31 +29,23 @@ public class OptionAcesses extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnLogin1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         btnSingIn = new javax.swing.JButton();
         btnSingUp = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
-        btnLogin1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnLogin1.setText("Log in");
-
-        jLabel2.setText("Already have an account ?");
 
         btnSingIn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSingIn.setText("Sing in");
 
         btnSingUp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSingUp.setText("Sing up");
-        btnSingUp.setActionCommand("Sing up");
         btnSingUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSingUpActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Already have an account ?");
+        lblLogin.setText("Already have an account ?");
 
         jLabel3.setText("Don't have an account yet?");
 
@@ -69,7 +64,7 @@ public class OptionAcesses extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(btnSingUp, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1)
+                            .addComponent(lblLogin)
                             .addComponent(jLabel3))))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
@@ -81,7 +76,7 @@ public class OptionAcesses extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnSingIn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSingUp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
@@ -96,11 +91,23 @@ public class OptionAcesses extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin1;
     private javax.swing.JButton btnSingIn;
     private javax.swing.JButton btnSingUp;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblLogin;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnSingIn() {
+        return btnSingIn;
+    }
+
+    public JButton getBtnSingUp() {
+        return btnSingUp;
+    }
+
+    public JLabel getLblLogin() {
+        return lblLogin;
+    }
+
+    
 }

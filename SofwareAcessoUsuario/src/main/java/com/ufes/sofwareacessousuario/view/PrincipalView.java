@@ -4,6 +4,12 @@
  */
 package com.ufes.sofwareacessousuario.view;
 
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author heflainrmendes
@@ -28,6 +34,11 @@ public class PrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlPrincipal = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        lblUserName = new javax.swing.JLabel();
+        btnAmountNotifications = new javax.swing.JButton();
+        lblUserType = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         btnUser = new javax.swing.JMenu();
         btnChangePassword = new javax.swing.JMenuItem();
@@ -44,6 +55,56 @@ public class PrincipalView extends javax.swing.JFrame {
         setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusTraversalPolicyProvider(true);
+
+        javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
+        pnlPrincipal.setLayout(pnlPrincipalLayout);
+        pnlPrincipalLayout.setHorizontalGroup(
+            pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 898, Short.MAX_VALUE)
+        );
+        pnlPrincipalLayout.setVerticalGroup(
+            pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 342, Short.MAX_VALUE)
+        );
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblUserName.setBackground(new java.awt.Color(255, 255, 255));
+        lblUserName.setForeground(new java.awt.Color(0, 0, 0));
+        lblUserName.setText("jLabel1");
+
+        btnAmountNotifications.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmountNotificationsActionPerformed(evt);
+            }
+        });
+
+        lblUserType.setForeground(new java.awt.Color(0, 0, 0));
+        lblUserType.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(255, 255, 255)
+                .addComponent(lblUserType, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAmountNotifications, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUserType, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnAmountNotifications, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         menuBar.setPreferredSize(new java.awt.Dimension(91, 40));
 
@@ -92,6 +153,11 @@ public class PrincipalView extends javax.swing.JFrame {
 
         btnAuthorizeUser.setMnemonic('p');
         btnAuthorizeUser.setText("authorize user");
+        btnAuthorizeUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuthorizeUserActionPerformed(evt);
+            }
+        });
         btnAdmin.add(btnAuthorizeUser);
 
         btnConfig.setText("config");
@@ -105,11 +171,19 @@ public class PrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 922, Short.MAX_VALUE)
+            .addComponent(pnlPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPrincipal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -127,44 +201,53 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSendNotificationActionPerformed
 
+    private void btnAmountNotificationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmountNotificationsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAmountNotificationsActionPerformed
+
+    private void btnAuthorizeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthorizeUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAuthorizeUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrincipalView().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new PrincipalView().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAddUser;
     private javax.swing.JMenu btnAdmin;
+    private javax.swing.JButton btnAmountNotifications;
     private javax.swing.JMenuItem btnAuthorizeUser;
     private javax.swing.JMenuItem btnChangePassword;
     private javax.swing.JMenuItem btnConfig;
@@ -172,7 +255,62 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnSendNotification;
     private javax.swing.JMenu btnUser;
     private javax.swing.JMenuItem btnViewNotificaition;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblUserName;
+    private javax.swing.JLabel lblUserType;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JDesktopPane pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 
+    public JMenuItem getBtnAddUser() {
+        return btnAddUser;
+    }
+
+    public JMenu getBtnAdmin() {
+        return btnAdmin;
+    }
+
+    public JButton getBtnAmountNotifications() {
+        return btnAmountNotifications;
+    }
+
+    public JMenuItem getBtnAuthorizeUser() {
+        return btnAuthorizeUser;
+    }
+
+    public JMenuItem getBtnChangePassword() {
+        return btnChangePassword;
+    }
+
+    public JMenuItem getBtnConfig() {
+        return btnConfig;
+    }
+
+    public JMenuItem getBtnExit() {
+        return btnExit;
+    }
+
+    public JMenuItem getBtnSendNotification() {
+        return btnSendNotification;
+    }
+
+    public JMenu getBtnUser() {
+        return btnUser;
+    }
+
+    public JMenuItem getBtnViewNotificaition() {
+        return btnViewNotificaition;
+    }
+
+    public JLabel getLblUserName() {
+        return lblUserName;
+    }
+
+    public JLabel getLblUserType() {
+        return lblUserType;
+    }
+
+    public JDesktopPane getPnlPrincipal() {
+        return pnlPrincipal;
+    }
 }

@@ -4,6 +4,9 @@
  */
 package com.ufes.sofwareacessousuario.view;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author heflainrmendes
@@ -30,8 +33,16 @@ public class ConfigurationView extends javax.swing.JInternalFrame {
         CbFormatsLogger = new javax.swing.JComboBox<>();
         btnSave = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("change format logger");
+
+        CbFormatsLogger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbFormatsLoggerActionPerformed(evt);
+            }
+        });
 
         btnSave.setText("Save");
 
@@ -68,10 +79,22 @@ public class ConfigurationView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CbFormatsLoggerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbFormatsLoggerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbFormatsLoggerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbFormatsLogger;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    public JComboBox<String> getCbFormatsLogger() {
+        return CbFormatsLogger;
+    }
+
+    public JButton getBtnSave() {
+        return btnSave;
+    }
 }
