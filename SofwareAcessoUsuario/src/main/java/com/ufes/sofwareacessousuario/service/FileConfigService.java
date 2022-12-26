@@ -4,8 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.service;
 
-import com.ufes.sofwareacessousuario.observable.fileConfigService.EventListerners;
-import com.ufes.sofwareacessousuario.observable.fileConfigService.EventManager;
+import com.ufes.sofwareacessousuario.observable.EventListerners;
+import com.ufes.sofwareacessousuario.observable.EventManager;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +16,9 @@ import java.util.Properties;
  * @author heflainrmendes
  */
 public class FileConfigService {
+    public static final String LOAD_FILE = "LOAD_FILE";
+    public static final String UPDATE_TYPE_LOG = "UPDATE_TYPE_LOG";
+    
     private static File file;
     private static Properties properties;
     private static EventManager listerners = new EventManager();
@@ -24,8 +27,8 @@ public class FileConfigService {
         listerners.subscribe(el);
     }
 
-    private static void notify(String mensagem, String info) {
-        listerners.notify(mensagem, info);
+    private static void notify(String mensagem) {
+        listerners.notify(mensagem);
     }
 
     public static void loadFile(String caminhoProperties) throws Exception {
@@ -40,7 +43,7 @@ public class FileConfigService {
         }
         
 
-        notify(EventListerners.LOAD_FILE, getTypeLog());
+        notify(LOAD_FILE);
     }
 
     public static String getPathLog() {
@@ -61,6 +64,6 @@ public class FileConfigService {
             throw new Exception("Problema ao escrever no arquivo de logger");
         }
         
-        notify(EventListerners.UPDATE_TYPE_LOG, getTypeLog());
+        notify(UPDATE_TYPE_LOG);
     }
 }

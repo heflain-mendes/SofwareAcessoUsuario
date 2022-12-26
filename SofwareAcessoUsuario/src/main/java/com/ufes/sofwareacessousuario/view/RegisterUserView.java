@@ -37,7 +37,7 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
         txtPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         txtConfirmPassword = new javax.swing.JPasswordField();
-        txtInvalidName = new javax.swing.JLabel();
+        lblInvalidName = new javax.swing.JLabel();
         txtErrorPassword = new javax.swing.JLabel();
         btnRegistre = new javax.swing.JButton();
         lblInvalidPassword = new javax.swing.JLabel();
@@ -57,7 +57,7 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Confirm password:");
 
-        txtInvalidName.setText("nome deve ter tamanho maior ou igual a ");
+        lblInvalidName.setText("nome deve ter tamanho maior ou igual a ");
 
         btnRegistre.setText("Register");
 
@@ -75,7 +75,7 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addComponent(txtUserName)
                         .addComponent(txtPassword)
-                        .addComponent(txtInvalidName, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                        .addComponent(lblInvalidName, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btnRegistre)
@@ -95,7 +95,7 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtInvalidName, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblInvalidName, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -129,10 +129,10 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblInvalidName;
     private javax.swing.JLabel lblInvalidPassword;
     private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JLabel txtErrorPassword;
-    private javax.swing.JLabel txtInvalidName;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
@@ -144,8 +144,8 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
         return lblInvalidPassword;
     }
 
-    public JLabel getTxtInvalidName() {
-        return txtInvalidName;
+    public JLabel getLblInvalidName() {
+        return lblInvalidName;
     }
 
     public JPasswordField getTxtPassword() {

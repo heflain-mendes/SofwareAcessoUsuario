@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.logger;
 
 import com.mycompany.model.Log;
-import com.ufes.sofwareacessousuario.observable.fileConfigService.EventListerners;
+import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.service.FileConfigService;
 import java.io.IOException;
 import java.util.List;
@@ -80,10 +80,10 @@ public class LogService implements EventListerners {
     }
 
     @Override
-    public void update(String mensagem, String info) {
-        if (mensagem.equals(EventListerners.LOAD_FILE)
-                || mensagem.equals(EventListerners.UPDATE_TYPE_LOG)) {
-            configLog(info);
+    public synchronized void update(String mensagem) {
+        if (mensagem.equals(FileConfigService.LOAD_FILE)
+                || mensagem.equals(FileConfigService.UPDATE_TYPE_LOG)) {
+            configLog(FileConfigService.getTypeLog());
         }
     }
     

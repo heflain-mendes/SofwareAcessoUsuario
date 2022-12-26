@@ -31,7 +31,7 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <Component id="txtUserName" max="32767" attributes="0"/>
                       <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtInvalidName" alignment="0" pref="293" max="32767" attributes="0"/>
+                      <Component id="lblInvalidName" alignment="0" pref="293" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="btnRegistre" min="-2" max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="txtUserName" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="txtInvalidName" min="-2" pref="16" max="-2" attributes="0"/>
+              <Component id="lblInvalidName" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -109,7 +109,7 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtConfirmPassword">
     </Component>
-    <Component class="javax.swing.JLabel" name="txtInvalidName">
+    <Component class="javax.swing.JLabel" name="lblInvalidName">
       <Properties>
         <Property name="text" type="java.lang.String" value="nome deve ter tamanho maior ou igual a "/>
       </Properties>

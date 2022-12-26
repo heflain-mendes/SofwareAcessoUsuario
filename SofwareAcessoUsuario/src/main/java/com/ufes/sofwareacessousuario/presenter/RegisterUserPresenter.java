@@ -28,10 +28,10 @@ public class RegisterUserPresenter {
         view = new RegisterUserView();
 
         view.getLblInvalidPassword().setVisible(false);
-        view.getTxtInvalidName().setVisible(false);
+        view.getLblInvalidName().setVisible(false);
         
-        view.getTxtInvalidName().setText(
-                 view.getTxtInvalidName().getText() + " " + TAMNHO_MIN_NOME
+        view.getLblInvalidName().setText(
+                 view.getLblInvalidName().getText() + " " + TAMNHO_MIN_NOME
         );
 
         view.getBtnRegistre().addActionListener(new ActionListener() {
@@ -54,10 +54,10 @@ public class RegisterUserPresenter {
         boolean senhaConfere = senha.equals(confirmacaoSenha);
 
         if (nomevalido) {
-            view.getTxtInvalidName().setVisible(false);
+            view.getLblInvalidName().setVisible(false);
 
         } else {
-            this.view.getTxtInvalidName().setVisible(true);
+            this.view.getLblInvalidName().setVisible(true);
 
         }
 
@@ -76,7 +76,7 @@ public class RegisterUserPresenter {
 
                 view.dispose();
 
-                if (LoggedUserService.getUser() == null) {
+                if (!LoggedUserService.userLogged()) {
                     new OptionAcessesPresenter();
                 }
             } else {

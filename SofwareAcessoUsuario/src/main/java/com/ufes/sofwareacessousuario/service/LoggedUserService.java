@@ -5,6 +5,7 @@
 package com.ufes.sofwareacessousuario.service;
 
 import com.ufes.sofwareacessousuario.model.User;
+import com.ufes.sofwareacessousuario.presenter.UpdateUserPresenter;
 
 /**
  *
@@ -13,8 +14,24 @@ import com.ufes.sofwareacessousuario.model.User;
 public class LoggedUserService {
     private static User user;
 
-    public static User getUser() {
-        return user;
+    public static boolean userLogged() {
+        return user != null;
+    }
+    
+    public static String getNome(){
+        return user.getName();
+    }
+    
+    public static Long getId(){
+        return user.getId();
+    }
+    
+    public static int getType(){
+        return user.getType();
+    }
+    
+    public static int getState(){
+        return user.getState();
     }
 
     public static void setUser(User user) {

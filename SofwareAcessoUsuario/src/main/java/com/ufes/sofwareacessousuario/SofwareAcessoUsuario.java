@@ -1,13 +1,11 @@
 package com.ufes.sofwareacessousuario;
 
-import com.mycompany.model.Log;
 import com.ufes.sofwareacessousuario.logger.LogService;
-import com.ufes.sofwareacessousuario.presenter.ConfigurationPresenter;
 import com.ufes.sofwareacessousuario.presenter.OptionAcessesPresenter;
 import com.ufes.sofwareacessousuario.presenter.PrincipalPresenter;
+import com.ufes.sofwareacessousuario.presenter.UpdateUserPresenter;
 import com.ufes.sofwareacessousuario.service.FileConfigService;
 import static java.lang.System.exit;
-import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;

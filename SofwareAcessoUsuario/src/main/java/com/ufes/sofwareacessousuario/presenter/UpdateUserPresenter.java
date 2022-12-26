@@ -4,10 +4,58 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
+import com.ufes.sofwareacessousuario.service.LoggedUserService;
+import com.ufes.sofwareacessousuario.service.PrincipalViewService;
+import com.ufes.sofwareacessousuario.service.UserDAOService;
+import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
+import com.ufes.sofwareacessousuario.view.RegisterUserView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author heflainrmendes
  */
 public class UpdateUserPresenter {
+
+    private RegisterUserView view;
+
+    public UpdateUserPresenter() {
+        view = new RegisterUserView();
+        view.setTitle("Atualizar senha");
+        
+        view.getLblInvalidName().setVisible(false);
+        view.getLblInvalidPassword().setVisible(false);
+        
+        view.getTxtUserName().setText(LoggedUserService.getNome());
+        view.getTxtUserName().setEnabled(false);
+        
+        view.getBtnRegistre().setText("Atualizar");
+        view.getBtnRegistre().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                atualizar();
+            }
+        });
+        
+        PrincipalViewService.getPrincipalView().getPnlPrincipal().add(view);
+        view.setVisible(true);
+    }
     
+    private void atualizar(){
+        var senha = String.valueOf( view.getTxtPassword().getPassword());
+        var confirmaSenha = String.valueOf(view.getTxtConfirmPassword().getPassword());
+        
+        if(senha.equals(confirmaSenha)){
+            view.getLblInvalidPassword().setVisible(false);
+            var recusas= new ValidadorSenha().verificar(senha);
+            
+            if(recusas.size() == 0){
+                UserDAOService.updatePassword(senha);
+            }
+            
+        }else{
+            view.getLblInvalidPassword().setVisible(true);
+        }
+    }
 }

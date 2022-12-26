@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ufes.sofwareacessousuario.observable.fileConfigService;
+package com.ufes.sofwareacessousuario.observable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class EventManager {
         }
     }
 
-    public void notify(String mensagem, String info) {
+    public void notify(String mensagem) {
         for (var l : listerners) {
-            l.update(mensagem, info);
+            l.update(mensagem);
         }
     }
 }

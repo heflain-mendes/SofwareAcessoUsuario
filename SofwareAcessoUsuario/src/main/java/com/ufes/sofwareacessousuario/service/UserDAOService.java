@@ -36,10 +36,10 @@ public class UserDAOService {
 
         if (getQtdUserRegistered() > 0) {
             type = User.USER;
-            if (LoggedUserService.getUser() == null) {
+            if (LoggedUserService.userLogged()) {
                 state = User.UNAUTORIZED;
             } else {
-                if (LoggedUserService.getUser().getType() == User.USER) {
+                if (LoggedUserService.getType() == User.USER) {
                     throw new RuntimeException("Falha de segurança, usuario USER "
                             + "está podendo cadastra novos usuários");
                 }
@@ -51,5 +51,25 @@ public class UserDAOService {
         }
 
         listUsers.add(new User(listUsers.size() + 1, name, password, state, type));
+    }
+    
+    public static void updatePassword(String password){
+        var id = LoggedUserService.getId();
+        
+        for(var u : listUsers){
+            if(u.getId() == id){
+                var user = new User(
+                        id,
+                        u.getName(),
+                        password,
+                        u.getState(),
+                        u.getType()
+                );
+                
+                listUsers.remove(u);
+                listUsers.add(user);
+                LoggedUserService.setUser(user);
+            }
+        }
     }
 }
