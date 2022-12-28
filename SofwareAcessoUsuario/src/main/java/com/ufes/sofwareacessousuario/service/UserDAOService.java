@@ -4,7 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.service;
 
+import com.ufes.sofwareacessousuario.logger.LogService;
+import com.ufes.sofwareacessousuario.model.SystemLog;
 import com.ufes.sofwareacessousuario.model.User;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,9 +18,18 @@ import java.util.ArrayList;
 public class UserDAOService {
 
     private static final List<User> listUsers = new ArrayList();
+    
+    static{
+        listUsers.add(new User(1, "heflain", "", User.AUTORIZED, User.ADMINISTERED));
+        listUsers.add(new User(2, "abel", "", User.UNAUTORIZED, User.USER));
+    }
 
     public static long getQtdUserRegistered() {
         return listUsers.size();
+    }
+
+    public static List<User> getUsers() {
+        return listUsers;
     }
 
     public static User login(String name, String password) {
@@ -32,32 +44,60 @@ public class UserDAOService {
 
     public static void registered(String name, String password) {
         int state;
-        int type = getQtdUserRegistered() > 0 ? User.USER : User.ADMINISTERED;
+        int type;
 
         if (getQtdUserRegistered() > 0) {
             type = User.USER;
-            if (LoggedUserService.userLogged()) {
-                state = User.UNAUTORIZED;
-            } else {
-                if (LoggedUserService.getType() == User.USER) {
-                    throw new RuntimeException("Falha de segurança, usuario USER "
-                            + "está podendo cadastra novos usuários");
-                }
+            if (LoggedUserService.userLogged()
+                    && LoggedUserService.getType() == User.ADMINISTERED) {
+
                 state = User.AUTORIZED;
+
+                LogService.escrever(new SystemLog(
+                        LogService.INCLUSAO,
+                        name,
+                        LocalDateTime.now(),
+                        LoggedUserService.getNome()
+                ));
+            } else {
+                state = User.UNAUTORIZED;
+
+                LogService.escrever(new SystemLog(
+                        LogService.INCLUSAO,
+                        name,
+                        LocalDateTime.now(),
+                        ""
+                ));
             }
         } else {
             state = User.AUTORIZED;
             type = User.ADMINISTERED;
+
+            LogService.escrever(new SystemLog(
+                    LogService.INCLUSAO,
+                    name,
+                    LocalDateTime.now(),
+                    ""
+            ));
         }
 
         listUsers.add(new User(listUsers.size() + 1, name, password, state, type));
+
     }
-    
-    public static void updatePassword(String password){
+
+    public static void updatePassword(String password) {
+
+        LogService.escrever(new SystemLog(
+                LogService.ALTERACAO_SENHA,
+                LoggedUserService.getNome(),
+                LocalDateTime.now(),
+                LoggedUserService.getNome()
+        ));
+
         var id = LoggedUserService.getId();
-        
-        for(var u : listUsers){
-            if(u.getId() == id){
+
+        for (var u : listUsers) {
+            if (u.getId() == id) {
                 var user = new User(
                         id,
                         u.getName(),
@@ -65,11 +105,69 @@ public class UserDAOService {
                         u.getState(),
                         u.getType()
                 );
-                
+
                 listUsers.remove(u);
                 listUsers.add(user);
                 LoggedUserService.setUser(user);
+                
+                break;
             }
         }
+    }
+
+    public static boolean nomeEmUso(String nome) {
+        for (var u : listUsers) {
+            if (u.getName().equals(nome)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void autorizarUsuario(long id) {
+        for (var u : getUsers()) {
+            if (u.getId() == id) {
+                u.setState(User.AUTORIZED);
+
+                LogService.escrever(new SystemLog(
+                        LogService.AUTORIZACAO_USUARIO,
+                        u.getName(),
+                        LocalDateTime.now(),
+                        LoggedUserService.getNome()
+                ));
+                
+                break;
+            }
+
+        }
+    }
+
+    public static void removeUser(long id) {
+        for (var u : getUsers()) {
+            if (u.getId() == id) {
+                listUsers.remove(u);
+
+                LogService.escrever(new SystemLog(
+                        LogService.EXCLUSAO,
+                        u.getName(),
+                        LocalDateTime.now(),
+                        LoggedUserService.getNome()
+                ));
+                
+                break;
+            }
+
+        }
+    }
+    
+    public static User getUsuario(long id){
+        for(var u : listUsers){
+            if(u.getId() == id){
+                return u;
+            }
+        }
+        
+        return null;
     }
 }

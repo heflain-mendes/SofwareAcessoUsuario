@@ -5,7 +5,6 @@
 package com.ufes.sofwareacessousuario.service;
 
 import com.ufes.sofwareacessousuario.model.User;
-import com.ufes.sofwareacessousuario.presenter.UpdateUserPresenter;
 
 /**
  *

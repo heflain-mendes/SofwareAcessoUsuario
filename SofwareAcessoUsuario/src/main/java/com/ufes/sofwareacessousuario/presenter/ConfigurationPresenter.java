@@ -35,7 +35,7 @@ public class ConfigurationPresenter {
             }
         });
 
-        PrincipalViewService.getPrincipalView().getPnlPrincipal().add(view);
+        PrincipalViewService.add(view);
         view.setVisible(true);
     }
 
@@ -44,7 +44,7 @@ public class ConfigurationPresenter {
             FileConfigService.setTypeLog(
                     view.getCbFormatsLogger().getSelectedItem().toString()
             );
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
                     null,
@@ -52,6 +52,7 @@ public class ConfigurationPresenter {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
             );
+
         }
         view.dispose();
     }

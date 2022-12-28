@@ -5,6 +5,7 @@
 package com.ufes.sofwareacessousuario.service;
 
 import com.ufes.sofwareacessousuario.view.PrincipalView;
+import java.awt.Component;
 
 /**
  *
@@ -13,11 +14,15 @@ import com.ufes.sofwareacessousuario.view.PrincipalView;
 public class PrincipalViewService {
     private static PrincipalView principalView;
     
-    public static PrincipalView getPrincipalView(){
+    private static PrincipalView getPrincipalView(){
         if(principalView == null){
             throw new NullPointerException("principalView ainda não foi definido");
         }
         return PrincipalViewService.principalView;
+    }
+    
+    public static void add(Component component){
+        principalView.getPnlPrincipal().add(component);
     }
     
     public static void setPrincipalView(PrincipalView principalView){

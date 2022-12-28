@@ -31,7 +31,7 @@ public class LoginPresenter {
             }
         });
         
-        PrincipalViewService.getPrincipalView().getPnlPrincipal().add(view);
+        PrincipalViewService.add(view);
         
         view.setVisible(true);
     }

@@ -26,6 +26,7 @@ public class UpdateUserPresenter {
         
         view.getLblInvalidName().setVisible(false);
         view.getLblInvalidPassword().setVisible(false);
+        view.getLblNomeUsuarioUso().setVisible(false);
         
         view.getTxtUserName().setText(LoggedUserService.getNome());
         view.getTxtUserName().setEnabled(false);
@@ -38,7 +39,14 @@ public class UpdateUserPresenter {
             }
         });
         
-        PrincipalViewService.getPrincipalView().getPnlPrincipal().add(view);
+        view.getBtnFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
+            }
+        });
+        
+        PrincipalViewService.add(view);
         view.setVisible(true);
     }
     
@@ -57,5 +65,9 @@ public class UpdateUserPresenter {
         }else{
             view.getLblInvalidPassword().setVisible(true);
         }
+    }
+    
+    private void fechar(){
+        view.dispose();
     }
 }

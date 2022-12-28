@@ -19,6 +19,9 @@ public class FileConfigService {
     public static final String LOAD_FILE = "LOAD_FILE";
     public static final String UPDATE_TYPE_LOG = "UPDATE_TYPE_LOG";
     
+    private static final String PATH_LOG = "pathLog";
+    private static final String FORMAT_LOG = "fotmatLog";
+    
     private static File file;
     private static Properties properties;
     private static EventManager listerners = new EventManager();
@@ -39,7 +42,7 @@ public class FileConfigService {
         try(FileReader f = new FileReader(file)){
             properties.load(f);
         }catch(Exception e){
-            throw new Exception("Problema ao ler no arquivo de logger");
+            throw new Exception("Problema ao ler no arquivo de propriedade");
         }
         
 
@@ -47,21 +50,21 @@ public class FileConfigService {
     }
 
     public static String getPathLog() {
-        return properties.getProperty("pathLog");
+        return properties.getProperty(PATH_LOG);
     }
 
     public static String getTypeLog() {
-        return properties.getProperty("fotmatLog");
+        return properties.getProperty(FORMAT_LOG);
     }
 
     public static void setTypeLog(String typeLog) throws Exception {
         System.out.println(typeLog);
-        properties.setProperty("fotmatLog", typeLog);
+        properties.setProperty(FORMAT_LOG, typeLog);
         
         try(FileWriter f = new FileWriter(file);){
             properties.store(f, null);
         }catch(Exception e){
-            throw new Exception("Problema ao escrever no arquivo de logger");
+            throw new Exception("Problema ao escrever no arquivo de propriedade");
         }
         
         notify(UPDATE_TYPE_LOG);

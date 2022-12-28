@@ -29,9 +29,10 @@ public class RegisterUserPresenter {
 
         view.getLblInvalidPassword().setVisible(false);
         view.getLblInvalidName().setVisible(false);
-        
+        view.getLblNomeUsuarioUso().setVisible(false);
+
         view.getLblInvalidName().setText(
-                 view.getLblInvalidName().getText() + " " + TAMNHO_MIN_NOME
+                view.getLblInvalidName().getText() + " " + TAMNHO_MIN_NOME
         );
 
         view.getBtnRegistre().addActionListener(new ActionListener() {
@@ -40,8 +41,15 @@ public class RegisterUserPresenter {
                 registrar();
             }
         });
+        
+        view.getBtnFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
+            }
+        });
 
-        PrincipalViewService.getPrincipalView().getPnlPrincipal().add(view);
+        PrincipalViewService.add(view);
         view.setVisible(true);
     }
 
@@ -51,7 +59,9 @@ public class RegisterUserPresenter {
         String confirmacaoSenha = String.valueOf(this.view.getTxtConfirmPassword().getPassword());
 
         boolean nomevalido = nome.length() >= TAMNHO_MIN_NOME;
+        boolean nomeEmUso = UserDAOService.nomeEmUso(nome);
         boolean senhaConfere = senha.equals(confirmacaoSenha);
+        boolean senhaValida = false;
 
         if (nomevalido) {
             view.getLblInvalidName().setVisible(false);
@@ -61,30 +71,39 @@ public class RegisterUserPresenter {
 
         }
 
+        if (nomeEmUso) {
+            view.getLblNomeUsuarioUso().setEnabled(true);
+        } else {
+            view.getLblNomeUsuarioUso().setEnabled(false);
+        }
+
         if (senhaConfere) {
             view.getLblInvalidPassword().setVisible(false);
+            senhaValida = senhaValida(senha);
 
-            if (senhaValida(senha)) {
-                UserDAOService.registered(nome, senha);
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Cadastrado com sucesso",
-                        "Sucesso",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-
-                view.dispose();
-
-                if (!LoggedUserService.userLogged()) {
-                    new OptionAcessesPresenter();
-                }
-            } else {
+            if (senhaValida) {
                 this.view.getTxtPassword().setText("");
                 this.view.getTxtConfirmPassword().setText("");
             }
         } else {
             view.getLblInvalidPassword().setVisible(true);
+        }
+
+        if (senhaConfere && senhaValida && !nomeEmUso && nomevalido) {
+            UserDAOService.registered(nome, senha);
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Cadastrado com sucesso",
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            view.dispose();
+
+            if (!LoggedUserService.userLogged()) {
+                new OptionAcessesPresenter();
+            }
         }
     }
 
@@ -108,6 +127,13 @@ public class RegisterUserPresenter {
             );
 
             return false;
+        }
+    }
+
+    public void fechar() {
+        view.dispose();
+        if (!LoggedUserService.userLogged()) {
+            new OptionAcessesPresenter();
         }
     }
 }

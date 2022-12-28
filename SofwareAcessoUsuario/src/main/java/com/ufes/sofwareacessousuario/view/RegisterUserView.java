@@ -41,8 +41,9 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
         txtErrorPassword = new javax.swing.JLabel();
         btnRegistre = new javax.swing.JButton();
         lblInvalidPassword = new javax.swing.JLabel();
+        lblNomeUsuarioUso = new javax.swing.JLabel();
+        btnFechar = new javax.swing.JButton();
 
-        setClosable(true);
         setTitle("RegistreUser");
 
         jLabel1.setText("User name:");
@@ -63,6 +64,10 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
 
         lblInvalidPassword.setText("senhas não confere");
 
+        lblNomeUsuarioUso.setText("Nome de usuário já está sendo usado");
+
+        btnFechar.setText("Fechar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,6 +75,7 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNomeUsuarioUso)
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel2)
@@ -78,7 +84,10 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
                         .addComponent(lblInvalidName, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnRegistre)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnFechar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnRegistre))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(lblInvalidPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +101,9 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
+                .addComponent(lblNomeUsuarioUso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblInvalidName, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -112,8 +123,10 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblInvalidPassword)))
                 .addGap(18, 18, 18)
-                .addComponent(btnRegistre)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistre)
+                    .addComponent(btnFechar))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,17 +138,20 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRegistre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblInvalidName;
     private javax.swing.JLabel lblInvalidPassword;
+    private javax.swing.JLabel lblNomeUsuarioUso;
     private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JLabel txtErrorPassword;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+    
     public JButton getBtnRegistre() {
         return btnRegistre;
     }
@@ -158,5 +174,13 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
 
     public JPasswordField getTxtConfirmPassword() {
         return txtConfirmPassword;
+    }
+
+    public JLabel getLblNomeUsuarioUso() {
+        return lblNomeUsuarioUso;
+    }
+
+    public JButton getBtnFechar() {
+        return btnFechar;
     }
 }

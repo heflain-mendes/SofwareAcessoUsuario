@@ -4,6 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.view;
 
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author heflainrmendes
@@ -32,14 +36,14 @@ public class SendNotificationView extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMessage = new javax.swing.JTextArea();
-        txtSubmit = new javax.swing.JButton();
+        BtnSubmit = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
         setClosable(true);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Addressees:");
+        jLabel2.setText("Addresseed:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Message:");
@@ -48,8 +52,8 @@ public class SendNotificationView extends javax.swing.JInternalFrame {
         txtMessage.setRows(5);
         jScrollPane1.setViewportView(txtMessage);
 
-        txtSubmit.setText("Submit");
-        txtSubmit.setToolTipText("");
+        BtnSubmit.setText("Submit");
+        BtnSubmit.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,13 +62,13 @@ public class SendNotificationView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addComponent(jLabel2)
                         .addComponent(txtAddressees)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +82,7 @@ public class SendNotificationView extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -87,12 +91,26 @@ public class SendNotificationView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtAddressees;
     private javax.swing.JTextArea txtMessage;
-    private javax.swing.JButton txtSubmit;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getTxtAddressees() {
+        return txtAddressees;
+    }
+
+    public JTextArea getTxtMessage() {
+        return txtMessage;
+    }
+
+    public JButton getbtnSubmit() {
+        return BtnSubmit;
+    }
+    
+    
 }

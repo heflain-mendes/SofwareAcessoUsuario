@@ -4,7 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.logger;
 
-import com.mycompany.model.Log;
+
+import com.ufes.sofwareacessousuario.model.SystemLog;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +34,6 @@ public abstract class LoggerAdapter {
         
         return file;
     }
-    public abstract void escrever(Log... log) throws IOException;
-    public abstract List<Log> exportaTodos() throws IOException;
+    public abstract void escrever(SystemLog... log) throws IOException;
+    public abstract List<SystemLog> exportaTodos() throws IOException;
 }

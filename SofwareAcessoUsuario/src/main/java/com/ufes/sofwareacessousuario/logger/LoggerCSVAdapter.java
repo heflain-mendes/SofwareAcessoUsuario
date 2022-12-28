@@ -6,14 +6,17 @@ package com.ufes.sofwareacessousuario.logger;
 
 import com.mycompany.adaptador.LogCSVAdapter;
 import com.mycompany.model.Log;
+import com.ufes.sofwareacessousuario.model.SystemLog;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author heflainrmendes
  */
-public class LoggerCSVAdapter extends LoggerAdapter{
+public class LoggerCSVAdapter extends LoggerMyProjectAdapter{
     LogCSVAdapter adapter;
 
     public LoggerCSVAdapter(String caminho) {
@@ -21,12 +24,12 @@ public class LoggerCSVAdapter extends LoggerAdapter{
     }
     
     @Override
-    public void escrever(Log... log) throws IOException {
-        adapter.escrever(log);
+    public void escrever(SystemLog... log) throws IOException {      
+        adapter.escrever(converteLog(log));
     }
 
     @Override
-    public List<Log> exportaTodos() throws IOException {
-        return adapter.exportaTodos();
+    public List<SystemLog> exportaTodos() throws IOException {
+        return converteLog(adapter.exportaTodos().toArray(new Log[0]));
     }
 }
