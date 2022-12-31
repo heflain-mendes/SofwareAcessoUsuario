@@ -48,8 +48,8 @@ public class UserDAOService {
 
         if (getQtdUserRegistered() > 0) {
             type = User.USER;
-            if (LoggedUserService.userLogged()
-                    && LoggedUserService.getType() == User.ADMINISTERED) {
+            if (UserLoggedService.userLogged()
+                    && UserLoggedService.getType() == User.ADMINISTERED) {
 
                 state = User.AUTORIZED;
 
@@ -57,7 +57,7 @@ public class UserDAOService {
                         LogService.INCLUSAO,
                         name,
                         LocalDateTime.now(),
-                        LoggedUserService.getNome()
+                        UserLoggedService.getNome()
                 ));
             } else {
                 state = User.UNAUTORIZED;
@@ -89,12 +89,12 @@ public class UserDAOService {
 
         LogService.escrever(new SystemLog(
                 LogService.ALTERACAO_SENHA,
-                LoggedUserService.getNome(),
+                UserLoggedService.getNome(),
                 LocalDateTime.now(),
-                LoggedUserService.getNome()
+                UserLoggedService.getNome()
         ));
 
-        var id = LoggedUserService.getId();
+        var id = UserLoggedService.getId();
 
         for (var u : listUsers) {
             if (u.getId() == id) {
@@ -108,7 +108,7 @@ public class UserDAOService {
 
                 listUsers.remove(u);
                 listUsers.add(user);
-                LoggedUserService.setUser(user);
+                UserLoggedService.login(user);
                 
                 break;
             }
@@ -134,7 +134,7 @@ public class UserDAOService {
                         LogService.AUTORIZACAO_USUARIO,
                         u.getName(),
                         LocalDateTime.now(),
-                        LoggedUserService.getNome()
+                        UserLoggedService.getNome()
                 ));
                 
                 break;
@@ -152,7 +152,7 @@ public class UserDAOService {
                         LogService.EXCLUSAO,
                         u.getName(),
                         LocalDateTime.now(),
-                        LoggedUserService.getNome()
+                        UserLoggedService.getNome()
                 ));
                 
                 break;
@@ -165,6 +165,16 @@ public class UserDAOService {
         for(var u : listUsers){
             if(u.getId() == id){
                 return u;
+            }
+        }
+        
+        return null;
+    }
+    
+    public static String getNameUsuario(long id){
+        for(var u : listUsers){
+            if(u.getId() == id){
+                return u.getName();
             }
         }
         

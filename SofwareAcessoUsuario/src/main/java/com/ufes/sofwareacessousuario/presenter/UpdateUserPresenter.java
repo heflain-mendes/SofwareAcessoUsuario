@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.service.LoggedUserService;
+import com.ufes.sofwareacessousuario.service.UserLoggedService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
 import com.ufes.sofwareacessousuario.service.UserDAOService;
 import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
@@ -28,7 +28,7 @@ public class UpdateUserPresenter {
         view.getLblInvalidPassword().setVisible(false);
         view.getLblNomeUsuarioUso().setVisible(false);
         
-        view.getTxtUserName().setText(LoggedUserService.getNome());
+        view.getTxtUserName().setText(UserLoggedService.getNome());
         view.getTxtUserName().setEnabled(false);
         
         view.getBtnRegistre().setText("Atualizar");

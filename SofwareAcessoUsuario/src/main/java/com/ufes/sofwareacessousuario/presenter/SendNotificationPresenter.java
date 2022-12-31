@@ -43,6 +43,7 @@ public class SendNotificationPresenter {
     private void submit() {
         NotificationDAOService.enviarNoticacao(
                 userReceptor,
+                view.getTxtAssunto().getText(),
                 view.getTxtMessage().getText()
         );
         

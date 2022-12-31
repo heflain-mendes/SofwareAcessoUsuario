@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.service.LoggedUserService;
+import com.ufes.sofwareacessousuario.service.UserLoggedService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
 import com.ufes.sofwareacessousuario.service.UserDAOService;
 import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
@@ -101,7 +101,7 @@ public class RegisterUserPresenter {
 
             view.dispose();
 
-            if (!LoggedUserService.userLogged()) {
+            if (!UserLoggedService.userLogged()) {
                 new OptionAcessesPresenter();
             }
         }
@@ -132,7 +132,7 @@ public class RegisterUserPresenter {
 
     public void fechar() {
         view.dispose();
-        if (!LoggedUserService.userLogged()) {
+        if (!UserLoggedService.userLogged()) {
             new OptionAcessesPresenter();
         }
     }

@@ -4,7 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.view;
 
-import java.beans.PropertyVetoException;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -28,8 +31,6 @@ public class NotificationsView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ltsNotifications = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -38,19 +39,19 @@ public class NotificationsView extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtMenssage = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblNotificacoes = new javax.swing.JTable();
+        btnLer = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
-        setResizable(true);
         setTitle("Notifications");
 
-        jScrollPane1.setViewportView(ltsNotifications);
+        jLabel1.setText("Autor");
 
-        jLabel1.setText("Author");
+        jLabel2.setText("Assunto");
 
-        jLabel2.setText("Subject");
-
-        jLabel3.setText("Message");
+        jLabel3.setText("mensagem");
 
         txtMenssage.setColumns(20);
         txtMenssage.setRows(5);
@@ -58,46 +59,57 @@ public class NotificationsView extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Notificações");
 
+        jScrollPane3.setViewportView(tblNotificacoes);
+
+        btnLer.setText("Ler");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane2)
-                    .addComponent(txtAuthor)
-                    .addComponent(txtSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLer))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
+                        .addComponent(txtAuthor)
+                        .addComponent(txtSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addGap(65, 65, 65))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
                         .addComponent(txtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(btnLer))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,15 +117,36 @@ public class NotificationsView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> ltsNotifications;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblNotificacoes;
     private javax.swing.JTextField txtAuthor;
     private javax.swing.JTextArea txtMenssage;
     private javax.swing.JTextField txtSubject;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnLer() {
+        return btnLer;
+    }
+
+    public JTable getTblNotificacoes() {
+        return tblNotificacoes;
+    }
+
+    public JTextField getTxtAuthor() {
+        return txtAuthor;
+    }
+
+    public JTextArea getTxtMenssage() {
+        return txtMenssage;
+    }
+
+    public JTextField getTxtSubject() {
+        return txtSubject;
+    }
 }

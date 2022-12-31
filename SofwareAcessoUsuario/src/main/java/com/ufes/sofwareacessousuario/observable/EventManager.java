@@ -13,14 +13,32 @@ import java.util.List;
  */
 public class EventManager {
     private List<EventListerners> listerners = new ArrayList();
+    private List<EventListerners> listernersRemove = new ArrayList();
 
     public void subscribe(EventListerners el) {
         if (el != null) {
             listerners.add(el);
         }
     }
+    
+    public void unsubcribe(EventListerners el){
+        if(el != null){
+            listernersRemove.add(el);
+        }
+    }
+    
+    private void remove(){
+        if(listernersRemove.size() > 0){
+            for(var nr : listernersRemove){
+                listerners.remove(nr);
+                listernersRemove.remove(nr);
+                break;
+            }
+        }
+    }
 
     public void notify(String mensagem) {
+        remove();
         for (var l : listerners) {
             l.update(mensagem);
         }

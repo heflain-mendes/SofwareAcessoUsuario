@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter;
 
 import com.ufes.sofwareacessousuario.model.User;
-import com.ufes.sofwareacessousuario.service.LoggedUserService;
+import com.ufes.sofwareacessousuario.service.UserLoggedService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
 import com.ufes.sofwareacessousuario.service.UserDAOService;
 import com.ufes.sofwareacessousuario.view.LoginView;
@@ -45,7 +45,7 @@ public class LoginPresenter {
         if(user == null){
             view.getLblInvalidUserNameOrPassword().setVisible(true);
         }else{
-            LoggedUserService.setUser(user);
+            UserLoggedService.login(user);
             view.dispose();
         }
     }

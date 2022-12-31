@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 /**
  *
@@ -35,7 +37,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlPrincipal = new javax.swing.JDesktopPane();
-        jPanel1 = new javax.swing.JPanel();
+        pnlBottom = new javax.swing.JPanel();
         lblUserName = new javax.swing.JLabel();
         btnAmountNotifications = new javax.swing.JButton();
         lblUserType = new javax.swing.JLabel();
@@ -43,11 +45,10 @@ public class PrincipalView extends javax.swing.JFrame {
         btnUser = new javax.swing.JMenu();
         btnChangePassword = new javax.swing.JMenuItem();
         btnViewNotificaition = new javax.swing.JMenuItem();
-        btnExit = new javax.swing.JMenuItem();
+        btnLogout = new javax.swing.JMenuItem();
         btnAdmin = new javax.swing.JMenu();
-        btnSendNotification = new javax.swing.JMenuItem();
+        btnListUsers = new javax.swing.JMenuItem();
         btnAddUser = new javax.swing.JMenuItem();
-        btnAuthorizeUser = new javax.swing.JMenuItem();
         btnConfig = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +68,7 @@ public class PrincipalView extends javax.swing.JFrame {
             .addGap(0, 342, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBottom.setBackground(new java.awt.Color(255, 255, 255));
 
         lblUserName.setBackground(new java.awt.Color(255, 255, 255));
         lblUserName.setForeground(new java.awt.Color(0, 0, 0));
@@ -82,11 +83,11 @@ public class PrincipalView extends javax.swing.JFrame {
         lblUserType.setForeground(new java.awt.Color(0, 0, 0));
         lblUserType.setText("jLabel1");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBottomLayout = new javax.swing.GroupLayout(pnlBottom);
+        pnlBottom.setLayout(pnlBottomLayout);
+        pnlBottomLayout.setHorizontalGroup(
+            pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBottomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(255, 255, 255)
@@ -95,11 +96,11 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addComponent(btnAmountNotifications, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        pnlBottomLayout.setVerticalGroup(
+            pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBottomLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblUserType, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addComponent(btnAmountNotifications, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,41 +125,31 @@ public class PrincipalView extends javax.swing.JFrame {
         btnViewNotificaition.setText("view notification");
         btnUser.add(btnViewNotificaition);
 
-        btnExit.setMnemonic('x');
-        btnExit.setText("exit");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setText("logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
-        btnUser.add(btnExit);
+        btnUser.add(btnLogout);
 
         menuBar.add(btnUser);
 
         btnAdmin.setMnemonic('e');
         btnAdmin.setText("Admin");
 
-        btnSendNotification.setMnemonic('t');
-        btnSendNotification.setText("send notifications");
-        btnSendNotification.addActionListener(new java.awt.event.ActionListener() {
+        btnListUsers.setMnemonic('t');
+        btnListUsers.setText("list users");
+        btnListUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSendNotificationActionPerformed(evt);
+                btnListUsersActionPerformed(evt);
             }
         });
-        btnAdmin.add(btnSendNotification);
+        btnAdmin.add(btnListUsers);
 
         btnAddUser.setMnemonic('y');
         btnAddUser.setText("add user");
         btnAdmin.add(btnAddUser);
-
-        btnAuthorizeUser.setMnemonic('p');
-        btnAuthorizeUser.setText("authorize user");
-        btnAuthorizeUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAuthorizeUserActionPerformed(evt);
-            }
-        });
-        btnAdmin.add(btnAuthorizeUser);
 
         btnConfig.setText("config");
         btnAdmin.add(btnConfig);
@@ -174,7 +165,7 @@ public class PrincipalView extends javax.swing.JFrame {
             .addComponent(pnlPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBottom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -182,32 +173,28 @@ public class PrincipalView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlPrincipal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
-
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
-    private void btnSendNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendNotificationActionPerformed
+    private void btnListUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListUsersActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSendNotificationActionPerformed
+    }//GEN-LAST:event_btnListUsersActionPerformed
 
     private void btnAmountNotificationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmountNotificationsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAmountNotificationsActionPerformed
 
-    private void btnAuthorizeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthorizeUserActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAuthorizeUserActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,17 +235,16 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnAddUser;
     private javax.swing.JMenu btnAdmin;
     private javax.swing.JButton btnAmountNotifications;
-    private javax.swing.JMenuItem btnAuthorizeUser;
     private javax.swing.JMenuItem btnChangePassword;
     private javax.swing.JMenuItem btnConfig;
-    private javax.swing.JMenuItem btnExit;
-    private javax.swing.JMenuItem btnSendNotification;
+    private javax.swing.JMenuItem btnListUsers;
+    private javax.swing.JMenuItem btnLogout;
     private javax.swing.JMenu btnUser;
     private javax.swing.JMenuItem btnViewNotificaition;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblUserType;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JPanel pnlBottom;
     private javax.swing.JDesktopPane pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 
@@ -274,10 +260,6 @@ public class PrincipalView extends javax.swing.JFrame {
         return btnAmountNotifications;
     }
 
-    public JMenuItem getBtnAuthorizeUser() {
-        return btnAuthorizeUser;
-    }
-
     public JMenuItem getBtnChangePassword() {
         return btnChangePassword;
     }
@@ -286,12 +268,12 @@ public class PrincipalView extends javax.swing.JFrame {
         return btnConfig;
     }
 
-    public JMenuItem getBtnExit() {
-        return btnExit;
+    public JMenuItem getBtnLogout() {
+        return btnLogout;
     }
 
-    public JMenuItem getBtnSendNotification() {
-        return btnSendNotification;
+    public JMenuItem getBtnListUsers() {
+        return btnListUsers;
     }
 
     public JMenu getBtnUser() {
@@ -313,4 +295,10 @@ public class PrincipalView extends javax.swing.JFrame {
     public JDesktopPane getPnlPrincipal() {
         return pnlPrincipal;
     }
+
+    public JPanel getPnlBottom() {
+        return pnlBottom;
+    }
+    
+    
 }

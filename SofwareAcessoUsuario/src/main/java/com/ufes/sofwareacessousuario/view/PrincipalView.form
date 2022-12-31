@@ -30,13 +30,12 @@
                 <Property name="text" type="java.lang.String" value="view notification"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="btnExit">
+            <MenuItem class="javax.swing.JMenuItem" name="btnLogout">
               <Properties>
-                <Property name="mnemonic" type="int" value="120"/>
-                <Property name="text" type="java.lang.String" value="exit"/>
+                <Property name="text" type="java.lang.String" value="logout"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExitActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -47,13 +46,13 @@
             <Property name="text" type="java.lang.String" value="Admin"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="btnSendNotification">
+            <MenuItem class="javax.swing.JMenuItem" name="btnListUsers">
               <Properties>
                 <Property name="mnemonic" type="int" value="116"/>
-                <Property name="text" type="java.lang.String" value="send notifications"/>
+                <Property name="text" type="java.lang.String" value="list users"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSendNotificationActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListUsersActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnAddUser">
@@ -61,15 +60,6 @@
                 <Property name="mnemonic" type="int" value="121"/>
                 <Property name="text" type="java.lang.String" value="add user"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="btnAuthorizeUser">
-              <Properties>
-                <Property name="mnemonic" type="int" value="112"/>
-                <Property name="text" type="java.lang.String" value="authorize user"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAuthorizeUserActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnConfig">
               <Properties>
@@ -115,7 +105,7 @@
           <Component id="pnlPrincipal" alignment="1" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
+              <Component id="pnlBottom" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -125,7 +115,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlPrincipal" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="pnlBottom" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -147,7 +137,7 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="pnlBottom">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

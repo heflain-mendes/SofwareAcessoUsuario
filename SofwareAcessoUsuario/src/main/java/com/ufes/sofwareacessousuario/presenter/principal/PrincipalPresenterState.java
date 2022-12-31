@@ -2,25 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ufes.sofwareacessousuario.state.principalpresenter;
-
-import com.ufes.sofwareacessousuario.presenter.PrincipalPresenter;
+package com.ufes.sofwareacessousuario.presenter.principal;
 
 /**
  *
  * @author heflainrmendes
  */
 public abstract class PrincipalPresenterState {
-    private PrincipalPresenter principalPresenter;
+    PrincipalPresenter presenter;
 
-    public PrincipalPresenterState(PrincipalPresenter principalPresenter) {
-        this.principalPresenter = principalPresenter;
+    public PrincipalPresenterState(PrincipalPresenter presenter) {
+        this.presenter = presenter;
+        presenter.setState(this);
     }
     
     public abstract void changePassword();
     public abstract void viewNotification();
-    public abstract void sendNotification();
     public abstract void addUser();
-    public abstract void authorizeUser();
+    public abstract void listUser();
     public abstract void config();
+    public abstract void logout();
 }
