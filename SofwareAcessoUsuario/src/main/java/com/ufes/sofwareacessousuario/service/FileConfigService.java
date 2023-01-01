@@ -21,6 +21,7 @@ public class FileConfigService {
     
     private static final String PATH_LOG = "pathLog";
     private static final String FORMAT_LOG = "fotmatLog";
+    private static final String PATH_BD = "pathBD";
     
     private static File file;
     private static Properties properties;
@@ -52,7 +53,11 @@ public class FileConfigService {
     public static String getPathLog() {
         return properties.getProperty(PATH_LOG);
     }
-
+    
+    public static String getPathBD(){
+        return properties.getProperty(PATH_BD);
+    }
+    
     public static String getTypeLog() {
         return properties.getProperty(FORMAT_LOG);
     }

@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author heflainrmendes
  */
-public abstract class LoggerMyProjectAdapter extends LoggerAdapter{
+public class LoggerConversorMyProjectAdapter{
     protected Log[] converteLog(SystemLog... log){
         List<Log> logs = new ArrayList();
         

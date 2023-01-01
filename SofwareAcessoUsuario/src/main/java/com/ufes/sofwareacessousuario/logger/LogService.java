@@ -4,7 +4,6 @@
  */
 package com.ufes.sofwareacessousuario.logger;
 
-import com.mycompany.model.Log;
 import com.ufes.sofwareacessousuario.model.SystemLog;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.service.FileConfigService;

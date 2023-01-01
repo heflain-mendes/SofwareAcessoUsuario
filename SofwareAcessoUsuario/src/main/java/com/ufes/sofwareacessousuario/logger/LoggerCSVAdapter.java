@@ -8,28 +8,29 @@ import com.mycompany.adaptador.LogCSVAdapter;
 import com.mycompany.model.Log;
 import com.ufes.sofwareacessousuario.model.SystemLog;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author heflainrmendes
  */
-public class LoggerCSVAdapter extends LoggerMyProjectAdapter{
-    LogCSVAdapter adapter;
+public class LoggerCSVAdapter extends LoggerAdapter {
+
+    private LogCSVAdapter adapter;
+    private LoggerConversorMyProjectAdapter conversor;
 
     public LoggerCSVAdapter(String caminho) {
-        adapter  = new LogCSVAdapter(openFile(caminho + ".csv"));
+        conversor = new LoggerConversorMyProjectAdapter();
+        adapter = new LogCSVAdapter(openFile(caminho + ".csv"));
     }
-    
+
     @Override
-    public void escrever(SystemLog... log) throws IOException {      
-        adapter.escrever(converteLog(log));
+    public void escrever(SystemLog... log) throws IOException {
+        adapter.escrever(conversor.converteLog(log));
     }
 
     @Override
     public List<SystemLog> exportaTodos() throws IOException {
-        return converteLog(adapter.exportaTodos().toArray(new Log[0]));
+        return conversor.converteLog(adapter.exportaTodos().toArray(new Log[0]));
     }
 }

@@ -14,20 +14,22 @@ import java.util.List;
  *
  * @author heflainrmendes
  */
-public class LoggerJSONAdapter extends LoggerMyProjectAdapter{
-    LogJSONAdapter adapter;
+public class LoggerJSONAdapter extends LoggerAdapter{
+    private LoggerConversorMyProjectAdapter conversor;
+    private LogJSONAdapter adapter;
     
     public LoggerJSONAdapter(String caminho) {
+        conversor = new LoggerConversorMyProjectAdapter();
         adapter = new LogJSONAdapter(openFile(caminho + ".json"));
     }
 
    @Override
     public void escrever(SystemLog... log) throws IOException {      
-        adapter.escrever(converteLog(log));
+        adapter.escrever(conversor.converteLog(log));
     }
 
     @Override
     public List<SystemLog> exportaTodos() throws IOException {
-        return converteLog(adapter.exportaTodos().toArray(new Log[0]));
+        return conversor.converteLog(adapter.exportaTodos().toArray(new Log[0]));
     }
 }
