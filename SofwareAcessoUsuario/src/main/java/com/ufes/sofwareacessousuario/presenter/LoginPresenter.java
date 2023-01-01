@@ -27,7 +27,14 @@ public class LoginPresenter {
         view.getBtnLogin().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Login();
+                login();
+            }
+        });
+        
+        view.getBtnFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                close();
             }
         });
         
@@ -36,7 +43,7 @@ public class LoginPresenter {
         view.setVisible(true);
     }
     
-    private void Login(){
+    private void login(){
         String name = this.view.getTxtUserName().getText();
         String password = String.valueOf(this.view.getTxtPassword().getPassword());
         
@@ -47,6 +54,13 @@ public class LoginPresenter {
         }else{
             UserLoggedService.login(user);
             view.dispose();
+        }
+    }
+    
+    private void close(){
+        view.dispose();
+        if (!UserLoggedService.userLogged()) {
+            new OptionAcessesPresenter();
         }
     }
 }

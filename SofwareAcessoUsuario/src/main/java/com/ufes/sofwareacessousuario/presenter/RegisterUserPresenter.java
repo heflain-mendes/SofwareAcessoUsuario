@@ -81,7 +81,7 @@ public class RegisterUserPresenter {
             view.getLblInvalidPassword().setVisible(false);
             senhaValida = senhaValida(senha);
 
-            if (senhaValida) {
+            if (!senhaValida) {
                 this.view.getTxtPassword().setText("");
                 this.view.getTxtConfirmPassword().setText("");
             }

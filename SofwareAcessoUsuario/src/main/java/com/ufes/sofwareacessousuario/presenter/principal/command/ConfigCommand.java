@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
+import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.ConfigurationPresenter;
 
 /**
@@ -12,7 +13,6 @@ import com.ufes.sofwareacessousuario.presenter.ConfigurationPresenter;
  */
 public class ConfigCommand implements Command{
 
-    @Override
     public void executar() {
         new ConfigurationPresenter();
     }

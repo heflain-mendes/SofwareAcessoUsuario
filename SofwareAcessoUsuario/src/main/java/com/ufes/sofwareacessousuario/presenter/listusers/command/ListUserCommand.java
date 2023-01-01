@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
+import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
 import com.ufes.sofwareacessousuario.view.ListUserView;
 
@@ -11,7 +12,7 @@ import com.ufes.sofwareacessousuario.view.ListUserView;
  *
  * @author heflainrmendes
  */
-public abstract class ListUserCommand {
+public abstract class ListUserCommand implements Command{
     ListUserPresenter presenter;
     ListUserView view;
 
@@ -19,6 +20,4 @@ public abstract class ListUserCommand {
         this.presenter = presenter;
         this.view = view;
     }
-    
-    public abstract void execute();
 }

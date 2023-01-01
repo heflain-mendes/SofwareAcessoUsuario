@@ -38,9 +38,9 @@ public class LoginView extends javax.swing.JInternalFrame {
         btnLogin = new javax.swing.JButton();
         lblInvalidUserNameOrPassword = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        btnFechar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setClosable(true);
         setTitle("Login");
 
         jLabel1.setText("User name:");
@@ -57,6 +57,8 @@ public class LoginView extends javax.swing.JInternalFrame {
 
         lblInvalidUserNameOrPassword.setText("Invalid user name or password");
         lblInvalidUserNameOrPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        btnFechar.setText("Close");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +77,9 @@ public class LoginView extends javax.swing.JInternalFrame {
                             .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnFechar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -96,7 +100,9 @@ public class LoginView extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblInvalidUserNameOrPassword)
                 .addGap(18, 18, 18)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFechar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -110,6 +116,7 @@ public class LoginView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLogin;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
@@ -133,5 +140,9 @@ public class LoginView extends javax.swing.JInternalFrame {
 
     public JTextField getTxtUserName() {
         return txtUserName;
+    }
+
+    public JButton getBtnFechar() {
+        return btnFechar;
     }
 }

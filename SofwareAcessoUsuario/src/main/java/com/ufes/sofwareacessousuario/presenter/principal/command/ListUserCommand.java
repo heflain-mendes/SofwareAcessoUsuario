@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
+import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
 
 /**
@@ -11,8 +12,6 @@ import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
  * @author Heflain
  */
 public class ListUserCommand implements Command{
-
-    @Override
     public void executar() {
         new ListUserPresenter();
     }

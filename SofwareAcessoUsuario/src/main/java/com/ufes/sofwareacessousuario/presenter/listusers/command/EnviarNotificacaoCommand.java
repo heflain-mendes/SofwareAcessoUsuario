@@ -4,9 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
-import com.ufes.sofwareacessousuario.presenter.listusers.CarregandoTabelaState;
+import com.ufes.sofwareacessousuario.presenter.SendNotificationPresenter;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
 import com.ufes.sofwareacessousuario.view.ListUserView;
 
 /**
@@ -19,8 +18,7 @@ public class EnviarNotificacaoCommand extends ListUserCommand {
         super(presenter, view);
     }
 
-    @Override
-    public void execute() {
+    public void executar() {
         if (view.getTblUsuarios().getSelectedRow() == -1) {
             return;
         }
@@ -28,9 +26,8 @@ public class EnviarNotificacaoCommand extends ListUserCommand {
         String id = String.valueOf(view.getTblUsuarios().getValueAt(
                 view.getTblUsuarios().getSelectedRow(), 0)
         );
-        UserDAOService.autorizarUsuario(Long.parseLong(id));
 
-        new CarregandoTabelaState(presenter);
+        new SendNotificationPresenter(Long.parseLong(id));
     }
 
 }

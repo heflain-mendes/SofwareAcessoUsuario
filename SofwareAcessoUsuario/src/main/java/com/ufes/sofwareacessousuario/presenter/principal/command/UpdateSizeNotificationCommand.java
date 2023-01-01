@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
+import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.service.NotificationDAOService;
 import com.ufes.sofwareacessousuario.view.PrincipalView;
 

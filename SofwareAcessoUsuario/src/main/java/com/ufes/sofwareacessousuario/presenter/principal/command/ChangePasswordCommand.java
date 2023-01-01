@@ -4,18 +4,15 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
-import com.ufes.sofwareacessousuario.presenter.ConfigurationPresenter;
-import com.ufes.sofwareacessousuario.presenter.RegisterUserPresenter;
+import com.ufes.sofwareacessousuario.command.Command;
+import com.ufes.sofwareacessousuario.presenter.UpdateUserPresenter;
 
 /**
  *
  * @author Heflain
  */
 public class ChangePasswordCommand implements Command{
-
-    @Override
     public void executar() {
-        new RegisterUserPresenter();
+        new UpdateUserPresenter();
     }
-    
 }

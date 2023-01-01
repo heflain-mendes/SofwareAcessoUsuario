@@ -7,6 +7,7 @@ package com.ufes.sofwareacessousuario.presenter;
 import com.ufes.sofwareacessousuario.model.User;
 import com.ufes.sofwareacessousuario.service.NotificationDAOService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
+import com.ufes.sofwareacessousuario.service.UserDAOService;
 import com.ufes.sofwareacessousuario.view.SendNotificationView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,8 +22,8 @@ public class SendNotificationPresenter {
     private User userReceptor;
     private SendNotificationView view;
 
-    public SendNotificationPresenter(User userReceptor) {
-        this.userReceptor = userReceptor;
+    public SendNotificationPresenter(long idUserReceptor) {
+        this.userReceptor = UserDAOService.getUsuario(idUserReceptor);
 
         view = new SendNotificationView();
 

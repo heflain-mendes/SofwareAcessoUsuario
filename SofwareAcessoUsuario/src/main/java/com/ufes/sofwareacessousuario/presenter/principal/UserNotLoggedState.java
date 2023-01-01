@@ -63,8 +63,8 @@ public class UserNotLoggedState extends PrincipalPresenterState implements Event
     @Override
     public void update(String mensagem) {
         if(UserLoggedService.USER_LOGGED.equals(mensagem)){
-            new LoadBottomPanelState(presenter);
             UserLoggedService.unsubcribe(this);
+            new LoadBottomPanelState(presenter);
         }
     }
 }

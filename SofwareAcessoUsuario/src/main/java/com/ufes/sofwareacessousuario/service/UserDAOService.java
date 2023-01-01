@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class UserDAOService {
 
     private static final List<User> listUsers = new ArrayList();
-    
-    static{
+
+    static {
         listUsers.add(new User(1, "heflain", "", User.AUTORIZED, User.ADMINISTERED));
         listUsers.add(new User(2, "abel", "", User.UNAUTORIZED, User.USER));
     }
@@ -29,7 +29,15 @@ public class UserDAOService {
     }
 
     public static List<User> getUsers() {
-        return listUsers;
+        List<User> list = new ArrayList();
+        long id = UserLoggedService.getId();
+        for(var u : listUsers){
+            if(u.getId() != id){
+                list.add(u);
+            }
+        }
+        
+        return list;
     }
 
     public static User login(String name, String password) {
@@ -109,7 +117,7 @@ public class UserDAOService {
                 listUsers.remove(u);
                 listUsers.add(user);
                 UserLoggedService.login(user);
-                
+
                 break;
             }
         }
@@ -136,7 +144,7 @@ public class UserDAOService {
                         LocalDateTime.now(),
                         UserLoggedService.getNome()
                 ));
-                
+
                 break;
             }
 
@@ -154,30 +162,30 @@ public class UserDAOService {
                         LocalDateTime.now(),
                         UserLoggedService.getNome()
                 ));
-                
+
                 break;
             }
 
         }
     }
-    
-    public static User getUsuario(long id){
-        for(var u : listUsers){
-            if(u.getId() == id){
+
+    public static User getUsuario(long id) {
+        for (var u : listUsers) {
+            if (u.getId() == id) {
                 return u;
             }
         }
-        
+
         return null;
     }
-    
-    public static String getNameUsuario(long id){
-        for(var u : listUsers){
-            if(u.getId() == id){
+
+    public static String getNameUsuario(long id) {
+        for (var u : listUsers) {
+            if (u.getId() == id) {
                 return u.getName();
             }
         }
-        
+
         return null;
     }
 }

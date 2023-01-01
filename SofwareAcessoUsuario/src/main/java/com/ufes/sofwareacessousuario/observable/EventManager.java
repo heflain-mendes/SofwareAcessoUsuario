@@ -31,9 +31,9 @@ public class EventManager {
         if(listernersRemove.size() > 0){
             for(var nr : listernersRemove){
                 listerners.remove(nr);
-                listernersRemove.remove(nr);
-                break;
             }
+            
+            listernersRemove.clear();
         }
     }
 

@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
+import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.notifications.NotificationsPresenter;
 
 /**
@@ -12,7 +13,6 @@ import com.ufes.sofwareacessousuario.presenter.notifications.NotificationsPresen
  */
 public class ViewNotificationCommand implements Command{
 
-    @Override
     public void executar() {
         new NotificationsPresenter();
     }

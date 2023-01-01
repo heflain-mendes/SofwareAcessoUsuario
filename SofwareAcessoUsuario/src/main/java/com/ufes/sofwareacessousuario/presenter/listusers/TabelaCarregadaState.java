@@ -24,16 +24,16 @@ public class TabelaCarregadaState extends ListUserPresenterState {
 
     @Override
     public void autorizar() {
-        new AutorizarUsuarioCommand(presenter, view).execute();
+        new AutorizarUsuarioCommand(presenter, view).executar();
     }
 
     @Override
     public void remover() {
-        new RemoverCommand(presenter, view).execute();
+        new RemoverCommand(presenter, view).executar();
     }
 
     @Override
     public void enviarNotificacao() {
-        new EnviarNotificacaoCommand(presenter, view).execute();
+        new EnviarNotificacaoCommand(presenter, view).executar();
     }
 }

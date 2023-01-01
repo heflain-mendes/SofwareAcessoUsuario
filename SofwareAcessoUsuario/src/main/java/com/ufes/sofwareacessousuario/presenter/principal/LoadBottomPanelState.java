@@ -23,7 +23,7 @@ public class LoadBottomPanelState extends PrincipalPresenterState {
                 UserLoggedService.getNome()
         );
 
-        int tipo = UserLoggedService.getState();
+        int tipo = UserLoggedService.getType();
 
         presenter.view.getLblUserType().setText(
                 tipo == User.ADMINISTERED ? "ADMINISTRADOR" : "USER"

@@ -19,8 +19,7 @@ public class RemoverCommand extends ListUserCommand {
         super(presenter, view);
     }
 
-    @Override
-    public void execute() {
+    public void executar() {
         if (view.getTblUsuarios().getSelectedRow() == -1) {
             return;
         }
@@ -32,5 +31,4 @@ public class RemoverCommand extends ListUserCommand {
 
         new CarregandoTabelaState(presenter);
     }
-
 }
