@@ -4,8 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
-import com.ufes.sofwareacessousuario.service.NotificationDAOService;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 
 /**
  *
@@ -22,8 +21,8 @@ public class CarregandoTabela extends NotificationsPresenterState{
         
         presenter.view.getBtnLer().setEnabled(false);
         
-        presenter.table.setList(NotificationDAOService.getNotifications(UserLoggedService.getId()
-        ));
+        presenter.table.setList(
+                UsuarioLogadoService.getInstance().getNotifications());
 
         presenter.view.getTblNotificacoes().setModel(presenter.table);
         

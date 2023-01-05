@@ -4,9 +4,11 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
+import com.ufes.sofwareacessousuario.dao.UserRetorno;
+import com.ufes.sofwareacessousuario.presenter.listusers.UserTable;
 import com.ufes.sofwareacessousuario.presenter.listusers.CarregandoTabelaState;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 import com.ufes.sofwareacessousuario.view.ListUserView;
 
 /**
@@ -15,21 +17,28 @@ import com.ufes.sofwareacessousuario.view.ListUserView;
  */
 public class AutorizarUsuarioCommand extends ListUserCommand {
 
-    public AutorizarUsuarioCommand(ListUserPresenter presenter, ListUserView view) {
-        super(presenter, view);
+    public AutorizarUsuarioCommand(ListUserPresenter presenter, ListUserView view, UserTable model) {
+        super(presenter, view, model);
     }
 
     public void executar() {
         if (view.getTblUsuarios().getSelectedRow() == -1) {
             return;
         }
-        
-        System.out.println("cheguei");
 
-        String id = String.valueOf(view.getTblUsuarios().getValueAt(
-                view.getTblUsuarios().getSelectedRow(), 0)
+        System.out.println(view.getTblUsuarios().getSelectedRow());
+
+        if(model == null){
+            System.out.println("model é null");
+        }
+        
+        UserRetorno u = model.getUser(
+                view.getTblUsuarios().getSelectedRow()
         );
-        UserDAOService.autorizarUsuario(Long.parseLong(id));
+        
+        System.out.println(u.getName());
+        
+        UsersDAOService.getInstance().autorizarUsuario(u);
 
         new CarregandoTabelaState(presenter);
     }

@@ -4,9 +4,9 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
-import com.ufes.sofwareacessousuario.model.User;
+import com.ufes.sofwareacessousuario.dao.UserRetorno;
 import com.ufes.sofwareacessousuario.presenter.principal.command.UpdateSizeNotificationCommand;
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 
 /**
  *
@@ -19,19 +19,17 @@ public class LoadBottomPanelState extends PrincipalPresenterState {
 
         new UpdateSizeNotificationCommand(presenter.view).executar();
 
-        presenter.view.getLblUserName().setText(
-                UserLoggedService.getNome()
+        presenter.view.getLblUserName().setText(UsuarioLogadoService.getInstance().getNome()
         );
 
-        int tipo = UserLoggedService.getType();
+        int tipo = UsuarioLogadoService.getInstance().getType();
 
-        presenter.view.getLblUserType().setText(
-                tipo == User.ADMINISTERED ? "ADMINISTRADOR" : "USER"
+        presenter.view.getLblUserType().setText(tipo == UserRetorno.ADMINISTERED ? "ADMINISTRADOR" : "USER"
         );
         
         presenter.view.getPnlBottom().setVisible(true);
 
-        if (tipo == User.ADMINISTERED) {
+        if (tipo == UserRetorno.ADMINISTERED) {
             new AdminLoggedState(presenter);
         } else {
             new UserLoggedState(presenter);

@@ -4,9 +4,9 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
 import com.ufes.sofwareacessousuario.view.RegisterUserView;
 import java.awt.event.ActionEvent;
@@ -59,7 +59,7 @@ public class RegisterUserPresenter {
         String confirmacaoSenha = String.valueOf(this.view.getTxtConfirmPassword().getPassword());
 
         boolean nomevalido = nome.length() >= TAMNHO_MIN_NOME;
-        boolean nomeEmUso = UserDAOService.nomeEmUso(nome);
+        boolean nomeEmUso = UsersDAOService.getInstance().nomeEmUso(nome);
         boolean senhaConfere = senha.equals(confirmacaoSenha);
         boolean senhaValida = false;
 
@@ -72,9 +72,9 @@ public class RegisterUserPresenter {
         }
 
         if (nomeEmUso) {
-            view.getLblNomeUsuarioUso().setEnabled(true);
+            view.getLblNomeUsuarioUso().setVisible(true);
         } else {
-            view.getLblNomeUsuarioUso().setEnabled(false);
+            view.getLblNomeUsuarioUso().setVisible(false);
         }
 
         if (senhaConfere) {
@@ -90,7 +90,7 @@ public class RegisterUserPresenter {
         }
 
         if (senhaConfere && senhaValida && !nomeEmUso && nomevalido) {
-            UserDAOService.registered(nome, senha);
+            UsersDAOService.getInstance().registered(nome, senha);
 
             JOptionPane.showMessageDialog(
                     null,
@@ -101,7 +101,7 @@ public class RegisterUserPresenter {
 
             view.dispose();
 
-            if (!UserLoggedService.userLogged()) {
+            if (!UsuarioLogadoService.getInstance().userLogged()) {
                 new OptionAcessesPresenter();
             }
         }
@@ -132,7 +132,7 @@ public class RegisterUserPresenter {
 
     public void fechar() {
         view.dispose();
-        if (!UserLoggedService.userLogged()) {
+        if (!UsuarioLogadoService.getInstance().userLogged()) {
             new OptionAcessesPresenter();
         }
     }

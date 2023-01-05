@@ -4,12 +4,12 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
 import com.ufes.sofwareacessousuario.view.ListUserView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,13 +18,15 @@ import javax.swing.table.DefaultTableModel;
 public class ListUserPresenter {
     
     private ListUserView view;
-    private DefaultTableModel model;
+    private UserTable model;
     private ListUserPresenterState state;
     
     public ListUserPresenter() {
         view = new ListUserView();
+        model = new UserTable();
         view.getTblUsuarios().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+        view.getTblUsuarios().setModel(model);
+        model.setUsers(UsersDAOService.getInstance().getUsers());
         view.getBtnAutorizar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,6 +38,13 @@ public class ListUserPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remover();
+            }
+        });
+        
+        view.getBtnfechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
             }
         });
         
@@ -60,6 +69,10 @@ public class ListUserPresenter {
         state.remover();
     }
     
+    private void fechar(){
+        state.fechar();
+    }
+    
     private void enviarNotificacao() {
         state.enviarNotificacao();
     }
@@ -68,7 +81,7 @@ public class ListUserPresenter {
         return view;
     }
 
-    DefaultTableModel getModel() {
+    UserTable getModel() {
         return model;
     }
 

@@ -4,9 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.model.User;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
-import javax.swing.table.DefaultTableModel;
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 
 /**
  *
@@ -21,17 +19,7 @@ public class CarregandoTabelaState extends ListUserPresenterState{
         view.getBtnEnviarNotificacao().setEnabled(false);
         view.getBtnExcluir().setEnabled(false);
         
-        model = new DefaultTableModel();
-        view.getTblUsuarios().setModel(model);
-        
-        model.addColumn("id");
-        model.addColumn("Nome");
-        model.addColumn("Autorizado");
-        
-        for (var u : UserDAOService.getUsers()) {
-            var state = u.getState() == User.AUTORIZED ? "Autorizado" : "não autorizado";
-            model.addRow(new Object[]{u.getId(), u.getName(), state});
-        }
+        model.atualizarTabela();
         
         new TabelaCarregadaState(presenter);
     }
@@ -48,6 +36,11 @@ public class CarregandoTabelaState extends ListUserPresenterState{
 
     @Override
     public void enviarNotificacao() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void fechar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

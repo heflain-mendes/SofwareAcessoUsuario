@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter;
 
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 import com.ufes.sofwareacessousuario.view.OptionAcessesView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +21,7 @@ public class OptionAcessesPresenter {
     public OptionAcessesPresenter() {
         view = new OptionAcessesView();
 
-        if (UserDAOService.getQtdUserRegistered() == 0) {
+        if (UsersDAOService.getInstance().getQtdUserRegistered() == 0) {
             view.getBtnSingIn().setVisible(false);
             view.getLblLogin().setVisible(false);
         } else {

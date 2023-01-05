@@ -6,46 +6,29 @@ package com.ufes.sofwareacessousuario.model;
 
 /**
  *
- * @author heflainrmendes
+ * @author Heflain
  */
-public class User {
-    //vou deixar int pois fica melhor caso novos state e type forem adicionados
+public class UserRegistro {
     public final static int UNAUTORIZED = 0;
     public final static int AUTORIZED = 1;
     
     public final static int USER = 0;
     public final static int ADMINISTERED = 1;
     
-    private long id;
     private String name;
-    private String password;
     private int type;
     private int state;
+    private String password;
 
-    public User(long id, String name, String password, int state, int type) {
-        this.id = id;
+    public UserRegistro(String name, String password, int state, int type) {
         this.name = name;
-        this.password = password;
         this.state = state;
         this.type = type;
-    }
-    
-    public User(String nome, String senha, int state) {
-        this.name = nome;
-        this.password = senha;
-        this.state = state;
-    }
-    
-    public long getId() {
-        return id;
+        this.password = password;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public int getState() {
@@ -56,7 +39,7 @@ public class User {
         return type;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public String getPassword() {
+        return password;
     }
 }

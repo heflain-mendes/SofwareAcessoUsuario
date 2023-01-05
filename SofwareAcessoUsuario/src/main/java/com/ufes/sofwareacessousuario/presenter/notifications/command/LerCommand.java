@@ -5,8 +5,8 @@
 package com.ufes.sofwareacessousuario.presenter.notifications.command;
 
 import com.ufes.sofwareacessousuario.model.NotificationTable;
-import com.ufes.sofwareacessousuario.model.notificationRetorno;
-import com.ufes.sofwareacessousuario.service.NotificationDAOService;
+import com.ufes.sofwareacessousuario.dao.NotificationRetorno;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.view.NotificationsView;
 
 /**
@@ -39,9 +39,9 @@ public class LerCommand implements NotificationsCommand {
         );
         view.getTxtMenssage().setEnabled(false);
 
-        view.getTblNotificacoes().setValueAt(notificationRetorno.LIDO, linha, 2);
+        view.getTblNotificacoes().setValueAt(NotificationRetorno.LIDO, linha, 2);
         
-        NotificationDAOService.marcaComoLida(table.getId(linha));
+        UsuarioLogadoService.getInstance().marcaComoLida(table.getNotification(linha));
     }
     
 }

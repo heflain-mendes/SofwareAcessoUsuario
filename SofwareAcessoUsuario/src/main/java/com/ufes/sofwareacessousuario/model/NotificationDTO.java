@@ -4,31 +4,29 @@
  */
 package com.ufes.sofwareacessousuario.model;
 
+import static com.ufes.sofwareacessousuario.model.Notification.NAO_LIDO;
+
 /**
  *
- * @author heflainrmendes
+ * @author Heflain
  */
-public class Notification {
-
-    public static int NAO_LIDO = 0;
-    public static int LIDO = 1;
-
+public class NotificationDTO {
+    private long id;
     private long idRemetente;
-    private long idReceptor;
     private String assunto;
     private String mensagem;
+    private int estado;
 
-    public Notification(long idRemetente, long idReceptor, String assunto, String mensagem) {
+    public NotificationDTO(long id, long idRemetente, String assunto, String mensagem, int estado) {
+        this.id = id;
         this.idRemetente = idRemetente;
-        this.idReceptor = idReceptor;
         this.assunto = assunto;
         this.mensagem = mensagem;
+        this.estado = estado;
     }
 
-    public Notification(long idRemetente, long idReceptor, String mensagem) {
-        this.idRemetente = idRemetente;
-        this.idReceptor = idReceptor;
-        this.mensagem = mensagem;
+    public long getId() {
+        return id;
     }
 
     public String getAssunto() {
@@ -39,11 +37,11 @@ public class Notification {
         return idRemetente;
     }
 
-    public long getIdReceptor() {
-        return idReceptor;
-    }
-
     public String getMensagem() {
         return mensagem;
+    }
+
+    public int getEstado() {
+        return estado;
     }
 }

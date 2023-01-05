@@ -10,68 +10,91 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author heflainrmendes
  */
 public class FileConfigService {
+
     public static final String LOAD_FILE = "LOAD_FILE";
     public static final String UPDATE_TYPE_LOG = "UPDATE_TYPE_LOG";
-    
+
     private static final String PATH_LOG = "pathLog";
     private static final String FORMAT_LOG = "fotmatLog";
     private static final String PATH_BD = "pathBD";
-    
-    private static File file;
-    private static Properties properties;
-    private static EventManager listerners = new EventManager();
 
-    public static void subscribe(EventListerners el) {
-        listerners.subscribe(el);
-    }
+    private File file;
+    private Properties properties;
+    private EventManager listerners = new EventManager();
 
-    private static void notify(String mensagem) {
-        listerners.notify(mensagem);
-    }
+    private static FileConfigService instance;
 
-    public static void loadFile(String caminhoProperties) throws Exception {
+    private FileConfigService() {
         properties = new Properties();
         file = new File(
-                caminhoProperties);
-        
-        try(FileReader f = new FileReader(file)){
+                "./resources/project.properties");
+
+        try (FileReader f = new FileReader(file)) {
             properties.load(f);
-        }catch(Exception e){
-            throw new Exception("Problema ao ler no arquivo de propriedade");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Problema ao ler no arquivo de propriedade, o sistema ira se"
+                    + " fechado apos a confirmação",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            System.exit(1);
         }
-        
 
         notify(LOAD_FILE);
     }
 
-    public static String getPathLog() {
+    public static FileConfigService getInstance() {
+        if (instance == null) {
+            instance = new FileConfigService();
+        }
+
+        return instance;
+    }
+
+    public void subscribe(EventListerners el) {
+        listerners.subscribe(el);
+    }
+
+    public void unsubscribe(EventListerners el) {
+        listerners.unsubcribe(el);
+    }
+
+    private void notify(String mensagem) {
+        listerners.notify(mensagem);
+    }
+
+    public String getPathLog() {
         return properties.getProperty(PATH_LOG);
     }
-    
-    public static String getPathBD(){
+
+    public String getPathBD() {
         return properties.getProperty(PATH_BD);
     }
-    
-    public static String getTypeLog() {
+
+    public String getTypeLog() {
         return properties.getProperty(FORMAT_LOG);
     }
 
-    public static void setTypeLog(String typeLog) throws Exception {
+    public synchronized void setTypeLog(String typeLog) throws Exception {
         System.out.println(typeLog);
         properties.setProperty(FORMAT_LOG, typeLog);
-        
-        try(FileWriter f = new FileWriter(file);){
+
+        try (FileWriter f = new FileWriter(file);) {
             properties.store(f, null);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new Exception("Problema ao escrever no arquivo de propriedade");
         }
-        
+
         notify(UPDATE_TYPE_LOG);
     }
 }

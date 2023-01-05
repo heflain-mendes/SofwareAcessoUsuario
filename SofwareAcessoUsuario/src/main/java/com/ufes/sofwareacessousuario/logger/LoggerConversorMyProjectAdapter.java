@@ -5,7 +5,6 @@
 package com.ufes.sofwareacessousuario.logger;
 
 import com.mycompany.model.Log;
-import com.ufes.sofwareacessousuario.model.SystemLog;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

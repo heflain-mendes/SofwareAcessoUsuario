@@ -10,6 +10,7 @@ import com.ufes.sofwareacessousuario.service.PrincipalViewService;
 import com.ufes.sofwareacessousuario.view.ConfigurationView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,10 +24,13 @@ public class ConfigurationPresenter {
     public ConfigurationPresenter() {
         view = new ConfigurationView();
 
-        view.getCbFormatsLogger().addItem(LogService.getOpcoesLog()[0]);
-        view.getCbFormatsLogger().addItem(LogService.getOpcoesLog()[1]);
+        List<String> opc = LogService.getInstance().getOpcoesLog();
+        
+        for(var s : opc){
+            view.getCbFormatsLogger().addItem(s);
+        }
 
-        view.getCbFormatsLogger().setSelectedItem(FileConfigService.getTypeLog());
+        view.getCbFormatsLogger().setSelectedItem(FileConfigService.getInstance().getTypeLog());
 
         view.getBtnSave().addActionListener(new ActionListener() {
             @Override
@@ -41,7 +45,7 @@ public class ConfigurationPresenter {
 
     private void save() {
         try {
-            FileConfigService.setTypeLog(
+            FileConfigService.getInstance().setTypeLog(
                     view.getCbFormatsLogger().getSelectedItem().toString()
             );
         } catch (Exception e) {

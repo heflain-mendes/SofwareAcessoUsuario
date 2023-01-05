@@ -7,7 +7,7 @@ package com.ufes.sofwareacessousuario.presenter.principal.command;
 import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.presenter.principal.UserNotLoggedState;
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.view.PrincipalView;
 
 /**
@@ -25,7 +25,7 @@ public class LogoutCommand implements Command{
 
     public void executar() {
         view.getPnlPrincipal().removeAll();
-        UserLoggedService.logout();
+        UsuarioLogadoService.getInstance().logout();
         new UserNotLoggedState(presenter);
     }
 }

@@ -4,10 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.model.User;
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
+import com.ufes.sofwareacessousuario.dao.UserRetorno;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 import com.ufes.sofwareacessousuario.view.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,19 +47,19 @@ public class LoginPresenter {
         String name = this.view.getTxtUserName().getText();
         String password = String.valueOf(this.view.getTxtPassword().getPassword());
         
-        User user = UserDAOService.login(name, password);
+        UserRetorno user = UsersDAOService.getInstance().login(name, password);
         
         if(user == null){
             view.getLblInvalidUserNameOrPassword().setVisible(true);
         }else{
-            UserLoggedService.login(user);
+            UsuarioLogadoService.getInstance().login(user);
             view.dispose();
         }
     }
     
     private void close(){
         view.dispose();
-        if (!UserLoggedService.userLogged()) {
+        if (!UsuarioLogadoService.getInstance().userLogged()) {
             new OptionAcessesPresenter();
         }
     }

@@ -5,7 +5,6 @@
 package com.ufes.sofwareacessousuario.logger;
 
 
-import com.ufes.sofwareacessousuario.model.SystemLog;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -36,4 +35,16 @@ public abstract class LoggerAdapter {
     }
     public abstract void escrever(SystemLog... log) throws IOException;
     public abstract List<SystemLog> exportaTodos() throws IOException;
+    
+    public abstract String getNome();
+
+    public boolean getLog(String nome) {
+        if(nome.equals(getNome())){
+            return true;
+            
+            
+        }
+        
+        return false;
+    }
 }

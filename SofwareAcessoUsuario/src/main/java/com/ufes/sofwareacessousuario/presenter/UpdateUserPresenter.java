@@ -4,9 +4,9 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.service.UserDAOService;
+import com.ufes.sofwareacessousuario.dao.UsersDAOService;
 import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
 import com.ufes.sofwareacessousuario.view.RegisterUserView;
 import java.awt.event.ActionEvent;
@@ -30,7 +30,7 @@ public class UpdateUserPresenter {
         view.getLblInvalidPassword().setVisible(false);
         view.getLblNomeUsuarioUso().setVisible(false);
 
-        view.getTxtUserName().setText(UserLoggedService.getNome());
+        view.getTxtUserName().setText(UsuarioLogadoService.getInstance().getNome());
         view.getTxtUserName().setEnabled(false);
 
         view.getBtnRegistre().setText("Atualizar");
@@ -67,7 +67,7 @@ public class UpdateUserPresenter {
         }
 
         if (senhaValida) {
-            UserDAOService.updatePassword(senha);
+            UsersDAOService.getInstance().updatePassword(senha);
 
             JOptionPane.showMessageDialog(
                     null,

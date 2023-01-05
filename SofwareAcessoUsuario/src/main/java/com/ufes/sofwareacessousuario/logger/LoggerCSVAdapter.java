@@ -6,7 +6,6 @@ package com.ufes.sofwareacessousuario.logger;
 
 import com.mycompany.adaptador.LogCSVAdapter;
 import com.mycompany.model.Log;
-import com.ufes.sofwareacessousuario.model.SystemLog;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  *
  * @author heflainrmendes
  */
-public class LoggerCSVAdapter extends LoggerAdapter {
+public class LoggerCSVAdapter extends LoggerAdapter{
 
     private LogCSVAdapter adapter;
     private LoggerConversorMyProjectAdapter conversor;
@@ -32,5 +31,10 @@ public class LoggerCSVAdapter extends LoggerAdapter {
     @Override
     public List<SystemLog> exportaTodos() throws IOException {
         return conversor.converteLog(adapter.exportaTodos().toArray(new Log[0]));
+    }
+
+    @Override
+    public String getNome() {
+        return "CSV";
     }
 }

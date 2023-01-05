@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.model;
 
+import com.ufes.sofwareacessousuario.dao.NotificationRetorno;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -13,10 +14,10 @@ import javax.swing.table.AbstractTableModel;
  * @author Heflain
  */
 public class NotificationTable extends AbstractTableModel  {
-    private List<notificationRetorno> list = new ArrayList();
+    private List<NotificationRetorno> list = new ArrayList();
     private String[] colunas = {"Remetente", "Assunto", "Lido"};
 
-    public void setList(List<notificationRetorno> list) {
+    public void setList(List<NotificationRetorno> list) {
         this.list.clear();
         this.list.addAll(list);
         fireTableDataChanged();
@@ -30,11 +31,8 @@ public class NotificationTable extends AbstractTableModel  {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        this.list.get(rowIndex).setEstado("SIM");
          fireTableDataChanged();
     }
-    
-    
 
     @Override
     public int getRowCount() {
@@ -43,7 +41,7 @@ public class NotificationTable extends AbstractTableModel  {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return colunas.length;
     }
 
     @Override
@@ -62,8 +60,8 @@ public class NotificationTable extends AbstractTableModel  {
         }
     }
     
-    public long getId(int rowIndex){
-        return list.get(rowIndex).getId();
+    public NotificationRetorno getNotification(int rowIndex){
+        return list.get(rowIndex);
     }
     
     public String getMensagem(int rowIndex){

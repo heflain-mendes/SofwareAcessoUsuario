@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
+import com.ufes.sofwareacessousuario.presenter.listusers.UserTable;
 import com.ufes.sofwareacessousuario.presenter.SendNotificationPresenter;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
 import com.ufes.sofwareacessousuario.view.ListUserView;
@@ -14,8 +15,8 @@ import com.ufes.sofwareacessousuario.view.ListUserView;
  */
 public class EnviarNotificacaoCommand extends ListUserCommand {
 
-    public EnviarNotificacaoCommand(ListUserPresenter presenter, ListUserView view) {
-        super(presenter, view);
+    public EnviarNotificacaoCommand(ListUserPresenter presenter, ListUserView view, UserTable model) {
+        super(presenter, view, model);
     }
 
     public void executar() {

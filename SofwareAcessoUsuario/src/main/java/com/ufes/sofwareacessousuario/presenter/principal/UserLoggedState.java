@@ -4,12 +4,12 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.principal.command.ChangePasswordCommand;
 import com.ufes.sofwareacessousuario.presenter.principal.command.LogoutCommand;
 import com.ufes.sofwareacessousuario.presenter.principal.command.UpdateSizeNotificationCommand;
 import com.ufes.sofwareacessousuario.presenter.principal.command.ViewNotificationCommand;
-import com.ufes.sofwareacessousuario.service.NotificationDAOService;
 
 /**
  *
@@ -26,7 +26,7 @@ public class UserLoggedState extends PrincipalPresenterState implements EventLis
         presenter.view.getBtnUser().setVisible(true);
         presenter.view.getBtnUser().setEnabled(true);
         
-        NotificationDAOService.subcribe(this);
+        UsuarioLogadoService.getInstance().subcribe(this);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class UserLoggedState extends PrincipalPresenterState implements EventLis
     @Override
     public void logout() {
         new LogoutCommand(presenter, presenter.view).executar();
-        NotificationDAOService.unsubcribe(this);
+        UsuarioLogadoService.getInstance().unsubcribe(this);
     }
     
     @Override
     public void update(String mensagem) {
-        if(mensagem.equals(NotificationDAOService.DECRWMENT_NOTIFICATION)){
+        if(mensagem.equals(UsuarioLogadoService.LIDA)){
             new UpdateSizeNotificationCommand(presenter.view).executar();
         }
     }

@@ -5,7 +5,6 @@
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
 import com.ufes.sofwareacessousuario.view.ListUserView;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public abstract class ListUserPresenterState {
     protected ListUserPresenter presenter;
     protected ListUserView view;
-    protected DefaultTableModel model;
+    protected UserTable model;
 
     public ListUserPresenterState(ListUserPresenter presenter) {
         this.presenter = presenter;
@@ -25,5 +24,6 @@ public abstract class ListUserPresenterState {
     
     public abstract void autorizar();
     public abstract void remover();
+     public abstract void fechar();
     public abstract void enviarNotificacao();
 }

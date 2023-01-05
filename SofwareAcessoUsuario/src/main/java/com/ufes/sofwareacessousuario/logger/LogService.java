@@ -4,9 +4,9 @@
  */
 package com.ufes.sofwareacessousuario.logger;
 
-import com.ufes.sofwareacessousuario.model.SystemLog;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.service.FileConfigService;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -24,25 +24,28 @@ public class LogService implements EventListerners {
     public static String ALTERACAO_SENHA = "ALTERACAO SENHA";
     public static String AUTORIZACAO_USUARIO = "AUTORIZACAO USUARIO";
 
-    private static LoggerAdapter loggerAdapter;
-    private static final String[] opcoesLog = {"JSON", "CSV"};
+    private LoggerAdapter loggerAdapter;
+    
+    private static LogService instance;
 
-    public static void setLoggerAdapter(LoggerAdapter loggerAdapter) {
-        try {
-            if (loggerAdapter != null && !loggerAdapter.equals(LogService.loggerAdapter)) {
-                if (LogService.loggerAdapter == null) {
-                    LogService.loggerAdapter = loggerAdapter;
-                } else {
-                    loggerAdapter.escrever(LogService.loggerAdapter.exportaTodos().toArray(new SystemLog[0]));
-                    LogService.loggerAdapter = loggerAdapter;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private LogService() {
+        String nome = FileConfigService.getInstance().getTypeLog();
+        String caminho = FileConfigService.getInstance().getPathLog();
+
+        loggerAdapter = new VerificarLog(caminho).getLog(nome);
+
+        FileConfigService.getInstance().subscribe(this);
+    }
+    
+    public static LogService getInstance(){
+        if(instance == null){
+            instance = new LogService();
         }
+        
+        return instance;
     }
 
-    public static void escrever(SystemLog... log){
+    public void escrever(SystemLog... log) {
         try {
             if (loggerAdapter == null) {
                 throw new Exception("LogService não foi configurada");
@@ -52,56 +55,35 @@ public class LogService implements EventListerners {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }
-
-    public List<SystemLog> exportaTodos() throws Exception {
-        try {
-            if (loggerAdapter == null) {
-                throw new Exception("LogService não foi configurada");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return loggerAdapter.exportaTodos();
-    }
-
-    public void configLog(String type) {
-        try {
-            if (type.equals(opcoesLog[0])) {
-                LogService.setLoggerAdapter(new LoggerJSONAdapter(FileConfigService.getPathLog()));
-            } else if (type.equals(opcoesLog[1])) {
-                LogService.setLoggerAdapter(new LoggerCSVAdapter(FileConfigService.getPathLog()));
-            } else {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "tipo log invalido",
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    null,
-                    e.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
     }
 
     @Override
     public synchronized void update(String mensagem) {
         if (mensagem.equals(FileConfigService.LOAD_FILE)
                 || mensagem.equals(FileConfigService.UPDATE_TYPE_LOG)) {
-            configLog(FileConfigService.getTypeLog());
+
+            String nome = FileConfigService.getInstance().getTypeLog();
+            String caminho = FileConfigService.getInstance().getPathLog();
+
+            LoggerAdapter newAdapter = new VerificarLog(caminho).getLog(nome);
+
+            try {
+                newAdapter.escrever(
+                        loggerAdapter.exportaTodos().toArray(new SystemLog[0]));
+                loggerAdapter = newAdapter;
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "não foi possivel alterar o log",
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
         }
     }
 
-    public static String[] getOpcoesLog() {
-        return opcoesLog;
+    public List<String> getOpcoesLog() {
+        String caminho = FileConfigService.getInstance().getPathLog();
+        return new VerificarLog(caminho).tiposLogs();
     }
 }

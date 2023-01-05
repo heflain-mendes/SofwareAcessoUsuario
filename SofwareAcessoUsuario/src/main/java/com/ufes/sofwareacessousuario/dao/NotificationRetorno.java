@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ufes.sofwareacessousuario.model;
+package com.ufes.sofwareacessousuario.dao;
 
 import static com.ufes.sofwareacessousuario.model.Notification.NAO_LIDO;
 
@@ -10,21 +10,19 @@ import static com.ufes.sofwareacessousuario.model.Notification.NAO_LIDO;
  *
  * @author Heflain
  */
-public class notificationRetorno {
+public class NotificationRetorno {
     public static String LIDO = "SIM";
     public static String NAO_LIDO = "NÂO";
     
     private long id;
     private String remetente;
-    private String receptor;
     private String assunto;
     private String mensagem;
     private String estado;
 
-    public notificationRetorno(long id, String remetente, String receptor, String assunto, String mensagem, String estado) {
+    public NotificationRetorno(long id, String remetente, String assunto, String mensagem, String estado) {
         this.id = id;
         this.remetente = remetente;
-        this.receptor = receptor;
         this.assunto = assunto;
         this.mensagem = mensagem;
         this.estado = estado;
@@ -36,10 +34,6 @@ public class notificationRetorno {
 
     public String getRemetente() {
         return remetente;
-    }
-
-    public String getReceptor() {
-        return receptor;
     }
 
     public String getAssunto() {
@@ -58,7 +52,7 @@ public class notificationRetorno {
      * Set adicionado para diminuir o custo de processamento para atualizar tables
      * @param estado 
      */
-    public void setEstado(String estado) {
+    void setEstado(String estado) {
         this.estado = estado;
     }
 }

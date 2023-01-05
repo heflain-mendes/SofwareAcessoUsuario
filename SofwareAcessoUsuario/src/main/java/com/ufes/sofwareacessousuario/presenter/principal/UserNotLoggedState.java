@@ -6,7 +6,7 @@ package com.ufes.sofwareacessousuario.presenter.principal;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.OptionAcessesPresenter;
-import com.ufes.sofwareacessousuario.service.UserLoggedService;
+import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
 
 /**
  *
@@ -25,7 +25,7 @@ public class UserNotLoggedState extends PrincipalPresenterState implements Event
         
         presenter.view.getPnlBottom().setVisible(false);
         
-        UserLoggedService.subcribe(this);
+        UsuarioLogadoService.getInstance().subcribe(this);
         
         new OptionAcessesPresenter();
     }
@@ -62,8 +62,10 @@ public class UserNotLoggedState extends PrincipalPresenterState implements Event
 
     @Override
     public void update(String mensagem) {
-        if(UserLoggedService.USER_LOGGED.equals(mensagem)){
-            UserLoggedService.unsubcribe(this);
+        System.out.println(mensagem);
+        System.out.println(UsuarioLogadoService.USUARIO_LOGADO);
+        if(UsuarioLogadoService.USUARIO_LOGADO.equals(mensagem)){
+            UsuarioLogadoService.getInstance().unsubcribe(this);
             new LoadBottomPanelState(presenter);
         }
     }
