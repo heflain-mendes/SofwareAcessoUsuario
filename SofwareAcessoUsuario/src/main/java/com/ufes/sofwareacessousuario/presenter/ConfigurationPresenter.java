@@ -5,8 +5,8 @@
 package com.ufes.sofwareacessousuario.presenter;
 
 import com.ufes.sofwareacessousuario.logger.LogService;
-import com.ufes.sofwareacessousuario.service.FileConfigService;
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
+import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
 import com.ufes.sofwareacessousuario.view.ConfigurationView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +30,9 @@ public class ConfigurationPresenter {
             view.getCbFormatsLogger().addItem(s);
         }
 
-        view.getCbFormatsLogger().setSelectedItem(FileConfigService.getInstance().getTypeLog());
+        view.getCbFormatsLogger().setSelectedItem(FileConfigService.getInstance().getConfiguracao(
+                FileConfigService.FORMATOR_LOG
+        ));
 
         view.getBtnSave().addActionListener(new ActionListener() {
             @Override
@@ -45,7 +47,7 @@ public class ConfigurationPresenter {
 
     private void save() {
         try {
-            FileConfigService.getInstance().setTypeLog(
+            FileConfigService.getInstance().setFormatoLog(
                     view.getCbFormatsLogger().getSelectedItem().toString()
             );
         } catch (Exception e) {

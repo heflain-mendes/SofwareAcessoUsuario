@@ -16,10 +16,10 @@ public abstract class PrincipalPresenterState {
         presenter.setState(this);
     }
     
-    public abstract void changePassword();
-    public abstract void viewNotification();
-    public abstract void addUser();
-    public abstract void listUser();
-    public abstract void config();
-    public abstract void logout();
+    public abstract void configurarSenha();
+    public abstract void verNotificacoes();
+    public abstract void addUsuario();
+    public abstract void listarUsuario();
+    public abstract void abrirConfiguracoes();
+    public abstract void deslogar();
 }

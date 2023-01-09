@@ -44,7 +44,7 @@ public class NotificationsView extends javax.swing.JInternalFrame {
         btnLer = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximizable(true);
+        setIconifiable(true);
         setTitle("Notifications");
 
         jLabel1.setText("Autor");

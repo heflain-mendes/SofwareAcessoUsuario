@@ -4,25 +4,28 @@
  */
 package com.ufes.sofwareacessousuario.dao.sqlite;
 
-import com.ufes.sofwareacessousuario.dao.interfaces.INotificationDAO;
 import com.ufes.sofwareacessousuario.model.Notification;
 import com.ufes.sofwareacessousuario.model.NotificationDTO;
-import com.ufes.sofwareacessousuario.dao.UserRetorno;
+import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import com.ufes.sofwareacessousuario.dao.interfaces.INotificationDAOProxy;
 
 /**
  *
  * @author Heflain
  */
-public class NotificationSQLiteDAO implements INotificationDAO {
+public class NotificationSQLiteDAO implements INotificationDAOProxy {
+    private String caminho;
 
-    public NotificationSQLiteDAO() throws Exception {
+    public NotificationSQLiteDAO(String caminho) throws Exception {
+        this.caminho = caminho;
         String sql = "CREATE TABLE IF NOT EXISTS notificacoes ("
                 + "    id          INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "                        UNIQUE"
@@ -35,22 +38,24 @@ public class NotificationSQLiteDAO implements INotificationDAO {
                 + "    mensagem    TEXT    NOT NULL,"
                 + "    estado      INTEGER NOT NULL DEFAULT 0"
                 + ");";
-
-        try (Statement st = SQLiteConnection.getConexao().createStatement()) {
+        
+        try (
+                Connection conn = DriverManager.getConnection(caminho);
+                Statement st = conn.createStatement()) {
             st.execute(sql);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            throw new SQLException("Não foi possivel criar a tabela notificacoes");
+            throw new Exception("Não foi possivel criar a tabela notificacoes");
         }
-
     }
 
     @Override
-    public NotificationDTO enviarNoticacao(Notification notification) throws Exception {
+    public void enviarNoticacao(Notification notification) throws Exception {
         String sql = "INSERT INTO notificacoes (idremetente, idreceptor, assunto, mensagem) VALUES(?, ?, ?, ?)";
 
         try (
-                Connection conn = SQLiteConnection.getConexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                Connection conn = DriverManager.getConnection(caminho);
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, notification.getIdRemetente());
             ps.setLong(2, notification.getIdReceptor());
             ps.setString(3, notification.getAssunto());
@@ -58,7 +63,7 @@ public class NotificationSQLiteDAO implements INotificationDAO {
 
             ps.executeUpdate();
             
-            return getUltimaNotificacaoAdd();
+            
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception(
@@ -68,47 +73,45 @@ public class NotificationSQLiteDAO implements INotificationDAO {
         }
     }
     
-    private NotificationDTO getUltimaNotificacaoAdd() throws Exception{
-        String sql = " SELECT * FROM notificacoes where id = (SELECT MAX(id) FROM notificacoes);";
-
-        try (Connection conn = SQLiteConnection.getConexao()) {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return new NotificationDTO(
-                        rs.getLong("id"), 
-                        rs.getLong("idremetente"),
-                        rs.getString("assunto"), 
-                        rs.getString("mensagem"),
-                        rs.getInt("estado")
-                );
-            }
-
-        } catch (Exception e) {
-            throw new Exception("Não foi possivel obter o usuário na tabela usuário");
-        }
-
-        return null;
-    }
+//    private NotificationDTO getUltimaNotificacaoAdd() throws Exception{
+//        String sql = " SELECT * FROM notificacoes where id = (SELECT MAX(id) FROM notificacoes);";
+//
+//        try (
+//                Connection conn = DriverManager.getConnection(caminho);
+//                PreparedStatement ps = conn.prepareStatement(sql);
+//                ResultSet rs = ps.executeQuery()) {
+//            if (rs.next()) {
+//                return new NotificationDTO(
+//                    rs.getLong("id"), 
+//                    rs.getLong("idremetente"),
+//                    rs.getString("assunto"), 
+//                    rs.getString("mensagem"),
+//                    rs.getInt("estado")
+//                );
+//            }
+//
+//        } catch (Exception e) {
+//            throw new Exception("Não foi possivel obter o usuário na tabela usuário");
+//        }
+//
+//        return null;
+//    }
 
     @Override
     public int qtdNotifications(UserRetorno user) throws Exception {
         String sql = "SELECT COUNT(id) FROM notificacoes;";
 
         try (
-                Connection conn = SQLiteConnection.getConexao(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
+                Connection conn = DriverManager.getConnection(caminho); 
+                PreparedStatement ps = conn.prepareStatement(sql); 
+                ResultSet rs = ps.executeQuery()) {
             rs.next();
-
             return rs.getInt(0);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            new Exception("Não foi possivel obter quantidade de notificações  recebidas pelo usuário: "
+            throw new Exception("Não foi possivel obter quantidade de notificações  recebidas pelo usuário: "
                     + user.getName());
         }
-
-        return -1;
     }
 
     @Override
@@ -116,19 +119,20 @@ public class NotificationSQLiteDAO implements INotificationDAO {
         String sql = "SELECT * FROM notificacoes where idreceptor = ?";
 
         List<NotificationDTO> notificacoes = new ArrayList<>();
-        try (Connection conn = SQLiteConnection.getConexao()) {
+        try (Connection conn = DriverManager.getConnection(caminho)) {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setLong(1, user.getId());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                notificacoes.add(new NotificationDTO(
-                        rs.getLong("id"),
-                        rs.getLong("idremetente"),
-                        rs.getString("assunto"),
-                        rs.getString("mensagem"),
-                        rs.getInt("estado")));
+            try(ResultSet rs = ps.executeQuery();){
+                while (rs.next()) {
+                    notificacoes.add(new NotificationDTO(
+                            rs.getLong("id"),
+                            rs.getLong("idremetente"),
+                            rs.getString("assunto"),
+                            rs.getString("mensagem"),
+                            rs.getInt("estado")));
+                }
+                return notificacoes;
             }
-            return notificacoes;
         } catch (Exception e) {
             throw new Exception("Não foi possivel obter todas as notificações "
                     + "do usuário: "
@@ -141,7 +145,8 @@ public class NotificationSQLiteDAO implements INotificationDAO {
         String sql = "UPDATE notificacoes SET estado=? WHERE id=?;";
 
         try (
-                Connection conn = SQLiteConnection.getConexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                Connection conn = DriverManager.getConnection(caminho);
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, Notification.LIDO);
             ps.setLong(2, id);
 

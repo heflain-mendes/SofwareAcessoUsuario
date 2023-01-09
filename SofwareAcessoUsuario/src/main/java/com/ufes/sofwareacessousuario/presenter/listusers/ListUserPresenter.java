@@ -4,8 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
+import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
 import com.ufes.sofwareacessousuario.view.ListUserView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +26,7 @@ public class ListUserPresenter {
         model = new UserTable();
         view.getTblUsuarios().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         view.getTblUsuarios().setModel(model);
-        model.setUsers(UsersDAOService.getInstance().getUsers());
+        model.setUsers(UsuariosDAOService.getInstance().getUsers());
         view.getBtnAutorizar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -43,6 +43,7 @@ public class SendNotificationView extends javax.swing.JInternalFrame {
         jLabel1.setText("jLabel1");
 
         setClosable(true);
+        setIconifiable(true);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Assunto:");

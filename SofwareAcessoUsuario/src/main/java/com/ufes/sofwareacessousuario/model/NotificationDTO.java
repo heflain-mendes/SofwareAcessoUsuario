@@ -4,8 +4,6 @@
  */
 package com.ufes.sofwareacessousuario.model;
 
-import static com.ufes.sofwareacessousuario.model.Notification.NAO_LIDO;
-
 /**
  *
  * @author Heflain

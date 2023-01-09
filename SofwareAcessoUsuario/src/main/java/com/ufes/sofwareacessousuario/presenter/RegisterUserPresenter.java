@@ -4,14 +4,13 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
-import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
 import com.ufes.sofwareacessousuario.view.RegisterUserView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,7 +40,7 @@ public class RegisterUserPresenter {
                 registrar();
             }
         });
-        
+
         view.getBtnFechar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,41 +56,42 @@ public class RegisterUserPresenter {
         String nome = this.view.getTxtUserName().getText();
         String senha = String.valueOf(this.view.getTxtPassword().getPassword());
         String confirmacaoSenha = String.valueOf(this.view.getTxtConfirmPassword().getPassword());
-
-        boolean nomevalido = nome.length() >= TAMNHO_MIN_NOME;
-        boolean nomeEmUso = UsersDAOService.getInstance().nomeEmUso(nome);
         boolean senhaConfere = senha.equals(confirmacaoSenha);
-        boolean senhaValida = false;
 
-        if (nomevalido) {
-            view.getLblInvalidName().setVisible(false);
-
-        } else {
-            this.view.getLblInvalidName().setVisible(true);
-
+        if (!senhaConfere) {
+            view.getLblInvalidPassword().setVisible(true);
+            return;
         }
+        view.getLblInvalidPassword().setVisible(false);
 
-        if (nomeEmUso) {
-            view.getLblNomeUsuarioUso().setVisible(true);
-        } else {
-            view.getLblNomeUsuarioUso().setVisible(false);
-        }
+        VerificacoesRegistro verificao = 
+                UsuariosDAOService.getInstance().registered(nome, senha);
 
-        if (senhaConfere) {
-            view.getLblInvalidPassword().setVisible(false);
-            senhaValida = senhaValida(senha);
+        if (verificao.possuiRecusas()) {
+            if (verificao.isNomeEmUso()) {
+                view.getLblNomeUsuarioUso().setVisible(true);
+            } else {
+                view.getLblNomeUsuarioUso().setVisible(false);
+            }
 
-            if (!senhaValida) {
-                this.view.getTxtPassword().setText("");
-                this.view.getTxtConfirmPassword().setText("");
+            if (verificao.getRecusasNome().isEmpty()) {
+                view.getLblInvalidName().setText("");
+                view.getLblInvalidName().setVisible(false);
+            } else {
+                String texto = "nome deve " + verificao.toStringRecusasNome();
+                view.getLblInvalidName().setText(texto);
+                view.getLblInvalidName().setVisible(true);
+            }
+
+            if (!verificao.getRecusasSenha().isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        verificao.toStringRecusasSenha(),
+                        "Problema com a senha",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             }
         } else {
-            view.getLblInvalidPassword().setVisible(true);
-        }
-
-        if (senhaConfere && senhaValida && !nomeEmUso && nomevalido) {
-            UsersDAOService.getInstance().registered(nome, senha);
-
             JOptionPane.showMessageDialog(
                     null,
                     "Cadastrado com sucesso",
@@ -99,34 +99,7 @@ public class RegisterUserPresenter {
                     JOptionPane.INFORMATION_MESSAGE
             );
 
-            view.dispose();
-
-            if (!UsuarioLogadoService.getInstance().userLogged()) {
-                new OptionAcessesPresenter();
-            }
-        }
-    }
-
-    private boolean senhaValida(String senha) {
-        List<String> recusas = new ValidadorSenha().verificar(senha);
-
-        if (recusas.size() == 0) {
-            return true;
-        } else {
-            StringBuilder listaRecusas = new StringBuilder();
-
-            for (var r : recusas) {
-                listaRecusas.append(r).append("\n");
-            }
-
-            JOptionPane.showMessageDialog(
-                    null,
-                    recusas.toString(),
-                    "Problema com a senha",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            return false;
+            fechar();
         }
     }
 

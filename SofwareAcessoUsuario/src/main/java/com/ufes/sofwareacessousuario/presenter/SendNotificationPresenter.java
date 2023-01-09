@@ -4,10 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.dao.UserRetorno;
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
-import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
 import com.ufes.sofwareacessousuario.view.SendNotificationView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +23,7 @@ public class SendNotificationPresenter {
     private SendNotificationView view;
 
     public SendNotificationPresenter(long idUserReceptor) {
-        this.userReceptor = UsersDAOService.getInstance().getUsuario(idUserReceptor);
+        this.userReceptor = UsuariosDAOService.getInstance().getUsuario(idUserReceptor);
 
         view = new SendNotificationView();
 
@@ -42,7 +42,7 @@ public class SendNotificationPresenter {
     }
 
     private void submit() {
-        UsersDAOService.getInstance().enviarNoticacao(
+        UsuariosDAOService.getInstance().enviarNoticacao(
                 userReceptor,
                 view.getTxtAssunto().getText(),
                 view.getTxtMessage().getText()

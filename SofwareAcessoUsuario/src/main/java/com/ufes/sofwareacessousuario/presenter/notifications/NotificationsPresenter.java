@@ -4,8 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
-import com.ufes.sofwareacessousuario.model.NotificationTable;
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
 import com.ufes.sofwareacessousuario.view.NotificationsView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

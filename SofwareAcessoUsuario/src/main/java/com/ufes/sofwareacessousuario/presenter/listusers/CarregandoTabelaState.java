@@ -4,8 +4,6 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
-
 /**
  *
  * @author heflainrmendes

@@ -5,9 +5,8 @@
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
 import com.ufes.sofwareacessousuario.presenter.listusers.UserTable;
-import com.ufes.sofwareacessousuario.presenter.listusers.CarregandoTabelaState;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
+import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
 import com.ufes.sofwareacessousuario.view.ListUserView;
 
 /**
@@ -25,13 +24,10 @@ public class RemoverCommand extends ListUserCommand {
             return;
         }
 
-        UsersDAOService.getInstance().removeUser(
+        UsuariosDAOService.getInstance().removerUsuario(
                 model.getUser(
                         view.getTblUsuarios().getSelectedRow()
                 )
         );
-        
-
-        new CarregandoTabelaState(presenter);
     }
 }

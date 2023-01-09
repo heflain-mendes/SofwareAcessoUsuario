@@ -6,6 +6,7 @@ package com.ufes.sofwareacessousuario.logger;
 
 import com.mycompany.adaptador.LogJSONAdapter;
 import com.mycompany.model.Log;
+import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
 import java.io.IOException;
 import java.util.List;
 

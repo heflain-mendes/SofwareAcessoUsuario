@@ -4,7 +4,6 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
 import com.ufes.sofwareacessousuario.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,54 +70,36 @@ public class PrincipalPresenter {
             }
         });
 
-        state = new UserNotLoggedState(this);
+        state = new UsuarioDeslogado(this);
 
         view.setVisible(true);
     }
 
     public void changePassword() {
-        state.changePassword();
+        state.configurarSenha();
     }
 
     public void viewNotification() {
-        state.viewNotification();
+        state.verNotificacoes();
     }
 
     public void addUser() {
-        state.addUser();
+        state.addUsuario();
     }
 
     public void listUser() {
-        state.listUser();
+        state.listarUsuario();
     }
 
     public void config() {
-        state.config();
+        state.abrirConfiguracoes();
     }
 
     public void logout() {
-        state.logout();
+        state.deslogar();
     }
 
     void setState(PrincipalPresenterState state) {
         this.state = state;
     }
-
-//    @Override
-//    public void update(String mensagem) {
-//        if(UserLoggedService.USER_LOGGED.equals(mensagem)){
-//            if(UserLoggedService.getType() == User.ADMINISTERED){
-//                new AdminLoggedState(this);
-//            }else{
-//                new UserLoggedState(this);
-//            }
-//        }else{
-//            new UserNotLoggedState(this);
-//        }
-//
-//        if(UserLoggedService.USER_LOGGED.equals(mensagem)){
-//            new LoadBottomPanelState(this);
-//            UserLoggedService.unsubcribe(this);
-//        }
-//    }
 }

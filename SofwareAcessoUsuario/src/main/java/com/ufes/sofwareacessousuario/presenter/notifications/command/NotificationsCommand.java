@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications.command;
 
-import com.ufes.sofwareacessousuario.model.NotificationTable;
+import com.ufes.sofwareacessousuario.presenter.notifications.NotificationTable;
 import com.ufes.sofwareacessousuario.view.NotificationsView;
 
 /**

@@ -4,17 +4,19 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
+import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.listusers.command.AutorizarUsuarioCommand;
 import com.ufes.sofwareacessousuario.presenter.listusers.command.EnviarNotificacaoCommand;
+import com.ufes.sofwareacessousuario.presenter.listusers.command.FecharCommand;
 import com.ufes.sofwareacessousuario.presenter.listusers.command.RemoverCommand;
 
 /**
  *
  * @author heflainrmendes
  */
-public class TabelaCarregadaState extends ListUserPresenterState implements EventListerners{
+public class TabelaCarregadaState extends ListUserPresenterState implements EventListerners {
 
     public TabelaCarregadaState(ListUserPresenter presenter) {
         super(presenter);
@@ -22,8 +24,9 @@ public class TabelaCarregadaState extends ListUserPresenterState implements Even
         view.getBtnAutorizar().setEnabled(true);
         view.getBtnEnviarNotificacao().setEnabled(true);
         view.getBtnExcluir().setEnabled(true);
-        
-        UsersDAOService.getInstance().subcribe(this);
+
+        UsuariosDAOService.getInstance().subcribe(this);
+        UsuarioLogadoService.getInstance().subcribe(this);
     }
 
     @Override
@@ -43,15 +46,25 @@ public class TabelaCarregadaState extends ListUserPresenterState implements Even
 
     @Override
     public void update(String mensagem) {
-        if(mensagem.equals(UsersDAOService.USUARIO_ADICIONADO)){
+        if (
+                mensagem.equals(UsuariosDAOService.USUARIO_ADICIONADO) ||
+                mensagem.equals(UsuariosDAOService.USUARIO_AUTORIZADO) ||
+                mensagem.equals(UsuariosDAOService.USUARIO_REMOVIDO)) {
             new CarregandoTabelaState(presenter);
-            UsersDAOService.getInstance().unsubcribe(this);
+            unsubcribe();
+        } else if (mensagem.equals(UsuarioLogadoService.USUARIO_DESLOGADO)) {
+            unsubcribe();
         }
+    }
+
+    private void unsubcribe() {
+        UsuarioLogadoService.getInstance().unsubcribe(this);
+        UsuariosDAOService.getInstance().unsubcribe(this);
     }
 
     @Override
     public void fechar() {
-        view.dispose();
-        UsersDAOService.getInstance().unsubcribe(this);
+        new FecharCommand(presenter, view, model).executar();
+        unsubcribe();
     }
 }

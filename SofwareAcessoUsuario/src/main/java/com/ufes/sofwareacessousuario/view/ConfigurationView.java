@@ -34,6 +34,7 @@ public class ConfigurationView extends javax.swing.JInternalFrame {
         btnSave = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("change format logger");

@@ -37,7 +37,7 @@ public class ListUserView extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
         btnfechar = new javax.swing.JButton();
 
-        setResizable(true);
+        setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Usuarios");

@@ -44,6 +44,7 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
         lblNomeUsuarioUso = new javax.swing.JLabel();
         btnFechar = new javax.swing.JButton();
 
+        setIconifiable(true);
         setTitle("RegistreUser");
 
         jLabel1.setText("User name:");
@@ -57,8 +58,6 @@ public class RegisterUserView extends javax.swing.JInternalFrame {
         jLabel2.setText("Password:");
 
         jLabel3.setText("Confirm password:");
-
-        lblInvalidName.setText("nome deve ter tamanho maior ou igual a ");
 
         btnRegistre.setText("Register");
 

@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.dao.UserRetorno;
+import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
 import com.ufes.sofwareacessousuario.model.UserRegistro;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -30,6 +30,11 @@ public class UserTable extends AbstractTableModel {
     public UserRetorno getUser(int rowIndex) {
         return users.get(rowIndex);
     }
+    
+    @Override
+    public String getColumnName(int column) {
+            return colunas[column];
+    }
 
     @Override
     public int getRowCount() {
@@ -51,8 +56,7 @@ public class UserTable extends AbstractTableModel {
             case 1:
                 return user.getName();
             case 2:
-                return user.getState() == UserRegistro.AUTORIZED ? 
-                        "Autorizado" : "não autorizado";
+                return user.getState();
             default:
                 throw new AssertionError();
         }

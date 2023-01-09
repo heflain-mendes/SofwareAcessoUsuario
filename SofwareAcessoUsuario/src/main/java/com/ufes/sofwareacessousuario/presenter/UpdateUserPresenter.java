@@ -4,10 +4,9 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.dao.UsuarioLogadoService;
-import com.ufes.sofwareacessousuario.service.PrincipalViewService;
-import com.ufes.sofwareacessousuario.dao.UsersDAOService;
-import com.ufes.sofwareacessousuario.validacaosenha.ValidadorSenha;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
 import com.ufes.sofwareacessousuario.view.RegisterUserView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,49 +56,35 @@ public class UpdateUserPresenter {
         var confirmacaoSenha = String.valueOf(view.getTxtConfirmPassword().getPassword());
 
         boolean senhaConfere = senha.equals(confirmacaoSenha);
-        boolean senhaValida = false;
+        List<String> recusas;
 
         if (senhaConfere) {
             view.getLblInvalidPassword().setVisible(false);
-            senhaValida = senhaValida(senha);
+            recusas = UsuarioLogadoService.getInstance().atualizarSenha(senha);
+
+            if (recusas.isEmpty()) {
+                UsuarioLogadoService.getInstance().atualizarSenha(senha);
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Senha alterada com sucesso",
+                        "Senha alterada",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                view.dispose();
+            }else{
+                JOptionPane.showMessageDialog(
+                        null,
+                        String.join("\n", recusas),
+                        "Problema com a senha",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                view.getTxtPassword().setText("");
+                view.getTxtConfirmPassword().setText("");
+            }
         } else {
             view.getLblInvalidPassword().setVisible(true);
-        }
-
-        if (senhaValida) {
-            UsersDAOService.getInstance().updatePassword(senha);
-
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Senha alterada com sucesso",
-                    "Senha alterada",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            view.dispose();
-        }
-    }
-
-    private boolean senhaValida(String senha) {
-        List<String> recusas = new ValidadorSenha().verificar(senha);
-
-        if (recusas.size() == 0) {
-            return true;
-        } else {
-            StringBuilder listaRecusas = new StringBuilder();
-
-            for (var r : recusas) {
-                listaRecusas.append(r).append("\n");
-            }
-
-            JOptionPane.showMessageDialog(
-                    null,
-                    recusas.toString(),
-                    "Problema com a senha",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            return false;
         }
     }
 

@@ -41,6 +41,7 @@ public class LoginView extends javax.swing.JInternalFrame {
         btnFechar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setIconifiable(true);
         setTitle("Login");
 
         jLabel1.setText("User name:");

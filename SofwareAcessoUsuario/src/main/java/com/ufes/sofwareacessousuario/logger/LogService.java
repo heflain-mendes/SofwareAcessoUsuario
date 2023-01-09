@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.logger;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
-import com.ufes.sofwareacessousuario.service.FileConfigService;
+import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,23 +25,27 @@ public class LogService implements EventListerners {
     public static String AUTORIZACAO_USUARIO = "AUTORIZACAO USUARIO";
 
     private LoggerAdapter loggerAdapter;
-    
+
     private static LogService instance;
 
     private LogService() {
-        String nome = FileConfigService.getInstance().getTypeLog();
-        String caminho = FileConfigService.getInstance().getPathLog();
+        String nome = FileConfigService.getInstance().getConfiguracao(
+                FileConfigService.FORMATOR_LOG
+        );
+        String caminho = FileConfigService.getInstance().getConfiguracao(
+                FileConfigService.CAMINHO_LOG
+        );
 
-        loggerAdapter = new VerificarLog(caminho).getLog(nome);
+        loggerAdapter = new ConfiguracaoLog(caminho).getLog(nome);
 
         FileConfigService.getInstance().subscribe(this);
     }
-    
-    public static LogService getInstance(){
-        if(instance == null){
+
+    public static LogService getInstance() {
+        if (instance == null) {
             instance = new LogService();
         }
-        
+
         return instance;
     }
 
@@ -59,13 +63,17 @@ public class LogService implements EventListerners {
 
     @Override
     public synchronized void update(String mensagem) {
-        if (mensagem.equals(FileConfigService.LOAD_FILE)
-                || mensagem.equals(FileConfigService.UPDATE_TYPE_LOG)) {
+        if (mensagem.equals(FileConfigService.ARQUIVO_CARREGADO)
+                || mensagem.equals(FileConfigService.FORMATOR_LOG)) {
 
-            String nome = FileConfigService.getInstance().getTypeLog();
-            String caminho = FileConfigService.getInstance().getPathLog();
+            String nome = FileConfigService.getInstance().getConfiguracao(
+                    FileConfigService.FORMATOR_LOG
+            );
+            String caminho = FileConfigService.getInstance().getConfiguracao(
+                    FileConfigService.CAMINHO_LOG
+            );
 
-            LoggerAdapter newAdapter = new VerificarLog(caminho).getLog(nome);
+            LoggerAdapter newAdapter = new ConfiguracaoLog(caminho).getLog(nome);
 
             try {
                 newAdapter.escrever(
@@ -83,7 +91,9 @@ public class LogService implements EventListerners {
     }
 
     public List<String> getOpcoesLog() {
-        String caminho = FileConfigService.getInstance().getPathLog();
-        return new VerificarLog(caminho).tiposLogs();
+        String caminho = FileConfigService.getInstance().getConfiguracao(
+                FileConfigService.CAMINHO_LOG
+        );
+        return new ConfiguracaoLog(caminho).getTiposLogs();
     }
 }
