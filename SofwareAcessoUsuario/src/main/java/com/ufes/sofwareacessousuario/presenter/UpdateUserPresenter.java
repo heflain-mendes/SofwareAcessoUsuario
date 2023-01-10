@@ -6,7 +6,6 @@ package com.ufes.sofwareacessousuario.presenter;
 
 import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
-import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
 import com.ufes.sofwareacessousuario.view.RegisterUserView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

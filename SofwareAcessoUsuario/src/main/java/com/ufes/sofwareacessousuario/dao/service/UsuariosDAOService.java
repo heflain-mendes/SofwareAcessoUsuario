@@ -12,14 +12,15 @@ import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
 import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
 import com.ufes.sofwareacessousuario.dao.interfaces.INotificationDAOProxy;
-import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import com.ufes.sofwareacessousuario.dao.interfaces.IUserDAOProxy;
 import com.ufes.sofwareacessousuario.model.Notification;
-
+import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
+import com.ufes.sofwareacessousuario.validacaonome.ValidadorNome;
+import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
 /**
  * gerencias as daos
  *
@@ -117,16 +118,22 @@ public class UsuariosDAOService implements EventListerners {
                 System.exit(1);
             }
         }
-        VerificacoesRegistro verificacoes = null;
+        
+        VerificacoesRegistro verificao = new VerificacoesRegistro(
+                nomeEmUso(name),
+                new ValidadorNome().validar(name),
+                new VerificadorSenha().verificar(password)
+        );
+        
+        if(verificao.possuiRecusas()){
+            return verificao;
+        }
+        
         try {
             int state = definirEstado();
             int type = definirTipo();
-            verificacoes = userDAO.registrar(new UserRegistro(name, password, state, type));
 
-            if (verificacoes.possuiRecusas()) {
-                return verificacoes;
-            }
-
+            userDAO.registrar(new UserRegistro(name, password, state, type));
             UserRetorno u = userDAO.getUltimoUsuarioAdd();
 
             if (u == null) {
@@ -135,7 +142,9 @@ public class UsuariosDAOService implements EventListerners {
                         + " aparentemente foi adicionado "
                         + "mas, não foi possivel reculpera-lo do banco de dados");
             } else {
-                users.add(u);
+                if(users != null){
+                    users.add(u);
+                }
             }
 
             eventManager.notify(USUARIO_ADICIONADO);
@@ -147,8 +156,8 @@ public class UsuariosDAOService implements EventListerners {
                     LocalDateTime.now(),
                     u == null ? "" : u.getName()
             ));
-
         } catch (Exception ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(
                     null,
                     ex.getMessage(),
@@ -157,7 +166,7 @@ public class UsuariosDAOService implements EventListerners {
             );
         }
 
-        return verificacoes;
+        return verificao;
     }
 
     private int definirEstado() throws Exception {
@@ -183,22 +192,6 @@ public class UsuariosDAOService implements EventListerners {
             return UserRegistro.ADMINISTERED;
         }
         return UserRegistro.USER;
-    }
-
-    public boolean nomeEmUso(String nome) {
-        try {
-            return userDAO.nomeEmUso(nome);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    null,
-                    ex.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
-
-        return true;
     }
 
     public void autorizarUsuario(UserRetorno user) {
@@ -306,6 +299,21 @@ public class UsuariosDAOService implements EventListerners {
         }
     }
 
+    public boolean nomeEmUso(String nome){
+        try {
+            return userDAO.nomeEmUso(nome);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return true;
+    }
+
     public void update(String mensagem) {
         if (UsuarioLogadoService.USUARIO_DESLOGADO.equals(mensagem)) {
             try {
@@ -323,7 +331,13 @@ public class UsuariosDAOService implements EventListerners {
             try {
                 if (usuarioLogado.getState().equals(UserRetorno.AUTORIZED)) {
                     users = userDAO.getUsuarios();
-                    users.remove(usuarioLogado.getUser()); 
+                    var user = usuarioLogado.getUser();
+                    for(var u : users){
+                        if(u.getId() == user.getId()){
+                            users.remove(u);
+                            break;
+                        }
+                    }
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -334,7 +348,6 @@ public class UsuariosDAOService implements EventListerners {
                         JOptionPane.ERROR_MESSAGE
                 );
             }
-            users.remove(usuarioLogado.getUser());
         }
     }
 

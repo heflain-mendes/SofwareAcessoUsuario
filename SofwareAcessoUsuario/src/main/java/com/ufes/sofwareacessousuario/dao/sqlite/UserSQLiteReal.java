@@ -77,16 +77,7 @@ public class UserSQLiteReal implements IUserDAOProxy {
     }
 
     @Override
-    public VerificacoesRegistro registrar(UserRegistro user) throws Exception {
-        VerificacoesRegistro verificacoes = new VerificacoesRegistro(
-                nomeEmUso(user.getName()),
-                new ValidadorNome().validar(user.getName()),
-                new VerificadorSenha().verificar(user.getPassword())
-        );
-
-        if (verificacoes.possuiRecusas()) {
-            return verificacoes;
-        }
+    public void registrar(UserRegistro user) throws Exception {
 
         String sql = "INSERT INTO usuarios(nome, senha, estado, tipo) VALUES (?, ?, ?, ?)";
 
@@ -106,19 +97,11 @@ public class UserSQLiteReal implements IUserDAOProxy {
                     + "na tabela User"
             );
         }
-
-        return verificacoes;
     }
 
     @Override
-    public List<String> atualizarSenha(UserRetorno user, String senha) throws Exception {
+    public void atualizarSenha(UserRetorno user, String senha) throws Exception {
         String sql = "UPDATE usuarios SET senha=? WHERE id=? AND excluido = ?;";
-
-        List<String> validacoesSenha = new VerificadorSenha().verificar(senha);
-
-        if (!validacoesSenha.isEmpty()) {
-            return validacoesSenha;
-        }
 
         try (
                 Connection conn = DriverManager.getConnection(caminho); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -133,8 +116,6 @@ public class UserSQLiteReal implements IUserDAOProxy {
                     + user.getName()
                     + " na tabela usuarios");
         }
-
-        return validacoesSenha;
     }
 
     @Override

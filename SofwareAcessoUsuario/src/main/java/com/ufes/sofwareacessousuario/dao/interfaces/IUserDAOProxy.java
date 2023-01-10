@@ -17,11 +17,11 @@ public interface IUserDAOProxy {
     
     public List<UserRetorno> getUsuarios() throws Exception;
 
-    public VerificacoesRegistro registrar(UserRegistro user) throws Exception;
+    public void registrar(UserRegistro user) throws Exception;
     
     public UserRetorno getUltimoUsuarioAdd() throws Exception;
     
-    public List<String> atualizarSenha(UserRetorno user, String senha) throws Exception;
+    public void atualizarSenha(UserRetorno user, String senha) throws Exception;
     
     public void autorizarUsuario(UserRetorno user) throws Exception;
     

@@ -4,8 +4,11 @@
  */
 package com.ufes.sofwareacessousuario.configuracao;
 
+import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
+import com.ufes.sofwareacessousuario.presenter.principal.UsuarioLogado;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -74,6 +77,11 @@ public class FileConfigService {
     }
 
     public void setFormatoLog(String typeLog) throws Exception {
+        if(!UsuarioLogadoService.getInstance().getType().equals(
+                UserRetorno.ADMINISTERED)){
+            return;
+        }
+        
         properties.setProperty(FORMATOR_LOG, typeLog);
 
         try (FileWriter f = new FileWriter(file);) {

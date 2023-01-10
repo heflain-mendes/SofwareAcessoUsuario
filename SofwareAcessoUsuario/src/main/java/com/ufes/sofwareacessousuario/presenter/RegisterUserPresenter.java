@@ -64,8 +64,7 @@ public class RegisterUserPresenter {
         }
         view.getLblInvalidPassword().setVisible(false);
 
-        VerificacoesRegistro verificao = 
-                UsuariosDAOService.getInstance().registered(nome, senha);
+        VerificacoesRegistro verificao = UsuariosDAOService.getInstance().registered(nome, senha);
 
         if (verificao.possuiRecusas()) {
             if (verificao.isNomeEmUso()) {

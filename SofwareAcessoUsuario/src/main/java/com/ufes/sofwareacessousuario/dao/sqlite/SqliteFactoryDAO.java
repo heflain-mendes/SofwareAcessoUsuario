@@ -28,5 +28,4 @@ public class SqliteFactoryDAO implements IAbstractFactoryDAO {
     public String getTipoPersistencia() {
         return "SQLite";
     }
-
 }

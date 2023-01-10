@@ -9,6 +9,8 @@ import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
 import java.util.List;
 import com.ufes.sofwareacessousuario.dao.interfaces.IUserDAOProxy;
 import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
+import com.ufes.sofwareacessousuario.validacaonome.ValidadorNome;
+import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
 
 /**
  *
@@ -28,8 +30,17 @@ public class UserSQLiteDAOProxy implements IUserDAOProxy {
     }
 
     @Override
-    public VerificacoesRegistro registrar(UserRegistro user) throws Exception {
-        return real.registrar(user);
+    public void registrar(UserRegistro user) throws Exception {
+        VerificacoesRegistro verificacoes = new VerificacoesRegistro(
+                nomeEmUso(user.getName()),
+                new ValidadorNome().validar(user.getName()),
+                new VerificadorSenha().verificar(user.getPassword())
+        );
+
+        if (verificacoes.possuiRecusas()) {
+            return;
+        }
+        real.registrar(user);
     }
 
     @Override
@@ -38,8 +49,14 @@ public class UserSQLiteDAOProxy implements IUserDAOProxy {
     }
 
     @Override
-    public List<String> atualizarSenha(UserRetorno user, String senha) throws Exception {
-        return real.atualizarSenha(user, senha);
+    public void atualizarSenha(UserRetorno user, String senha) throws Exception {
+        List<String> validacoesSenha = new VerificadorSenha().verificar(senha);
+
+        if (!validacoesSenha.isEmpty()) {
+            return;
+        }
+        
+        real.atualizarSenha(user, senha);
     }
 
     @Override
