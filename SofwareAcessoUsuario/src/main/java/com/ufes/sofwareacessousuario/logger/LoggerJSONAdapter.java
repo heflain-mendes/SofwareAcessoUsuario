@@ -6,7 +6,7 @@ package com.ufes.sofwareacessousuario.logger;
 
 import com.mycompany.adaptador.LogJSONAdapter;
 import com.mycompany.model.Log;
-import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
+import com.ufes.sofwareacessousuario.configuracao.ArquivoDeCofiguracaoService;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,22 +15,22 @@ import java.util.List;
  * @author heflainrmendes
  */
 public class LoggerJSONAdapter extends LoggerAdapter{
-    private LoggerConversorMyProjectAdapter conversor;
+    private ConversorLog conversor;
     private LogJSONAdapter adapter;
     
     public LoggerJSONAdapter(String caminho) {
-        conversor = new LoggerConversorMyProjectAdapter();
+        conversor = new ConversorLog();
         adapter = new LogJSONAdapter(openFile(caminho + ".json"));
     }
 
    @Override
     public void escrever(SystemLog... log) throws IOException {      
-        adapter.escrever(conversor.converteLog(log));
+        adapter.escrever(conversor.converterLog(log));
     }
 
     @Override
     public List<SystemLog> exportaTodos() throws IOException {
-        return conversor.converteLog(adapter.exportaTodos().toArray(new Log[0]));
+        return conversor.converterLog(adapter.exportaTodos().toArray(new Log[0]));
     }
 
     @Override

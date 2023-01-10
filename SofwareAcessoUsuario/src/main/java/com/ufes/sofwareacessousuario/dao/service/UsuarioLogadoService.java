@@ -7,19 +7,21 @@ package com.ufes.sofwareacessousuario.dao.service;
 import com.ufes.sofwareacessousuario.dao.interfaces.IAbstractFactoryDAO;
 import com.ufes.sofwareacessousuario.logger.LogService;
 import com.ufes.sofwareacessousuario.logger.SystemLog;
-import com.ufes.sofwareacessousuario.model.Notification;
-import com.ufes.sofwareacessousuario.model.NotificationDTO;
+import com.ufes.sofwareacessousuario.model.Notificacao;
+import com.ufes.sofwareacessousuario.model.NotificacaoDTO;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
-import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
+import com.ufes.sofwareacessousuario.configuracao.ArquivoDeCofiguracaoService;
 import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
-import com.ufes.sofwareacessousuario.dao.interfaces.INotificationDAOProxy;
-import com.ufes.sofwareacessousuario.dao.interfaces.IUserDAOProxy;
+import com.ufes.sofwareacessousuario.dao.interfaces.INotificacoesDAO;
+import com.ufes.sofwareacessousuario.dao.interfaces.IUsuarioDAOProxy;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Gerencia o usuario logado, seus dados e notificaçoes
@@ -33,10 +35,10 @@ public class UsuarioLogadoService {
     public static String FALHA_LOGAR_USUARIO = "falha logar usuario";
     public static String USUARIO_DESLOGADO = "user unlogged";
 
-    private IUserDAOProxy userDAO;
-    private INotificationDAOProxy notificacoesDAO;
-    private List<NotificationRetorno> notificacoes;
-    private UserRetorno user;
+    private IUsuarioDAOProxy userDAO;
+    private INotificacoesDAO notificacoesDAO;
+    private List<NotificacaoRetorno> notificacoes;
+    private UsuarioRetorno user;
     private EventManager eventManager;
 
     private static UsuarioLogadoService instance;
@@ -44,12 +46,10 @@ public class UsuarioLogadoService {
     private UsuarioLogadoService() {
         eventManager = new EventManager();
 
-        String caminho = FileConfigService.getInstance().getConfiguracao(
-                FileConfigService.CAMINHO_BD
+        String caminho = ArquivoDeCofiguracaoService.getInstance().getConfiguracao(ArquivoDeCofiguracaoService.CAMINHO_BD
         );
 
-        String SGDB = FileConfigService.getInstance().getConfiguracao(
-                FileConfigService.FORMATO_BD
+        String SGDB = ArquivoDeCofiguracaoService.getInstance().getConfiguracao(ArquivoDeCofiguracaoService.FORMATO_BD
         );
 
         IAbstractFactoryDAO fabrica = new ConfiguracaoBD().getFabrica(SGDB);
@@ -90,7 +90,7 @@ public class UsuarioLogadoService {
 
     public String getNome() {
         if (user != null) {
-            return user.getName();
+            return user.getNome();
         }
         return null;
     }
@@ -104,35 +104,35 @@ public class UsuarioLogadoService {
 
     public String getType() {
         if (user != null) {
-            return user.getType();
+            return user.getTipo();
         }
         return null;
     }
 
     public String getState() {
         if (user != null) {
-            return user.getState();
+            return user.getEstado();
         }
         return null;
     }
 
-    public UserRetorno getUser() {
+    public UsuarioRetorno getUser() {
         if (user == null) {
             return null;
         }
 
-        return new UserRetorno(user);
+        return new UsuarioRetorno(user);
     }
 
-    public void enviarNoticacao(UserRetorno user, String assunto, String mensagem) {
-        if (!this.user.getType().equals(UserRetorno.ADMINISTERED)) {
+    public void enviarNoticacao(UsuarioRetorno user, String assunto, String mensagem) {
+        if (!this.user.getTipo().equals(UsuarioRetorno.ADMINISTRADOR)) {
             JOptionPane.showMessageDialog(
                     null,
                     "O usuário "
-                    + this.user.getName()
+                    + this.user.getNome()
                     + " não tem permissão enviar"
                     + " uma notificação para "
-                    + user.getName()
+                    + user.getNome()
                     + "\nO sistema será encerrado",
                     "Falha de segurança",
                     JOptionPane.ERROR_MESSAGE
@@ -141,7 +141,7 @@ public class UsuarioLogadoService {
         }
 
         try {
-            notificacoesDAO.enviarNoticacao(new Notification(
+            notificacoesDAO.enviarNoticacao(new Notificacao(
                     getId(),
                     user.getId(),
                     assunto,
@@ -150,7 +150,7 @@ public class UsuarioLogadoService {
 
             LogService.getInstance().escrever(new SystemLog(
                     LogService.ENVIO_NOTIFICAO,
-                    user.getName(),
+                    user.getNome(),
                     LocalDateTime.now(),
                     getNome()
             ));
@@ -166,21 +166,20 @@ public class UsuarioLogadoService {
     }
 
     private void carregarListaNotificacoes() {
-        if (this.user.getState().equals(UserRetorno.UNAUTORIZED)) {
+        if (this.user.getEstado().equals(UsuarioRetorno.DESAUTORIZADO)) {
             return;
         }
 
         try {
-            List<NotificationDTO> ns = notificacoesDAO.getNotifications(user);
+            List<NotificacaoDTO> ns = notificacoesDAO.getNotificacoes(user);
 
             for (var n : ns) {
-                notificacoes.add(
-                        new NotificationRetorno(
+                notificacoes.add(new NotificacaoRetorno(
                                 n.getId(),
-                                UsuariosDAOService.getInstance().getUsuario(n.getIdRemetente()).getName(),
+                                UsuariosDAOService.getInstance().getUsuario(n.getIdRemetente()).getNome(),
                                 n.getAssunto(),
                                 n.getMensagem(),
-                                Notification.LIDO == n.getEstado() ? NotificationRetorno.LIDO : NotificationRetorno.NAO_LIDO
+                                Notificacao.LIDO == n.getEstado() ? NotificacaoRetorno.LIDO : NotificacaoRetorno.NAO_LIDO
                         )
                 );
             }
@@ -196,7 +195,7 @@ public class UsuarioLogadoService {
     }
 
     public boolean login(String nome, String senha) {
-        UserRetorno user = null;
+        UsuarioRetorno user = null;
 
         try {
             user = userDAO.fazerLogin(nome, senha);
@@ -204,7 +203,7 @@ public class UsuarioLogadoService {
             if (user != null) {
                 this.user = user;
                 eventManager.notify(USUARIO_LOGADO);
-                if(user.getState().equals(UserRetorno.AUTORIZED)){
+                if(user.getEstado().equals(UsuarioRetorno.AUTORIZADO)){
                     carregarListaNotificacoes();
                 }
                 return true;
@@ -248,11 +247,11 @@ public class UsuarioLogadoService {
     }
 
     public int getQtdNotificacoesNaoLida() {
-        if (this.user.getState().equals(UserRetorno.UNAUTORIZED)) {
+        if (this.user.getEstado().equals(UsuarioRetorno.DESAUTORIZADO)) {
             JOptionPane.showMessageDialog(
                     null,
                     "O usuário "
-                    + this.user.getName()
+                    + this.user.getNome()
                     + " não possui permissão para saber a quantidade de"
                     + " notificações recebidas"
                     + "\nO sistema será encerrado",
@@ -262,22 +261,27 @@ public class UsuarioLogadoService {
             System.exit(1);
         }
 
-        int i = 0;
-        for (var n : notificacoes) {
-            if (n.getEstado().equals(NotificationRetorno.NAO_LIDO)) {
-                i++;
-            }
+        try {
+            return notificacoesDAO.getQtdNotificacoes(this.user);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
-        return i;
+        
+        return 0;
     }
 
-    public List<NotificationRetorno> getNotifications() {
-        if (this.user.getState().equals(UserRetorno.UNAUTORIZED)) {
+    public List<NotificacaoRetorno> getNotifications() {
+        if (this.user.getEstado().equals(UsuarioRetorno.DESAUTORIZADO)) {
             JOptionPane.showMessageDialog(
                     null,
                     "O usuário "
-                    + this.user.getName()
+                    + this.user.getNome()
                     + " não possui permissão para obter as"
                     + " notificações recebidas"
                     + "\nO sistema será encerrado",
@@ -289,12 +293,12 @@ public class UsuarioLogadoService {
         return Collections.unmodifiableList(notificacoes);
     }
 
-    public void marcaComoLida(NotificationRetorno retorno) {
-        if (this.user.getState().equals(UserRetorno.UNAUTORIZED)) {
+    public void marcaComoLida(NotificacaoRetorno retorno) {
+        if (this.user.getEstado().equals(UsuarioRetorno.DESAUTORIZADO)) {
             JOptionPane.showMessageDialog(
                     null,
                     "O usuário "
-                    + this.user.getName()
+                    + this.user.getNome()
                     + " não possui permissão para marcar notificaçoes como lida"
                     + "O sistema será encerrado",
                     "Falha de segurança",
@@ -305,7 +309,7 @@ public class UsuarioLogadoService {
 
         try {
             notificacoesDAO.marcaComoLida(retorno.getId());
-            retorno.setEstado(NotificationRetorno.LIDO);
+            retorno.setEstado(NotificacaoRetorno.LIDO);
             eventManager.notify(MARCADO_LIDO);
 
             /**
@@ -314,7 +318,7 @@ public class UsuarioLogadoService {
              */
             LogService.getInstance().escrever(new SystemLog(
                     LogService.LEITURA_NOTIFICACAO,
-                    user.getName(),
+                    user.getNome(),
                     LocalDateTime.now(),
                     retorno.getRemetente()
             ));
@@ -330,11 +334,11 @@ public class UsuarioLogadoService {
     }
 
     public List<String> atualizarSenha(String password) {
-        if (this.user.getState().equals(UserRetorno.UNAUTORIZED)) {
+        if (this.user.getEstado().equals(UsuarioRetorno.DESAUTORIZADO)) {
             JOptionPane.showMessageDialog(
                     null,
                     "O usuário "
-                    + this.user.getName()
+                    + this.user.getNome()
                     + " não possui permissão para auterar senha"
                     + "O sistema será fechado",
                     "Falha de segurança",

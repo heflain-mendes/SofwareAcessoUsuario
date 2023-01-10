@@ -7,20 +7,20 @@ package com.ufes.sofwareacessousuario.dao.service;
 import com.ufes.sofwareacessousuario.dao.interfaces.IAbstractFactoryDAO;
 import com.ufes.sofwareacessousuario.logger.LogService;
 import com.ufes.sofwareacessousuario.logger.SystemLog;
-import com.ufes.sofwareacessousuario.model.UserRegistro;
+import com.ufes.sofwareacessousuario.model.UsuarioRegistro;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
-import com.ufes.sofwareacessousuario.configuracao.FileConfigService;
-import com.ufes.sofwareacessousuario.dao.interfaces.INotificationDAOProxy;
+import com.ufes.sofwareacessousuario.configuracao.ArquivoDeCofiguracaoService;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
-import com.ufes.sofwareacessousuario.dao.interfaces.IUserDAOProxy;
-import com.ufes.sofwareacessousuario.model.Notification;
+import com.ufes.sofwareacessousuario.model.Notificacao;
 import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
 import com.ufes.sofwareacessousuario.validacaonome.ValidadorNome;
 import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
+import com.ufes.sofwareacessousuario.dao.interfaces.INotificacoesDAO;
+import com.ufes.sofwareacessousuario.dao.interfaces.IUsuarioDAOProxy;
 /**
  * gerencias as daos
  *
@@ -33,26 +33,24 @@ public class UsuariosDAOService implements EventListerners {
     public static final String USUARIO_AUTORIZADO = "usuario autorizado";
 
     private static UsuariosDAOService instance;
-    private IUserDAOProxy userDAO;
-    private INotificationDAOProxy notificacoesDAO;
-    private List<UserRetorno> users;
+    private IUsuarioDAOProxy usuarioDAO;
+    private INotificacoesDAO notificacoesDAO;
+    private List<UsuarioRetorno> usuarios;
     private EventManager eventManager;
     private UsuarioLogadoService usuarioLogado;
 
     private UsuariosDAOService() {
         eventManager = new EventManager();
         usuarioLogado = UsuarioLogadoService.getInstance();
-        String caminho = FileConfigService.getInstance().getConfiguracao(
-                FileConfigService.CAMINHO_BD
+        String caminho = ArquivoDeCofiguracaoService.getInstance().getConfiguracao(ArquivoDeCofiguracaoService.CAMINHO_BD
         );
 
-        String SGDB = FileConfigService.getInstance().getConfiguracao(
-                FileConfigService.FORMATO_BD
+        String SGDB = ArquivoDeCofiguracaoService.getInstance().getConfiguracao(ArquivoDeCofiguracaoService.FORMATO_BD
         );
 
         IAbstractFactoryDAO fabrica = new ConfiguracaoBD().getFabrica(SGDB);
         try {
-            userDAO = fabrica.criarUserDAO(caminho);
+            usuarioDAO = fabrica.criarUserDAO(caminho);
             notificacoesDAO = fabrica.criarNotificationDAO(caminho);
             usuarioLogado.subcribe(this);
         } catch (Exception ex) {
@@ -84,7 +82,7 @@ public class UsuariosDAOService implements EventListerners {
 
     public boolean possuiCadastrosDeUsuario() {
         try {
-            return userDAO.possuiCadastrosDeUsuario();
+            return usuarioDAO.possuiCadastrosDeUsuario();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -97,20 +95,20 @@ public class UsuariosDAOService implements EventListerners {
         return false;
     }
 
-    public List<UserRetorno> getUsers() {
-        if (!usuarioLogado.getType().equals(UserRetorno.ADMINISTERED)) {
+    public List<UsuarioRetorno> getUsers() {
+        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
             falhaDeSeguranca("O usuário "
                     + usuarioLogado.getNome()
                     + "não tem permissão está para obter lista de usuarios"
                     + "\nO sistema será encerado");
             System.exit(1);
         }
-        return Collections.unmodifiableList(users);
+        return Collections.unmodifiableList(usuarios);
     }
 
     public VerificacoesRegistro registered(String name, String password) {
         if (usuarioLogado.userLogged()) {
-            if (usuarioLogado.getType().equals(UserRetorno.USER)) {
+            if (usuarioLogado.getType().equals(UsuarioRetorno.USUARIO)) {
                 falhaDeSeguranca("O usuário "
                         + usuarioLogado.getNome()
                         + "não tem permissão está para obter lista de usuarios"
@@ -133,8 +131,8 @@ public class UsuariosDAOService implements EventListerners {
             int state = definirEstado();
             int type = definirTipo();
 
-            userDAO.registrar(new UserRegistro(name, password, state, type));
-            UserRetorno u = userDAO.getUltimoUsuarioAdd();
+            usuarioDAO.registrar(new UsuarioRegistro(name, password, state, type));
+            UsuarioRetorno u = usuarioDAO.getUltimoUsuarioAdd();
 
             if (u == null) {
                 throw new Exception("O usuário "
@@ -142,19 +140,19 @@ public class UsuariosDAOService implements EventListerners {
                         + " aparentemente foi adicionado "
                         + "mas, não foi possivel reculpera-lo do banco de dados");
             } else {
-                if(users != null){
-                    users.add(u);
+                if(usuarios != null){
+                    usuarios.add(u);
                 }
             }
 
             eventManager.notify(USUARIO_ADICIONADO);
 
-            u = UsuarioLogadoService.getInstance().getUser();
+            u = usuarioLogado.getUser();
             LogService.getInstance().escrever(new SystemLog(
                     LogService.INCLUSAO,
                     name,
                     LocalDateTime.now(),
-                    u == null ? "" : u.getName()
+                    u == null ? "" : u.getNome()
             ));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -170,48 +168,48 @@ public class UsuariosDAOService implements EventListerners {
     }
 
     private int definirEstado() throws Exception {
-        UsuarioLogadoService usuarioLogado = UsuarioLogadoService.getInstance();
+        UsuarioLogadoService usuarioLogado = this.usuarioLogado;
         if (!possuiCadastrosDeUsuario()) {
             //primeiro registro
-            return UserRegistro.AUTORIZED;
+            return UsuarioRegistro.AUTORIZADO;
         }
 
         if (usuarioLogado.userLogged()) {
-            if (usuarioLogado.getType().equals(UserRetorno.ADMINISTERED)) {
+            if (usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
                 //um adimistrado estive registrando
-                return UserRegistro.AUTORIZED;
+                return UsuarioRegistro.AUTORIZADO;
             }
         }
 
-        return UserRegistro.UNAUTORIZED;
+        return UsuarioRegistro.DESAUTORIZADO;
 
     }
 
     private int definirTipo() {
         if (!possuiCadastrosDeUsuario()) {
-            return UserRegistro.ADMINISTERED;
+            return UsuarioRegistro.ADMINISTRADOR;
         }
-        return UserRegistro.USER;
+        return UsuarioRegistro.USUARIO;
     }
 
-    public void autorizarUsuario(UserRetorno user) {
-        if (!usuarioLogado.getType().equals(UserRetorno.ADMINISTERED)) {
+    public void autorizarUsuario(UsuarioRetorno user) {
+        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
             falhaDeSeguranca("O usuário "
                     + usuarioLogado.getNome()
                     + " não tem permissão para autorizar usuario "
-                    + user.getName()
+                    + user.getNome()
                     + "\nO sistema será encerado");
             System.exit(1);
         }
         try {
-            userDAO.autorizarUsuario(user);
-            user.setState(UserRetorno.AUTORIZED);
+            usuarioDAO.autorizarUsuario(user);
+            user.setEstado(UsuarioRetorno.AUTORIZADO);
 
             LogService.getInstance().escrever(new SystemLog(
                     LogService.AUTORIZACAO_USUARIO,
-                    user.getName(),
+                    user.getNome(),
                     LocalDateTime.now(),
-                    UsuarioLogadoService.getInstance().getNome()
+                    usuarioLogado.getNome()
             ));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
@@ -223,24 +221,24 @@ public class UsuariosDAOService implements EventListerners {
         }
     }
 
-    public void removerUsuario(UserRetorno user) {
-        if (!usuarioLogado.getType().equals(UserRetorno.ADMINISTERED)) {
+    public void removerUsuario(UsuarioRetorno user) {
+        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
             falhaDeSeguranca("O usuário "
                     + usuarioLogado.getNome()
                     + " não tem permissão para remover usuario "
-                    + user.getName()
+                    + user.getNome()
                     + "\nO sistema será encerado");
             System.exit(1);
         }
         try {
-            userDAO.removerUsuario(user);
-            users.remove(user);
+            usuarioDAO.removerUsuario(user);
+            usuarios.remove(user);
             eventManager.notify(USUARIO_REMOVIDO);
             LogService.getInstance().escrever(new SystemLog(
                     LogService.EXCLUSAO,
-                    user.getName(),
+                    user.getNome(),
                     LocalDateTime.now(),
-                    UsuarioLogadoService.getInstance().getNome()
+                    usuarioLogado.getNome()
             ));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -254,8 +252,8 @@ public class UsuariosDAOService implements EventListerners {
 
     }
 
-    public UserRetorno getUsuario(long id) {
-        for (var u : users) {
+    public UsuarioRetorno getUsuario(long id) {
+        for (var u : usuarios) {
             if (u.getId() == id) {
                 return u;
             }
@@ -264,18 +262,18 @@ public class UsuariosDAOService implements EventListerners {
         return null;
     }
 
-    public void enviarNoticacao(UserRetorno user, String assunto, String mensagem) {
-        if (!usuarioLogado.getType().equals(UserRetorno.ADMINISTERED)) {
+    public void enviarNoticacao(UsuarioRetorno user, String assunto, String mensagem) {
+        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
             falhaDeSeguranca("O usuário "
                     + usuarioLogado.getNome()
                     + " não tem permissão para autorizar o usuario "
-                    + user.getName()
+                    + user.getNome()
                     + "\nO sistema será encerado");
             System.exit(1);
         }
 
         try {
-            notificacoesDAO.enviarNoticacao(new Notification(
+            notificacoesDAO.enviarNoticacao(new Notificacao(
                     usuarioLogado.getId(),
                     user.getId(),
                     assunto,
@@ -284,7 +282,7 @@ public class UsuariosDAOService implements EventListerners {
 
             LogService.getInstance().escrever(new SystemLog(
                     LogService.ENVIO_NOTIFICAO,
-                    user.getName(),
+                    user.getNome(),
                     LocalDateTime.now(),
                     usuarioLogado.getNome()
             ));
@@ -301,7 +299,7 @@ public class UsuariosDAOService implements EventListerners {
 
     public boolean nomeEmUso(String nome){
         try {
-            return userDAO.nomeEmUso(nome);
+            return usuarioDAO.nomeEmUso(nome);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -317,7 +315,7 @@ public class UsuariosDAOService implements EventListerners {
     public void update(String mensagem) {
         if (UsuarioLogadoService.USUARIO_DESLOGADO.equals(mensagem)) {
             try {
-                users.clear();
+                usuarios.clear();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(
@@ -329,12 +327,12 @@ public class UsuariosDAOService implements EventListerners {
             }
         } else if (mensagem.equals(UsuarioLogadoService.USUARIO_LOGADO)) {
             try {
-                if (usuarioLogado.getState().equals(UserRetorno.AUTORIZED)) {
-                    users = userDAO.getUsuarios();
+                if (usuarioLogado.getState().equals(UsuarioRetorno.AUTORIZADO)) {
+                    usuarios = usuarioDAO.getUsuarios();
                     var user = usuarioLogado.getUser();
-                    for(var u : users){
+                    for(var u : usuarios){
                         if(u.getId() == user.getId()){
-                            users.remove(u);
+                            usuarios.remove(u);
                             break;
                         }
                     }

@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.presenter.UpdateUserPresenter;
+import com.ufes.sofwareacessousuario.presenter.AtualizarUsuarioPresenter;
 
 /**
  *
@@ -13,6 +13,6 @@ import com.ufes.sofwareacessousuario.presenter.UpdateUserPresenter;
  */
 public class ConfigurarSenha implements Command{
     public void executar() {
-        new UpdateUserPresenter();
+        new AtualizarUsuarioPresenter();
     }
 }

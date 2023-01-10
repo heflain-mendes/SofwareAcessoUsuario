@@ -12,13 +12,13 @@
         <Menu class="javax.swing.JMenu" name="btnUser">
           <Properties>
             <Property name="mnemonic" type="int" value="102"/>
-            <Property name="text" type="java.lang.String" value="User"/>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnChangePassword">
               <Properties>
                 <Property name="mnemonic" type="int" value="111"/>
-                <Property name="text" type="java.lang.String" value="change password"/>
+                <Property name="text" type="java.lang.String" value="Alterar senha"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangePasswordActionPerformed"/>
@@ -27,12 +27,12 @@
             <MenuItem class="javax.swing.JMenuItem" name="btnViewNotificaition">
               <Properties>
                 <Property name="mnemonic" type="int" value="115"/>
-                <Property name="text" type="java.lang.String" value="view notification"/>
+                <Property name="text" type="java.lang.String" value="Ver notifica&#xe7;&#xf5;es"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnLogout">
               <Properties>
-                <Property name="text" type="java.lang.String" value="logout"/>
+                <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
@@ -43,13 +43,13 @@
         <Menu class="javax.swing.JMenu" name="btnAdmin">
           <Properties>
             <Property name="mnemonic" type="int" value="101"/>
-            <Property name="text" type="java.lang.String" value="Admin"/>
+            <Property name="text" type="java.lang.String" value="Administrador"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnListUsers">
               <Properties>
                 <Property name="mnemonic" type="int" value="116"/>
-                <Property name="text" type="java.lang.String" value="list users"/>
+                <Property name="text" type="java.lang.String" value="Listar Usu&#xe1;rios"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListUsersActionPerformed"/>
@@ -58,12 +58,12 @@
             <MenuItem class="javax.swing.JMenuItem" name="btnAddUser">
               <Properties>
                 <Property name="mnemonic" type="int" value="121"/>
-                <Property name="text" type="java.lang.String" value="add user"/>
+                <Property name="text" type="java.lang.String" value="Add usu&#xe1;rio"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnConfig">
               <Properties>
-                <Property name="text" type="java.lang.String" value="config"/>
+                <Property name="text" type="java.lang.String" value="Configura&#xe7;oes"/>
               </Properties>
             </MenuItem>
           </SubComponents>

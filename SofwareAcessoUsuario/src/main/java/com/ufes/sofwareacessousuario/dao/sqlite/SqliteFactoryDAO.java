@@ -5,8 +5,8 @@
 package com.ufes.sofwareacessousuario.dao.sqlite;
 
 import com.ufes.sofwareacessousuario.dao.interfaces.IAbstractFactoryDAO;
-import com.ufes.sofwareacessousuario.dao.interfaces.INotificationDAOProxy;
-import com.ufes.sofwareacessousuario.dao.interfaces.IUserDAOProxy;
+import com.ufes.sofwareacessousuario.dao.interfaces.INotificacoesDAO;
+import com.ufes.sofwareacessousuario.dao.interfaces.IUsuarioDAOProxy;
 
 /**
  *
@@ -15,13 +15,13 @@ import com.ufes.sofwareacessousuario.dao.interfaces.IUserDAOProxy;
 public class SqliteFactoryDAO implements IAbstractFactoryDAO {
 
     @Override
-    public INotificationDAOProxy criarNotificationDAO(String caminho) throws Exception {
-        return new NotificationSQLiteDAO(caminho);
+    public INotificacoesDAO criarNotificationDAO(String caminho) throws Exception {
+        return new NotificacaoSQLiteDAO(caminho);
     }
 
     @Override
-    public IUserDAOProxy criarUserDAO(String caminho) throws Exception {
-        return new UserSQLiteDAOProxy(caminho);
+    public IUsuarioDAOProxy criarUserDAO(String caminho) throws Exception {
+        return new UsuarioSQLiteDAOProxy(caminho);
     }
 
     @Override

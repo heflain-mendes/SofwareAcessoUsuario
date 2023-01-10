@@ -21,28 +21,28 @@ public class PrincipalPresenter {
         view = new PrincipalView();
         PrincipalViewService.setPrincipalView(view);
 
-        view.getBtnAddUser().addActionListener(new ActionListener() {
+        view.getBtnAddUsuario().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addUser();
             }
         });
 
-        view.getBtnViewNotificaition().addActionListener(new ActionListener() {
+        view.getBtnVerNotificacoes().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewNotification();
             }
         });
 
-        view.getBtnListUsers().addActionListener(new ActionListener() {
+        view.getBtnListarUsuario().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listUser();
             }
         });
 
-        view.getBtnChangePassword().addActionListener(new ActionListener() {
+        view.getBtnAlterarSenha().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changePassword();
@@ -56,14 +56,14 @@ public class PrincipalPresenter {
             }
         });
 
-        view.getBtnLogout().addActionListener(new ActionListener() {
+        view.getBtnSair().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 logout();
             }
         });
 
-        view.getBtnAmountNotifications().addActionListener(new ActionListener() {
+        view.getBtnQtdNotificacoes().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewNotification();

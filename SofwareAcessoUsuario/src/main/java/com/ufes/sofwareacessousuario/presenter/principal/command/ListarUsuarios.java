@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
+import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
 
 /**
  *
@@ -13,7 +13,7 @@ import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
  */
 public class ListarUsuarios implements Command{
     public void executar() {
-        new ListUserPresenter();
+        new ListaUsuarioPresenter();
     }
     
 }

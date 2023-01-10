@@ -12,9 +12,9 @@ import com.ufes.sofwareacessousuario.presenter.notifications.command.LerCommand;
  *
  * @author Heflains
  */
-public class TabelaCarregada extends NotificationsPresenterState implements EventListerners{
+public class TabelaCarregada extends NotificacaoPresenterState implements EventListerners{
 
-    public TabelaCarregada(NotificationsPresenter presenter) {
+    public TabelaCarregada(NotificacaoPresenter presenter) {
         super(presenter);
         UsuarioLogadoService.getInstance().subcribe(this);
         presenter.view.getBtnLer().setEnabled(true);

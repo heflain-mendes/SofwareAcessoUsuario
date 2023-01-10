@@ -23,7 +23,7 @@ public class LoginPresenter implements EventListerners{
     public LoginPresenter() {
         this.view = new LoginView();
 
-        view.getLblInvalidUserNameOrPassword().setVisible(false);
+        view.getLblNomeDeUsuarioOuSenhaInvalidos().setVisible(false);
 
         view.getBtnLogin().addActionListener(new ActionListener() {
             @Override
@@ -47,12 +47,12 @@ public class LoginPresenter implements EventListerners{
     }
 
     private void login() {
-        String name = this.view.getTxtUserName().getText();
-        String password = String.valueOf(this.view.getTxtPassword().getPassword());
+        String name = this.view.getTxtNomeUsuario().getText();
+        String password = String.valueOf(this.view.getTxtSenha().getPassword());
 
         try {
             if (!UsuarioLogadoService.getInstance().login(name, password)) {
-                view.getLblInvalidUserNameOrPassword().setVisible(true);
+                view.getLblNomeDeUsuarioOuSenhaInvalidos().setVisible(true);
             } 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -68,7 +68,7 @@ public class LoginPresenter implements EventListerners{
     private void fechar() {
         view.dispose();
         if (!UsuarioLogadoService.getInstance().userLogged()) {
-            new OptionAcessesPresenter();
+            new OpcoesAcessoPresenter();
         }
     }
 

@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.presenter.RegisterUserPresenter;
+import com.ufes.sofwareacessousuario.presenter.RegistrarUsuarioPresenter;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.ufes.sofwareacessousuario.presenter.RegisterUserPresenter;
 public class AdicionarUsuario implements Command{
 
     public void executar() {
-        new RegisterUserPresenter();
+        new RegistrarUsuarioPresenter();
     }
     
 }

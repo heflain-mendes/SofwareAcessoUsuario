@@ -26,7 +26,7 @@ public class VerificacoesRegistro {
         this.recusasSenha = recusasSenha;
     }
 
-    public boolean isNomeEmUso() {
+    public boolean nomeEstaEmUso() {
         return nomeEmUso;
     }
 

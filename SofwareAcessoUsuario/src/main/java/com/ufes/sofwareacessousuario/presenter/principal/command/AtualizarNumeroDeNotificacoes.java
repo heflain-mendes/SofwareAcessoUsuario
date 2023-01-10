@@ -20,7 +20,7 @@ public class AtualizarNumeroDeNotificacoes implements Command{
     }
 
     public void executar() {
-        view.getBtnAmountNotifications().setText(String.valueOf(UsuarioLogadoService.getInstance().getQtdNotificacoesNaoLida()));
+        view.getBtnQtdNotificacoes().setText(String.valueOf(UsuarioLogadoService.getInstance().getQtdNotificacoesNaoLida()));
     }
     
 }

@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
-import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AtualizarNumeroDeNotificacoes;
 import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
 
@@ -17,23 +17,22 @@ public class CarregandoPainelInferior extends PrincipalPresenterState {
     public CarregandoPainelInferior(PrincipalPresenter presenter) {
         super(presenter);
 
-        presenter.view.getLblUserName().setText(UsuarioLogadoService.getInstance().getNome()
+        presenter.view.getLblNomeUsuario().setText(UsuarioLogadoService.getInstance().getNome()
         );
 
         UsuarioLogadoService usuario = UsuarioLogadoService.getInstance();
 
-        presenter.view.getLblUserType().setText(usuario.getType() == UserRetorno.ADMINISTERED ? "ADMINISTRADOR" : "USER"
-        );
+        presenter.view.getLblTipoUsuario().setText(usuario.getType().toUpperCase());
         
-        presenter.view.getPnlBottom().setVisible(true);
-        presenter.view.getBtnAmountNotifications().setVisible(true);
+        presenter.view.getPnlInferior().setVisible(true);
+        presenter.view.getBtnQtdNotificacoes().setVisible(true);
 
-        if (usuario.getType() == UserRetorno.ADMINISTERED) {
+        if (usuario.getType() == UsuarioRetorno.ADMINISTRADOR) {
             new AtualizarNumeroDeNotificacoes(presenter.view).executar();
             new AdministradorLogado(presenter);
         } else {
-            if(usuario.getState().equals(UserRetorno.UNAUTORIZED)){
-                presenter.view.getBtnAmountNotifications().setVisible(false);
+            if(usuario.getState().equals(UsuarioRetorno.DESAUTORIZADO)){
+                presenter.view.getBtnQtdNotificacoes().setVisible(false);
                 new UsuarioNaoAutorizado(presenter);
             }else{
                 new AtualizarNumeroDeNotificacoes(presenter.view).executar();

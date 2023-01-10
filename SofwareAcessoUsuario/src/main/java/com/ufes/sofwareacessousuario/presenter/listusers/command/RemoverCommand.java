@@ -4,18 +4,18 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
-import com.ufes.sofwareacessousuario.presenter.listusers.UserTable;
-import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
+import com.ufes.sofwareacessousuario.presenter.listusers.UsuarioTable;
+import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
 import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
-import com.ufes.sofwareacessousuario.view.ListUserView;
+import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
  *
  * @author heflainrmendes
  */
-public class RemoverCommand extends ListUserCommand {
+public class RemoverCommand extends ListarUsuariosCommand {
 
-    public RemoverCommand(ListUserPresenter presenter, ListUserView view, UserTable model) {
+    public RemoverCommand(ListaUsuarioPresenter presenter, ListaUsuarioView view, UsuarioTable model) {
         super(presenter, view, model);
     }
 

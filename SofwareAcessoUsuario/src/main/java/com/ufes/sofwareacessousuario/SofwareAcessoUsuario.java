@@ -2,6 +2,7 @@ package com.ufes.sofwareacessousuario;
 
 import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -20,11 +21,14 @@ public class SofwareAcessoUsuario {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Não foi possivel alterar o layout");
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Não foi possivel aplicar tema",
+                    "informação sobre tema",
+                    JOptionPane.INFORMATION_MESSAGE
+               );
         }
 
-        new PrincipalPresenter();
-        
-        
+        new PrincipalPresenter();   
     }
 }

@@ -4,40 +4,40 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications.command;
 
-import com.ufes.sofwareacessousuario.presenter.notifications.NotificationTable;
-import com.ufes.sofwareacessousuario.dao.service.NotificationRetorno;
+import com.ufes.sofwareacessousuario.presenter.notifications.NotificacaoTable;
+import com.ufes.sofwareacessousuario.dao.service.NotificacaoRetorno;
 import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
-import com.ufes.sofwareacessousuario.view.NotificationsView;
+import com.ufes.sofwareacessousuario.view.NotificacaoView;
 
 /**
  *
  * @author Heflain
  */
-public class LerCommand implements NotificationsCommand {
+public class LerCommand implements NotificacaoCommand {
 
     @Override
-    public void executar(NotificationsView view, NotificationTable table) {
+    public void executar(NotificacaoView view, NotificacaoTable table) {
         int linha = view.getTblNotificacoes().getSelectedRow();
         if (linha == -1) {
             return;
         }
 
-        view.getTxtAuthor().setEnabled(true);
-        view.getTxtAuthor().setText(
+        view.getTxtAutor().setEnabled(true);
+        view.getTxtAutor().setText(
                 String.valueOf(view.getTblNotificacoes().getValueAt(linha, 0))
         );
-        view.getTxtAuthor().setEnabled(false);
+        view.getTxtAutor().setEnabled(false);
 
-        view.getTxtSubject().setEnabled(true);
-        view.getTxtSubject().setText(
+        view.getTxtSujeito().setEnabled(true);
+        view.getTxtSujeito().setText(
                 String.valueOf(view.getTblNotificacoes().getValueAt(linha, 1))
         );
-        view.getTxtSubject().setEnabled(false);
+        view.getTxtSujeito().setEnabled(false);
 
-        view.getTxtMenssage().setEnabled(true);
-        view.getTxtMenssage().setText(table.getMensagem(linha)
+        view.getTxtMenssagem().setEnabled(true);
+        view.getTxtMenssagem().setText(table.getMensagem(linha)
         );
-        view.getTxtMenssage().setEnabled(false);
+        view.getTxtMenssagem().setEnabled(false);
         
         UsuarioLogadoService.getInstance().marcaComoLida(table.getNotification(linha));
     }

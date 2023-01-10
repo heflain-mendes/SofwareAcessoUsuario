@@ -18,7 +18,7 @@ import com.ufes.sofwareacessousuario.presenter.listusers.command.RemoverCommand;
  */
 public class TabelaCarregadaState extends ListUserPresenterState implements EventListerners {
 
-    public TabelaCarregadaState(ListUserPresenter presenter) {
+    public TabelaCarregadaState(ListaUsuarioPresenter presenter) {
         super(presenter);
 
         view.getBtnAutorizar().setEnabled(true);

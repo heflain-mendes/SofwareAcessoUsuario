@@ -4,17 +4,17 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
-import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
-import com.ufes.sofwareacessousuario.presenter.listusers.UserTable;
-import com.ufes.sofwareacessousuario.view.ListUserView;
+import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
+import com.ufes.sofwareacessousuario.presenter.listusers.UsuarioTable;
+import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
  *
  * @author Heflain
  */
-public class FecharCommand extends ListUserCommand{
+public class FecharCommand extends ListarUsuariosCommand{
 
-    public FecharCommand(ListUserPresenter presenter, ListUserView view, UserTable model) {
+    public FecharCommand(ListaUsuarioPresenter presenter, ListaUsuarioView view, UsuarioTable model) {
         super(presenter, view, model);
     }
 

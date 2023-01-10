@@ -4,19 +4,19 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
-import com.ufes.sofwareacessousuario.dao.service.UserRetorno;
-import com.ufes.sofwareacessousuario.presenter.listusers.UserTable;
-import com.ufes.sofwareacessousuario.presenter.listusers.ListUserPresenter;
+import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
+import com.ufes.sofwareacessousuario.presenter.listusers.UsuarioTable;
+import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
 import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
-import com.ufes.sofwareacessousuario.view.ListUserView;
+import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
  *
  * @author heflainrmendes
  */
-public class AutorizarUsuarioCommand extends ListUserCommand {
+public class AutorizarUsuarioCommand extends ListarUsuariosCommand {
 
-    public AutorizarUsuarioCommand(ListUserPresenter presenter, ListUserView view, UserTable model) {
+    public AutorizarUsuarioCommand(ListaUsuarioPresenter presenter, ListaUsuarioView view, UsuarioTable model) {
         super(presenter, view, model);
     }
 
@@ -25,7 +25,7 @@ public class AutorizarUsuarioCommand extends ListUserCommand {
             return;
         }
         
-        UserRetorno u = model.getUser(
+        UsuarioRetorno u = model.getUser(
                 view.getTblUsuarios().getSelectedRow()
         );
         

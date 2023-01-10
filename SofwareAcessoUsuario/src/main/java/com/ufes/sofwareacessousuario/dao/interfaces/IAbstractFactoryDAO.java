@@ -9,7 +9,7 @@ package com.ufes.sofwareacessousuario.dao.interfaces;
  * @author Heflain
  */
 public interface IAbstractFactoryDAO {
-    public INotificationDAOProxy criarNotificationDAO(String caminho) throws Exception;
-    public IUserDAOProxy criarUserDAO(String caminho) throws Exception;
+    public INotificacoesDAO criarNotificationDAO(String caminho) throws Exception;
+    public IUsuarioDAOProxy criarUserDAO(String caminho) throws Exception;
     public String getTipoPersistencia();
 }

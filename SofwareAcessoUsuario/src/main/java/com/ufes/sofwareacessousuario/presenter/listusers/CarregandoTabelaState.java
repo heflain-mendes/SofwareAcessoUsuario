@@ -10,7 +10,7 @@ package com.ufes.sofwareacessousuario.presenter.listusers;
  */
 public class CarregandoTabelaState extends ListUserPresenterState{
 
-    public CarregandoTabelaState(ListUserPresenter presenter) {
+    public CarregandoTabelaState(ListaUsuarioPresenter presenter) {
         super(presenter);
         
         view.getBtnAutorizar().setEnabled(false);

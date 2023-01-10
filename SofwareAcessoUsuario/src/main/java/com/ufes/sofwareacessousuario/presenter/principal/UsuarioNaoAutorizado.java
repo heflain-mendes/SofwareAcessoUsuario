@@ -16,13 +16,13 @@ public class UsuarioNaoAutorizado extends PrincipalPresenterState{
     public UsuarioNaoAutorizado(PrincipalPresenter presenter) {
         super(presenter);
         
-        presenter.view.getBtnChangePassword().setEnabled(false);
-        presenter.view.getBtnViewNotificaition().setEnabled(false);
-        presenter.view.getBtnChangePassword().setVisible(false);
-        presenter.view.getBtnViewNotificaition().setVisible(false);
+        presenter.view.getBtnAlterarSenha().setEnabled(false);
+        presenter.view.getBtnVerNotificacoes().setEnabled(false);
+        presenter.view.getBtnAlterarSenha().setVisible(false);
+        presenter.view.getBtnVerNotificacoes().setVisible(false);
         
-        presenter.view.getBtnUser().setVisible(true);
-        presenter.view.getBtnUser().setEnabled(true);
+        presenter.view.getBtnUsuario().setVisible(true);
+        presenter.view.getBtnUsuario().setEnabled(true);
         
         presenter.view.getPnlPrincipal().removeAll();
         

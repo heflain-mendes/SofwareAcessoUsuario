@@ -4,18 +4,18 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.view.ListUserView;
+import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
  *
  * @author heflainrmendes
  */
 public abstract class ListUserPresenterState {
-    protected ListUserPresenter presenter;
-    protected ListUserView view;
-    protected UserTable model;
+    protected ListaUsuarioPresenter presenter;
+    protected ListaUsuarioView view;
+    protected UsuarioTable model;
 
-    public ListUserPresenterState(ListUserPresenter presenter) {
+    public ListUserPresenterState(ListaUsuarioPresenter presenter) {
         this.presenter = presenter;
         this.view = presenter.getView();
         this.model = presenter.getModel();

@@ -23,16 +23,16 @@ public class AdministradorLogado extends PrincipalPresenterState implements Even
     public AdministradorLogado(PrincipalPresenter presenter) {
         super(presenter);
         
-        presenter.view.getBtnChangePassword().setEnabled(true);
-        presenter.view.getBtnViewNotificaition().setEnabled(true);
-        presenter.view.getBtnChangePassword().setVisible(true);
-        presenter.view.getBtnViewNotificaition().setVisible(true);
+        presenter.view.getBtnAlterarSenha().setEnabled(true);
+        presenter.view.getBtnVerNotificacoes().setEnabled(true);
+        presenter.view.getBtnAlterarSenha().setVisible(true);
+        presenter.view.getBtnVerNotificacoes().setVisible(true);
         
-        presenter.view.getBtnAdmin().setVisible(true);
-        presenter.view.getBtnAdmin().setEnabled(true);
+        presenter.view.getBtnAdiministrador().setVisible(true);
+        presenter.view.getBtnAdiministrador().setEnabled(true);
         
-        presenter.view.getBtnUser().setVisible(true);
-        presenter.view.getBtnUser().setEnabled(true);
+        presenter.view.getBtnUsuario().setVisible(true);
+        presenter.view.getBtnUsuario().setEnabled(true);
         
         UsuarioLogadoService.getInstance().subcribe(this);
     }

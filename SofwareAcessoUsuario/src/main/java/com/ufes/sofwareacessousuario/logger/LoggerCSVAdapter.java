@@ -16,21 +16,21 @@ import java.util.List;
 public class LoggerCSVAdapter extends LoggerAdapter{
 
     private LogCSVAdapter adapter;
-    private LoggerConversorMyProjectAdapter conversor;
+    private ConversorLog conversor;
 
     public LoggerCSVAdapter(String caminho) {
-        conversor = new LoggerConversorMyProjectAdapter();
+        conversor = new ConversorLog();
         adapter = new LogCSVAdapter(openFile(caminho + ".csv"));
     }
 
     @Override
     public void escrever(SystemLog... log) throws IOException {
-        adapter.escrever(conversor.converteLog(log));
+        adapter.escrever(conversor.converterLog(log));
     }
 
     @Override
     public List<SystemLog> exportaTodos() throws IOException {
-        return conversor.converteLog(adapter.exportaTodos().toArray(new Log[0]));
+        return conversor.converterLog(adapter.exportaTodos().toArray(new Log[0]));
     }
 
     @Override

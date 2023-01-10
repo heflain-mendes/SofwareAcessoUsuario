@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.presenter.ConfigurationPresenter;
+import com.ufes.sofwareacessousuario.presenter.ConfiguracaoPresenter;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.ufes.sofwareacessousuario.presenter.ConfigurationPresenter;
 public class AbrirConfiguracoes implements Command{
 
     public void executar() {
-        new ConfigurationPresenter();
+        new ConfiguracaoPresenter();
     }
     
 }

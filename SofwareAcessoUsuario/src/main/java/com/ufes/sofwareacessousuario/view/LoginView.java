@@ -44,9 +44,9 @@ public class LoginView extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Login");
 
-        jLabel1.setText("User name:");
+        jLabel1.setText("nome de Usuário:");
 
-        jLabel2.setText("Password:");
+        jLabel2.setText("Senha:");
 
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,10 +56,10 @@ public class LoginView extends javax.swing.JInternalFrame {
 
         btnLogin.setText("Login");
 
-        lblInvalidUserNameOrPassword.setText("Invalid user name or password");
+        lblInvalidUserNameOrPassword.setText("nome ou senha invalidos");
         lblInvalidUserNameOrPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        btnFechar.setText("Close");
+        btnFechar.setText("Fechar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,15 +131,15 @@ public class LoginView extends javax.swing.JInternalFrame {
         return btnLogin;
     }
 
-    public JLabel getLblInvalidUserNameOrPassword() {
+    public JLabel getLblNomeDeUsuarioOuSenhaInvalidos() {
         return lblInvalidUserNameOrPassword;
     }
 
-    public JPasswordField getTxtPassword() {
+    public JPasswordField getTxtSenha() {
         return txtPassword;
     }
 
-    public JTextField getTxtUserName() {
+    public JTextField getTxtNomeUsuario() {
         return txtUserName;
     }
 

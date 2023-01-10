@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
-import com.ufes.sofwareacessousuario.presenter.OptionAcessesPresenter;
+import com.ufes.sofwareacessousuario.presenter.OpcoesAcessoPresenter;
 import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
 
 /**
@@ -17,17 +17,17 @@ public class UsuarioDeslogado extends PrincipalPresenterState implements EventLi
     public UsuarioDeslogado(PrincipalPresenter presenter) {
         super(presenter);
         
-        presenter.view.getBtnAdmin().setVisible(false);
-        presenter.view.getBtnAdmin().setEnabled(false);
+        presenter.view.getBtnAdiministrador().setVisible(false);
+        presenter.view.getBtnAdiministrador().setEnabled(false);
         
-        presenter.view.getBtnUser().setVisible(false);
-        presenter.view.getBtnUser().setEnabled(false);
+        presenter.view.getBtnUsuario().setVisible(false);
+        presenter.view.getBtnUsuario().setEnabled(false);
         
-        presenter.view.getPnlBottom().setVisible(false);
+        presenter.view.getPnlInferior().setVisible(false);
         
         UsuarioLogadoService.getInstance().subcribe(this);
         
-        new OptionAcessesPresenter();
+        new OpcoesAcessoPresenter();
     }
 
     @Override

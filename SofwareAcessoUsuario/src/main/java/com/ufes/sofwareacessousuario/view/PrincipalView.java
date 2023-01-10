@@ -110,10 +110,10 @@ public class PrincipalView extends javax.swing.JFrame {
         menuBar.setPreferredSize(new java.awt.Dimension(91, 40));
 
         btnUser.setMnemonic('f');
-        btnUser.setText("User");
+        btnUser.setText("Usuario");
 
         btnChangePassword.setMnemonic('o');
-        btnChangePassword.setText("change password");
+        btnChangePassword.setText("Alterar senha");
         btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangePasswordActionPerformed(evt);
@@ -122,10 +122,10 @@ public class PrincipalView extends javax.swing.JFrame {
         btnUser.add(btnChangePassword);
 
         btnViewNotificaition.setMnemonic('s');
-        btnViewNotificaition.setText("view notification");
+        btnViewNotificaition.setText("Ver notificações");
         btnUser.add(btnViewNotificaition);
 
-        btnLogout.setText("logout");
+        btnLogout.setText("Sair");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -136,10 +136,10 @@ public class PrincipalView extends javax.swing.JFrame {
         menuBar.add(btnUser);
 
         btnAdmin.setMnemonic('e');
-        btnAdmin.setText("Admin");
+        btnAdmin.setText("Administrador");
 
         btnListUsers.setMnemonic('t');
-        btnListUsers.setText("list users");
+        btnListUsers.setText("Listar Usuários");
         btnListUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListUsersActionPerformed(evt);
@@ -148,10 +148,10 @@ public class PrincipalView extends javax.swing.JFrame {
         btnAdmin.add(btnListUsers);
 
         btnAddUser.setMnemonic('y');
-        btnAddUser.setText("add user");
+        btnAddUser.setText("Add usuário");
         btnAdmin.add(btnAddUser);
 
-        btnConfig.setText("config");
+        btnConfig.setText("Configuraçoes");
         btnAdmin.add(btnConfig);
 
         menuBar.add(btnAdmin);
@@ -213,19 +213,19 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JDesktopPane pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 
-    public JMenuItem getBtnAddUser() {
+    public JMenuItem getBtnAddUsuario() {
         return btnAddUser;
     }
 
-    public JMenu getBtnAdmin() {
+    public JMenu getBtnAdiministrador() {
         return btnAdmin;
     }
 
-    public JButton getBtnAmountNotifications() {
+    public JButton getBtnQtdNotificacoes() {
         return btnAmountNotifications;
     }
 
-    public JMenuItem getBtnChangePassword() {
+    public JMenuItem getBtnAlterarSenha() {
         return btnChangePassword;
     }
 
@@ -233,27 +233,27 @@ public class PrincipalView extends javax.swing.JFrame {
         return btnConfig;
     }
 
-    public JMenuItem getBtnLogout() {
+    public JMenuItem getBtnSair() {
         return btnLogout;
     }
 
-    public JMenuItem getBtnListUsers() {
+    public JMenuItem getBtnListarUsuario() {
         return btnListUsers;
     }
 
-    public JMenu getBtnUser() {
+    public JMenu getBtnUsuario() {
         return btnUser;
     }
 
-    public JMenuItem getBtnViewNotificaition() {
+    public JMenuItem getBtnVerNotificacoes() {
         return btnViewNotificaition;
     }
 
-    public JLabel getLblUserName() {
+    public JLabel getLblNomeUsuario() {
         return lblUserName;
     }
 
-    public JLabel getLblUserType() {
+    public JLabel getLblTipoUsuario() {
         return lblUserType;
     }
 
@@ -261,7 +261,7 @@ public class PrincipalView extends javax.swing.JFrame {
         return pnlPrincipal;
     }
 
-    public JPanel getPnlBottom() {
+    public JPanel getPnlInferior() {
         return pnlBottom;
     }
     

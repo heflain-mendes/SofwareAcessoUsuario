@@ -10,14 +10,14 @@ import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
  *
  * @author Heflain
  */
-public class CarregandoTabela extends NotificationsPresenterState{
+public class CarregandoTabela extends NotificacaoPresenterState{
 
-    public CarregandoTabela(NotificationsPresenter presenter) {
+    public CarregandoTabela(NotificacaoPresenter presenter) {
         super(presenter);
         
-        presenter.view.getTxtAuthor().setEnabled(false);
-        presenter.view.getTxtMenssage().setEnabled(false);
-        presenter.view.getTxtSubject().setEnabled(false);
+        presenter.view.getTxtAutor().setEnabled(false);
+        presenter.view.getTxtMenssagem().setEnabled(false);
+        presenter.view.getTxtSujeito().setEnabled(false);
         
         presenter.view.getBtnLer().setEnabled(false);
         
