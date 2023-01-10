@@ -23,6 +23,7 @@ public class Deslogar implements Command{
         this.view = view;
     }
 
+    @Override
     public void executar() {
         view.getPnlPrincipal().removeAll();
         UsuarioLogadoService.getInstance().logout();

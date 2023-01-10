@@ -12,6 +12,7 @@ import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
  * @author Heflain
  */
 public class ListarUsuarios implements Command{
+    @Override
     public void executar() {
         new ListaUsuarioPresenter();
     }

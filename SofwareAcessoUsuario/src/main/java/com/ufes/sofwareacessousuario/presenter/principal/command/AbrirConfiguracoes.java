@@ -12,7 +12,7 @@ import com.ufes.sofwareacessousuario.presenter.ConfiguracaoPresenter;
  * @author Heflain
  */
 public class AbrirConfiguracoes implements Command{
-
+    @Override
     public void executar() {
         new ConfiguracaoPresenter();
     }

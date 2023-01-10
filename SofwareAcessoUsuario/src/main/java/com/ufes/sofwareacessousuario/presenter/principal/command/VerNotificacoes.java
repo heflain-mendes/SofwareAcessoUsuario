@@ -12,7 +12,7 @@ import com.ufes.sofwareacessousuario.presenter.notifications.NotificacaoPresente
  * @author Heflain
  */
 public class VerNotificacoes implements Command{
-
+    @Override
     public void executar() {
         new NotificacaoPresenter();
     }

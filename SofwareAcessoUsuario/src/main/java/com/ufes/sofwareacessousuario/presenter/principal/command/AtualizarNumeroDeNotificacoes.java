@@ -19,6 +19,7 @@ public class AtualizarNumeroDeNotificacoes implements Command{
         this.view = view;
     }
 
+    @Override
     public void executar() {
         view.getBtnQtdNotificacoes().setText(String.valueOf(UsuarioLogadoService.getInstance().getQtdNotificacoesNaoLida()));
     }
