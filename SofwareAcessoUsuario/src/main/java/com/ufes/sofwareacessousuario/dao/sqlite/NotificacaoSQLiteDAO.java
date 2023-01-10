@@ -73,28 +73,28 @@ public class NotificacaoSQLiteDAO implements INotificacoesDAO {
         }
     }
 
-    @Override
-    public int getQtdNotificacoes(UsuarioRetorno user) throws Exception {
-        String sql = "SELECT COUNT(id) FROM notificacoes WHERE idreceptor = ? AND estado = ?;";
-
-        try (
-                Connection conn = DriverManager.getConnection(caminho); 
-                PreparedStatement ps = conn.prepareStatement(sql)
-                ) {
-            
-            ps.setLong(1, user.getId());
-            ps.setInt(2, Notificacao.NAO_LIDO);
-            
-            try(ResultSet rs = ps.executeQuery()){
-                rs.next();
-                return rs.getInt(1);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new Exception("Não foi possivel obter quantidade de notificações  recebidas pelo usuário: "
-                    + user.getNome());
-        }
-    }
+//    @Override
+//    public int getQtdNotificacoes(UsuarioRetorno user) throws Exception {
+//        String sql = "SELECT COUNT(id) FROM notificacoes WHERE idreceptor = ? AND estado = ?;";
+//
+//        try (
+//                Connection conn = DriverManager.getConnection(caminho); 
+//                PreparedStatement ps = conn.prepareStatement(sql)
+//                ) {
+//            
+//            ps.setLong(1, user.getId());
+//            ps.setInt(2, Notificacao.NAO_LIDO);
+//            
+//            try(ResultSet rs = ps.executeQuery()){
+//                rs.next();
+//                return rs.getInt(1);
+//            }
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//            throw new Exception("Não foi possivel obter quantidade de notificações  recebidas pelo usuário: "
+//                    + user.getNome());
+//        }
+//    }
 
     @Override
     public List<NotificacaoDTO> getNotificacoes(UsuarioRetorno user) throws Exception {

@@ -13,6 +13,7 @@ import com.ufes.sofwareacessousuario.presenter.RegistrarUsuarioPresenter;
  */
 public class AdicionarUsuario implements Command{
 
+    @Override
     public void executar() {
         new RegistrarUsuarioPresenter();
     }

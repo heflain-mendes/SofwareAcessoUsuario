@@ -51,6 +51,7 @@ public class UsuariosDAOService implements EventListerners {
         IAbstractFactoryDAO fabrica = new ConfiguracaoBD().getFabrica(SGDB);
         try {
             usuarioDAO = fabrica.criarUserDAO(caminho);
+            usuarios = usuarioDAO.getUsuarios();
             notificacoesDAO = fabrica.criarNotificationDAO(caminho);
             usuarioLogado.subcribe(this);
         } catch (Exception ex) {
@@ -314,40 +315,18 @@ public class UsuariosDAOService implements EventListerners {
 
     public void update(String mensagem) {
         if (UsuarioLogadoService.USUARIO_DESLOGADO.equals(mensagem)) {
-            try {
-                usuarios.clear();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(
-                        null,
-                        ex.getMessage(),
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE
-                );
-            }
+            usuarios.add(usuarioLogado.getUser());
         } else if (mensagem.equals(UsuarioLogadoService.USUARIO_LOGADO)) {
-            try {
-                if (usuarioLogado.getState().equals(UsuarioRetorno.AUTORIZADO)) {
-                    usuarios = usuarioDAO.getUsuarios();
-                    var user = usuarioLogado.getUser();
-                    for(var u : usuarios){
-                        if(u.getId() == user.getId()){
-                            usuarios.remove(u);
-                            break;
-                        }
+            var user = usuarioLogado.getUser();
+                for(var u : usuarios){
+                    if(u.getId() == user.getId()){
+                        usuarios.remove(u);
+                        break;
                     }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(
-                        null,
-                        ex.getMessage(),
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE
-                );
+                };
             }
         }
-    }
+    
 
     private void falhaDeSeguranca(String mensagem) {
         JOptionPane.showMessageDialog(

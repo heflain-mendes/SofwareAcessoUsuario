@@ -20,8 +20,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import com.ufes.sofwareacessousuario.dao.interfaces.INotificacoesDAO;
 import com.ufes.sofwareacessousuario.dao.interfaces.IUsuarioDAOProxy;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Gerencia o usuario logado, seus dados e notificaçoes
@@ -202,10 +200,10 @@ public class UsuarioLogadoService {
 
             if (user != null) {
                 this.user = user;
-                eventManager.notify(USUARIO_LOGADO);
                 if(user.getEstado().equals(UsuarioRetorno.AUTORIZADO)){
                     carregarListaNotificacoes();
                 }
+                eventManager.notify(USUARIO_LOGADO);
                 return true;
             }
         } catch (Exception ex) {
@@ -247,33 +245,14 @@ public class UsuarioLogadoService {
     }
 
     public int getQtdNotificacoesNaoLida() {
-        if (this.user.getEstado().equals(UsuarioRetorno.DESAUTORIZADO)) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "O usuário "
-                    + this.user.getNome()
-                    + " não possui permissão para saber a quantidade de"
-                    + " notificações recebidas"
-                    + "\nO sistema será encerrado",
-                    "Falha de segurança",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            System.exit(1);
-        }
-
-        try {
-            return notificacoesDAO.getQtdNotificacoes(this.user);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    null,
-                    ex.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-            );
+        int i = 0;
+        for(var n : notificacoes){
+            if(n.getEstado().equals(NotificacaoRetorno.NAO_LIDO)){
+                i++;
+            }
         }
         
-        return 0;
+        return i;
     }
 
     public List<NotificacaoRetorno> getNotifications() {
