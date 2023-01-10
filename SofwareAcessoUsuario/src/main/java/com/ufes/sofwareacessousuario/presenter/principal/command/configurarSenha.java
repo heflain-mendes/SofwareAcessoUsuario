@@ -12,6 +12,7 @@ import com.ufes.sofwareacessousuario.presenter.AtualizarUsuarioPresenter;
  * @author Heflain
  */
 public class ConfigurarSenha implements Command{
+    @Override
     public void executar() {
         new AtualizarUsuarioPresenter();
     }
