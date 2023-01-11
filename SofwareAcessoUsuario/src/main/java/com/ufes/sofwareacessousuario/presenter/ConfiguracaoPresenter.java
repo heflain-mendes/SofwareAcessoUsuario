@@ -5,9 +5,10 @@
 package com.ufes.sofwareacessousuario.presenter;
 
 import com.ufes.sofwareacessousuario.logger.LogService;
-import com.ufes.sofwareacessousuario.configuracao.ArquivoDeCofiguracaoService;
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+import com.ufes.sofwareacessousuario.util.ArquivoDeCofiguracaoService;
 import com.ufes.sofwareacessousuario.view.ConfiguracaoView;
+import com.ufes.sofwareacessousuario.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -19,9 +20,11 @@ import javax.swing.JOptionPane;
  */
 public class ConfiguracaoPresenter {
 
+    private PrincipalPresenter principalPresenter;
     private ConfiguracaoView view;
 
-    public ConfiguracaoPresenter() {
+    public ConfiguracaoPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         view = new ConfiguracaoView();
 
         List<String> opc = LogService.getInstance().getOpcoesLog();
@@ -40,7 +43,7 @@ public class ConfiguracaoPresenter {
             }
         });
 
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
         view.setVisible(true);
     }
 
@@ -60,5 +63,6 @@ public class ConfiguracaoPresenter {
 
         }
         view.dispose();
+        principalPresenter.removerView(view);
     }
 }

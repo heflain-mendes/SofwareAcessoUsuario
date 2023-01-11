@@ -1,47 +1,42 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.ufes.sofwareacessousuario.dao.service;
+package com.ufes.sofwareacessousuario.util;
 
-import com.ufes.sofwareacessousuario.dao.interfaces.IAbstractFactoryDAO;
+import com.ufes.sofwareacessousuario.util.ArquivoDeCofiguracaoService;
+import com.ufes.sofwareacessousuario.dao.IAbstractFactoryDAO;
+import com.ufes.sofwareacessousuario.dao.INotificacoesDAO;
 import com.ufes.sofwareacessousuario.logger.LogService;
 import com.ufes.sofwareacessousuario.logger.SystemLog;
+import com.ufes.sofwareacessousuario.model.Notificacao;
 import com.ufes.sofwareacessousuario.model.UsuarioRegistro;
+import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
-import com.ufes.sofwareacessousuario.configuracao.ArquivoDeCofiguracaoService;
+import com.ufes.sofwareacessousuario.validacaonome.ValidadorNome;
+import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
-import com.ufes.sofwareacessousuario.model.Notificacao;
-import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
-import com.ufes.sofwareacessousuario.validacaonome.ValidadorNome;
-import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
-import com.ufes.sofwareacessousuario.dao.interfaces.INotificacoesDAO;
-import com.ufes.sofwareacessousuario.dao.interfaces.IUsuarioDAOProxy;
+import com.ufes.sofwareacessousuario.dao.IUsuarioDAO;
+import com.ufes.sofwareacessousuario.dao.ConfiguracaoBD;
+
 /**
- * gerencias as daos
  *
- * @author heflainrmendes
+ * @author Heflain
  */
-public class UsuariosDAOService implements EventListerners {
-
-    public static final String USUARIO_ADICIONADO = "usuário adiciondo";
-    public static final String USUARIO_REMOVIDO = "usuario removido";
-    public static final String USUARIO_AUTORIZADO = "usuario autorizado";
-
-    private static UsuariosDAOService instance;
-    private IUsuarioDAOProxy usuarioDAO;
+class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
+    private IUsuarioDAO usuarioDAO;
     private INotificacoesDAO notificacoesDAO;
     private List<UsuarioRetorno> usuarios;
     private EventManager eventManager;
-    private UsuarioLogadoService usuarioLogado;
+    private UsuarioLogadoServiceProxy usuarioLogado;
 
-    private UsuariosDAOService() {
+    UsuariosDAOServiceReal() {
         eventManager = new EventManager();
-        usuarioLogado = UsuarioLogadoService.getInstance();
+        usuarioLogado = UsuarioLogadoServiceProxy.getInstance();
         String caminho = ArquivoDeCofiguracaoService.getInstance().getConfiguracao(ArquivoDeCofiguracaoService.CAMINHO_BD
         );
 
@@ -53,7 +48,6 @@ public class UsuariosDAOService implements EventListerners {
             usuarioDAO = fabrica.criarUserDAO(caminho);
             usuarios = usuarioDAO.getUsuarios();
             notificacoesDAO = fabrica.criarNotificationDAO(caminho);
-            usuarioLogado.subcribe(this);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -65,69 +59,38 @@ public class UsuariosDAOService implements EventListerners {
         }
     }
 
-    public static UsuariosDAOService getInstance() {
-        if (instance == null) {
-            instance = new UsuariosDAOService();
-        }
-
-        return instance;
-    }
-
+    @Override
     public void subcribe(EventListerners listerners) {
         eventManager.subscribe(listerners);
     }
 
+    @Override
     public void unsubcribe(EventListerners listerners) {
         eventManager.unsubcribe(listerners);
     }
 
-    public boolean possuiCadastrosDeUsuario() {
-        try {
-            return usuarioDAO.possuiCadastrosDeUsuario();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    null,
-                    ex.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
-        return false;
+    @Override
+    public boolean possuiUsuariosCadastrados() {
+        return !usuarios.isEmpty();
     }
 
-    public List<UsuarioRetorno> getUsers() {
-        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
-            falhaDeSeguranca("O usuário "
-                    + usuarioLogado.getNome()
-                    + "não tem permissão está para obter lista de usuarios"
-                    + "\nO sistema será encerado");
-            System.exit(1);
-        }
+    @Override
+    public List<UsuarioRetorno> getUsuarios() {
         return Collections.unmodifiableList(usuarios);
     }
 
-    public VerificacoesRegistro registered(String name, String password) {
-        if (usuarioLogado.userLogged()) {
-            if (usuarioLogado.getType().equals(UsuarioRetorno.USUARIO)) {
-                falhaDeSeguranca("O usuário "
-                        + usuarioLogado.getNome()
-                        + "não tem permissão está para obter lista de usuarios"
-                        + "O sistema será encerado");
-                System.exit(1);
-            }
-        }
-        
+    @Override
+    public VerificacoesRegistro RegistrarUsuario(String name, String password) {
         VerificacoesRegistro verificao = new VerificacoesRegistro(
                 nomeEmUso(name),
                 new ValidadorNome().validar(name),
                 new VerificadorSenha().verificar(password)
         );
-        
-        if(verificao.possuiRecusas()){
+
+        if (verificao.possuiRecusas()) {
             return verificao;
         }
-        
+
         try {
             int state = definirEstado();
             int type = definirTipo();
@@ -141,7 +104,7 @@ public class UsuariosDAOService implements EventListerners {
                         + " aparentemente foi adicionado "
                         + "mas, não foi possivel reculpera-lo do banco de dados");
             } else {
-                if(usuarios != null){
+                if (usuarios != null) {
                     usuarios.add(u);
                 }
             }
@@ -169,13 +132,13 @@ public class UsuariosDAOService implements EventListerners {
     }
 
     private int definirEstado() throws Exception {
-        UsuarioLogadoService usuarioLogado = this.usuarioLogado;
-        if (!possuiCadastrosDeUsuario()) {
+        UsuarioLogadoServiceProxy usuarioLogado = this.usuarioLogado;
+        if (!possuiUsuariosCadastrados()) {
             //primeiro registro
             return UsuarioRegistro.AUTORIZADO;
         }
 
-        if (usuarioLogado.userLogged()) {
+        if (usuarioLogado.isLogado()) {
             if (usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
                 //um adimistrado estive registrando
                 return UsuarioRegistro.AUTORIZADO;
@@ -187,21 +150,14 @@ public class UsuariosDAOService implements EventListerners {
     }
 
     private int definirTipo() {
-        if (!possuiCadastrosDeUsuario()) {
+        if (!possuiUsuariosCadastrados()) {
             return UsuarioRegistro.ADMINISTRADOR;
         }
         return UsuarioRegistro.USUARIO;
     }
 
+    @Override
     public void autorizarUsuario(UsuarioRetorno user) {
-        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
-            falhaDeSeguranca("O usuário "
-                    + usuarioLogado.getNome()
-                    + " não tem permissão para autorizar usuario "
-                    + user.getNome()
-                    + "\nO sistema será encerado");
-            System.exit(1);
-        }
         try {
             usuarioDAO.autorizarUsuario(user);
             user.setEstado(UsuarioRetorno.AUTORIZADO);
@@ -222,15 +178,8 @@ public class UsuariosDAOService implements EventListerners {
         }
     }
 
+    @Override
     public void removerUsuario(UsuarioRetorno user) {
-        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
-            falhaDeSeguranca("O usuário "
-                    + usuarioLogado.getNome()
-                    + " não tem permissão para remover usuario "
-                    + user.getNome()
-                    + "\nO sistema será encerado");
-            System.exit(1);
-        }
         try {
             usuarioDAO.removerUsuario(user);
             usuarios.remove(user);
@@ -253,6 +202,7 @@ public class UsuariosDAOService implements EventListerners {
 
     }
 
+    @Override
     public UsuarioRetorno getUsuario(long id) {
         for (var u : usuarios) {
             if (u.getId() == id) {
@@ -263,16 +213,8 @@ public class UsuariosDAOService implements EventListerners {
         return null;
     }
 
+    @Override
     public void enviarNoticacao(UsuarioRetorno user, String assunto, String mensagem) {
-        if (!usuarioLogado.getType().equals(UsuarioRetorno.ADMINISTRADOR)) {
-            falhaDeSeguranca("O usuário "
-                    + usuarioLogado.getNome()
-                    + " não tem permissão para autorizar o usuario "
-                    + user.getNome()
-                    + "\nO sistema será encerado");
-            System.exit(1);
-        }
-
         try {
             notificacoesDAO.enviarNoticacao(new Notificacao(
                     usuarioLogado.getId(),
@@ -298,7 +240,8 @@ public class UsuariosDAOService implements EventListerners {
         }
     }
 
-    public boolean nomeEmUso(String nome){
+    @Override
+    public boolean nomeEmUso(String nome) {
         try {
             return usuarioDAO.nomeEmUso(nome);
         } catch (Exception ex) {
@@ -313,28 +256,18 @@ public class UsuariosDAOService implements EventListerners {
         return true;
     }
 
+    @Override
     public void update(String mensagem) {
-        if (UsuarioLogadoService.USUARIO_DESLOGADO.equals(mensagem)) {
+        if (UsuarioLogadoServiceProxy.USUARIO_DESLOGADO.equals(mensagem)) {
             usuarios.add(usuarioLogado.getUser());
-        } else if (mensagem.equals(UsuarioLogadoService.USUARIO_LOGADO)) {
+        } else if (mensagem.equals(UsuarioLogadoServiceProxy.USUARIO_LOGADO)) {
             var user = usuarioLogado.getUser();
-                for(var u : usuarios){
-                    if(u.getId() == user.getId()){
-                        usuarios.remove(u);
-                        break;
-                    }
-                };
-            }
+            for (var u : usuarios) {
+                if (u.getId() == user.getId()) {
+                    usuarios.remove(u);
+                    break;
+                }
+            };
         }
-    
-
-    private void falhaDeSeguranca(String mensagem) {
-        JOptionPane.showMessageDialog(
-                null,
-                mensagem,
-                "Falha de segurança",
-                JOptionPane.ERROR_MESSAGE
-        );
-        System.exit(1);
     }
 }

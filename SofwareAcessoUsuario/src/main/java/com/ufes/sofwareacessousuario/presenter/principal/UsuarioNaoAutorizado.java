@@ -4,7 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
+import com.ufes.sofwareacessousuario.presenter.principal.command.AddComponente;
 import com.ufes.sofwareacessousuario.presenter.principal.command.Deslogar;
+import com.ufes.sofwareacessousuario.presenter.principal.command.RemoverComponente;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 
 /**
@@ -63,5 +66,14 @@ public class UsuarioNaoAutorizado extends PrincipalPresenterState{
     public void deslogar() {
         new Deslogar(presenter, presenter.view).executar();
     }
-    
+
+    @Override
+    public void addComponente(Component c) {
+        new AddComponente(presenter.view, c);
+    }
+
+    @Override
+    public void removerComponente(Component c) {
+        new RemoverComponente(presenter.view, c);
+    }
 }

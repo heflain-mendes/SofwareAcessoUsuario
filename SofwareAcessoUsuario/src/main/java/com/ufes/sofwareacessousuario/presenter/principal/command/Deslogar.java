@@ -4,29 +4,27 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
-import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.presenter.principal.UsuarioDeslogado;
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.view.PrincipalView;
 
 /**
  *
  * @author Heflain
  */
-public class Deslogar implements Command{
-    private PrincipalPresenter presenter;
+public class Deslogar extends PrincipalCommand{
     private PrincipalView view;
 
-    public Deslogar(PrincipalPresenter presenter, PrincipalView view) {
-        this.presenter = presenter;
+    public Deslogar(PrincipalPresenter principalPresenter, PrincipalView view) {
+        super(principalPresenter);
         this.view = view;
     }
 
     @Override
     public void executar() {
         view.getPnlPrincipal().removeAll();
-        UsuarioLogadoService.getInstance().logout();
-        new UsuarioDeslogado(presenter);
+        UsuarioLogadoServiceProxy.getInstance().logout();
+        new UsuarioDeslogado(principalPresenter);
     }
 }

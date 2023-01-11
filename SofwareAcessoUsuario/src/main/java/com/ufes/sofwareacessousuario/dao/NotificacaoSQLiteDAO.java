@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ufes.sofwareacessousuario.dao.sqlite;
+package com.ufes.sofwareacessousuario.dao;
 
 import com.ufes.sofwareacessousuario.model.Notificacao;
 import com.ufes.sofwareacessousuario.model.NotificacaoDTO;
-import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
+import com.ufes.sofwareacessousuario.util.UsuarioRetorno;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,13 +15,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import com.ufes.sofwareacessousuario.dao.interfaces.INotificacoesDAO;
+import com.ufes.sofwareacessousuario.dao.INotificacoesDAO;
 
 /**
  *
  * @author Heflain
  */
-public class NotificacaoSQLiteDAO implements INotificacoesDAO {
+class NotificacaoSQLiteDAO implements INotificacoesDAO {
     private String caminho;
 
     public NotificacaoSQLiteDAO(String caminho) throws Exception {

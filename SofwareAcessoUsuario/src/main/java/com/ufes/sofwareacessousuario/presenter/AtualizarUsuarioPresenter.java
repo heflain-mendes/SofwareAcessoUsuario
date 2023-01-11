@@ -4,8 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.view.RegistraUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +19,10 @@ import javax.swing.JOptionPane;
 public class AtualizarUsuarioPresenter {
 
     private RegistraUsuarioView view;
+    private PrincipalPresenter principalPresenter;
 
-    public AtualizarUsuarioPresenter() {
+    public AtualizarUsuarioPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         view = new RegistraUsuarioView();
         view.setTitle("Atualizar senha");
 
@@ -28,7 +30,7 @@ public class AtualizarUsuarioPresenter {
         view.getLblInvalidPassword().setVisible(false);
         view.getLblNomeUsuarioUso().setVisible(false);
 
-        view.getTxtUserName().setText(UsuarioLogadoService.getInstance().getNome());
+        view.getTxtUserName().setText(UsuarioLogadoServiceProxy.getInstance().getNome());
         view.getTxtUserName().setEnabled(false);
 
         view.getBtnRegistre().setText("Atualizar");
@@ -46,7 +48,7 @@ public class AtualizarUsuarioPresenter {
             }
         });
 
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
         view.setVisible(true);
     }
 
@@ -59,10 +61,10 @@ public class AtualizarUsuarioPresenter {
 
         if (senhaConfere) {
             view.getLblInvalidPassword().setVisible(false);
-            recusas = UsuarioLogadoService.getInstance().atualizarSenha(senha);
+            recusas = UsuarioLogadoServiceProxy.getInstance().atualizarSenha(senha);
 
             if (recusas.isEmpty()) {
-                UsuarioLogadoService.getInstance().atualizarSenha(senha);
+                UsuarioLogadoServiceProxy.getInstance().atualizarSenha(senha);
 
                 JOptionPane.showMessageDialog(
                         null,
@@ -89,5 +91,6 @@ public class AtualizarUsuarioPresenter {
 
     private void fechar() {
         view.dispose();
+        principalPresenter.removerView(view);
     }
 }

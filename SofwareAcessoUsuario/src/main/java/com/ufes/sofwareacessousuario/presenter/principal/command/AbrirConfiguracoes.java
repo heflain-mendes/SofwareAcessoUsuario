@@ -4,17 +4,21 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
-import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.ConfiguracaoPresenter;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 
 /**
  *
  * @author Heflain
  */
-public class AbrirConfiguracoes implements Command{
-    @Override
-    public void executar() {
-        new ConfiguracaoPresenter();
+public class AbrirConfiguracoes extends PrincipalCommand{
+
+    public AbrirConfiguracoes(PrincipalPresenter principalPresenter) {
+        super(principalPresenter);
     }
     
+    @Override
+    public void executar() {
+        new ConfiguracaoPresenter(principalPresenter);
+    }
 }

@@ -5,21 +5,24 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+import com.ufes.sofwareacessousuario.view.PrincipalView;
+import java.awt.Component;
 
 /**
  *
  * @author Heflain
  */
-public class ListarUsuarios extends PrincipalCommand{
+public class AddComponente implements Command{
+    private PrincipalView view;
+    private Component c;
 
-    public ListarUsuarios(PrincipalPresenter principalPresenter) {
-        super(principalPresenter);
+    public AddComponente(PrincipalView view, Component c) {
+        this.view = view;
+        this.c = c;
     }
+
     @Override
     public void executar() {
-        new ListaUsuarioPresenter(principalPresenter);
+        view.addView(c);
     }
-    
 }

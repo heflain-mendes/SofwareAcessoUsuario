@@ -6,7 +6,10 @@ package com.ufes.sofwareacessousuario.presenter.principal;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.OpcoesAcessoPresenter;
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.presenter.principal.command.AddComponente;
+import com.ufes.sofwareacessousuario.presenter.principal.command.RemoverComponente;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
+import java.awt.Component;
 
 /**
  *
@@ -14,20 +17,20 @@ import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
  */
 public class UsuarioDeslogado extends PrincipalPresenterState implements EventListerners{
 
-    public UsuarioDeslogado(PrincipalPresenter presenter) {
-        super(presenter);
+    public UsuarioDeslogado(PrincipalPresenter Principalpresenter) {
+        super(Principalpresenter);
         
-        presenter.view.getBtnAdiministrador().setVisible(false);
-        presenter.view.getBtnAdiministrador().setEnabled(false);
+        Principalpresenter.view.getBtnAdiministrador().setVisible(false);
+        Principalpresenter.view.getBtnAdiministrador().setEnabled(false);
         
-        presenter.view.getBtnUsuario().setVisible(false);
-        presenter.view.getBtnUsuario().setEnabled(false);
+        Principalpresenter.view.getBtnUsuario().setVisible(false);
+        Principalpresenter.view.getBtnUsuario().setEnabled(false);
         
-        presenter.view.getPnlInferior().setVisible(false);
+        Principalpresenter.view.getPnlInferior().setVisible(false);
         
-        UsuarioLogadoService.getInstance().subcribe(this);
+        UsuarioLogadoServiceProxy.getInstance().subcribe(this);
         
-        new OpcoesAcessoPresenter();
+        new OpcoesAcessoPresenter(Principalpresenter);
     }
 
     @Override
@@ -62,9 +65,19 @@ public class UsuarioDeslogado extends PrincipalPresenterState implements EventLi
 
     @Override
     public void update(String mensagem) {
-        if(UsuarioLogadoService.USUARIO_LOGADO.equals(mensagem)){
-            UsuarioLogadoService.getInstance().unsubcribe(this);
+        if(UsuarioLogadoServiceProxy.USUARIO_LOGADO.equals(mensagem)){
+            UsuarioLogadoServiceProxy.getInstance().unsubcribe(this);
             new CarregandoPainelInferior(presenter);
         }
+    }
+
+    @Override
+    public void addComponente(Component c) {
+        new AddComponente(presenter.view, c).executar();
+    }
+
+    @Override
+    public void removerComponente(Component c) {
+        new RemoverComponente(presenter.view, c).executar();
     }
 }

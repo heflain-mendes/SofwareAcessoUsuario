@@ -4,6 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
+import java.awt.Component;
+
 /**
  *
  * @author heflainrmendes
@@ -22,4 +24,6 @@ public abstract class PrincipalPresenterState {
     public abstract void listarUsuario();
     public abstract void abrirConfiguracoes();
     public abstract void deslogar();
+    public abstract void addComponente(Component c);
+    public abstract void removerComponente(Component c);
 }

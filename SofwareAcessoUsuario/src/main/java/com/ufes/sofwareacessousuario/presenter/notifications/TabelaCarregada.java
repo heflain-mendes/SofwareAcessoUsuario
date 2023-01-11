@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.notifications.command.LerCommand;
 
@@ -16,7 +16,7 @@ public class TabelaCarregada extends NotificacaoPresenterState implements EventL
 
     public TabelaCarregada(NotificacaoPresenter presenter) {
         super(presenter);
-        UsuarioLogadoService.getInstance().subcribe(this);
+        UsuarioLogadoServiceProxy.getInstance().subcribe(this);
         presenter.view.getBtnLer().setEnabled(true);
     }
 
@@ -27,9 +27,9 @@ public class TabelaCarregada extends NotificacaoPresenterState implements EventL
 
     @Override
     public void update(String mensagem) {
-        if(mensagem.equals(UsuarioLogadoService.MARCADO_LIDO)){
+        if(mensagem.equals(UsuarioLogadoServiceProxy.MARCADO_LIDO)){
             new CarregandoTabela(presenter);
-            UsuarioLogadoService.getInstance().unsubcribe(this);
+            UsuarioLogadoServiceProxy.getInstance().unsubcribe(this);
         }
     }
 }

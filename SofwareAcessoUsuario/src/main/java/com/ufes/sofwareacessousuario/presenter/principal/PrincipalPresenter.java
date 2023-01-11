@@ -5,6 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal;
 
 import com.ufes.sofwareacessousuario.view.PrincipalView;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +20,6 @@ public class PrincipalPresenter {
 
     public PrincipalPresenter() {
         view = new PrincipalView();
-        PrincipalViewService.setPrincipalView(view);
 
         view.getBtnAddUsuario().addActionListener(new ActionListener() {
             @Override
@@ -75,31 +75,39 @@ public class PrincipalPresenter {
         view.setVisible(true);
     }
 
-    public void changePassword() {
+    private void changePassword() {
         state.configurarSenha();
     }
 
-    public void viewNotification() {
+    private void viewNotification() {
         state.verNotificacoes();
     }
 
-    public void addUser() {
+    private void addUser() {
         state.addUsuario();
     }
 
-    public void listUser() {
+    private void listUser() {
         state.listarUsuario();
     }
 
-    public void config() {
+    private void config() {
         state.abrirConfiguracoes();
     }
 
-    public void logout() {
+    private void logout() {
         state.deslogar();
     }
 
     void setState(PrincipalPresenterState state) {
         this.state = state;
+    }
+    
+    public void addView(Component c){
+        this.state.addComponente(c);
+    }
+    
+    public void removerView(Component c){
+        this.state.removerComponente(c);
     }
 }

@@ -6,14 +6,19 @@ package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.notifications.NotificacaoPresenter;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 
 /**
  *
  * @author Heflain
  */
-public class VerNotificacoes implements Command{
+public class VerNotificacoes extends PrincipalCommand{
+
+    public VerNotificacoes(PrincipalPresenter principalPresenter) {
+        super(principalPresenter);
+    }
     @Override
     public void executar() {
-        new NotificacaoPresenter();
+        new NotificacaoPresenter(principalPresenter);
     }
 }

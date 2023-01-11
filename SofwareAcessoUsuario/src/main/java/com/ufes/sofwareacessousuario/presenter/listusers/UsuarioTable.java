@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
+import com.ufes.sofwareacessousuario.util.UsuarioRetorno;
 import com.ufes.sofwareacessousuario.model.UsuarioRegistro;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;

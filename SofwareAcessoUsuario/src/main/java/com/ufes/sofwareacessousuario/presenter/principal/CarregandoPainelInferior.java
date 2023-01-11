@@ -4,9 +4,12 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
+import com.ufes.sofwareacessousuario.presenter.principal.command.AddComponente;
+import com.ufes.sofwareacessousuario.util.UsuarioRetorno;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AtualizarNumeroDeNotificacoes;
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.presenter.principal.command.RemoverComponente;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
+import java.awt.Component;
 
 /**
  *
@@ -17,10 +20,10 @@ public class CarregandoPainelInferior extends PrincipalPresenterState {
     public CarregandoPainelInferior(PrincipalPresenter presenter) {
         super(presenter);
 
-        presenter.view.getLblNomeUsuario().setText(UsuarioLogadoService.getInstance().getNome()
+        presenter.view.getLblNomeUsuario().setText(UsuarioLogadoServiceProxy.getInstance().getNome()
         );
 
-        UsuarioLogadoService usuario = UsuarioLogadoService.getInstance();
+        UsuarioLogadoServiceProxy usuario = UsuarioLogadoServiceProxy.getInstance();
 
         presenter.view.getLblTipoUsuario().setText(usuario.getType().toUpperCase());
         
@@ -69,5 +72,15 @@ public class CarregandoPainelInferior extends PrincipalPresenterState {
     @Override
     public void deslogar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+   @Override
+    public void addComponente(Component c) {
+        new AddComponente(presenter.view, c).executar();
+    }
+
+    @Override
+    public void removerComponente(Component c) {
+        new RemoverComponente(presenter.view, c).executar();
     }
 }

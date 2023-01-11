@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
-import com.ufes.sofwareacessousuario.dao.service.NotificacaoRetorno;
+import com.ufes.sofwareacessousuario.util.NotificacaoRetorno;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;

@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.view.PrincipalView;
 
 /**
@@ -21,7 +21,7 @@ public class AtualizarNumeroDeNotificacoes implements Command{
 
     @Override
     public void executar() {
-        view.getBtnQtdNotificacoes().setText(String.valueOf(UsuarioLogadoService.getInstance().getQtdNotificacoesNaoLida()));
+        view.getBtnQtdNotificacoes().setText(String.valueOf(UsuarioLogadoServiceProxy.getInstance().getQtdNotificacoesNaoLida()));
     }
     
 }

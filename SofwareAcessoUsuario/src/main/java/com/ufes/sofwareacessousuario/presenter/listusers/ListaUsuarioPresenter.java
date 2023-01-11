@@ -4,8 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+import com.ufes.sofwareacessousuario.util.UsuariosDAOServiceProxy;
 import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,13 +20,15 @@ public class ListaUsuarioPresenter {
     private ListaUsuarioView view;
     private UsuarioTable model;
     private ListUserPresenterState state;
+    private PrincipalPresenter principalPresenter;
     
-    public ListaUsuarioPresenter() {
+    public ListaUsuarioPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         view = new ListaUsuarioView();
         model = new UsuarioTable();
         view.getTblUsuarios().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         view.getTblUsuarios().setModel(model);
-        model.setUsers(UsuariosDAOService.getInstance().getUsers());
+        model.setUsers(UsuariosDAOServiceProxy.getInstance().getUsuarios());
         view.getBtnAutorizar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,9 +57,9 @@ public class ListaUsuarioPresenter {
             }
         });
         
-        new CarregandoTabelaState(this);
+        new CarregandoTabelaState(this, principalPresenter);
         
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
         view.setVisible(true);
     }
     

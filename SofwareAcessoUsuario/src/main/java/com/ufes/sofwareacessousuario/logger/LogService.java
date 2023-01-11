@@ -5,7 +5,7 @@
 package com.ufes.sofwareacessousuario.logger;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
-import com.ufes.sofwareacessousuario.configuracao.ArquivoDeCofiguracaoService;
+import com.ufes.sofwareacessousuario.util.ArquivoDeCofiguracaoService;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;

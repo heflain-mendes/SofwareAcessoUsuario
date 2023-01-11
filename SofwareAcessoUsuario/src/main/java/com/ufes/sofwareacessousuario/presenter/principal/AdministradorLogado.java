@@ -4,15 +4,18 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AdicionarUsuario;
 import com.ufes.sofwareacessousuario.presenter.principal.command.ConfigurarSenha;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AbrirConfiguracoes;
+import com.ufes.sofwareacessousuario.presenter.principal.command.AddComponente;
 import com.ufes.sofwareacessousuario.presenter.principal.command.ListarUsuarios;
 import com.ufes.sofwareacessousuario.presenter.principal.command.Deslogar;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AtualizarNumeroDeNotificacoes;
+import com.ufes.sofwareacessousuario.presenter.principal.command.RemoverComponente;
 import com.ufes.sofwareacessousuario.presenter.principal.command.VerNotificacoes;
+import java.awt.Component;
 
 /**
  *
@@ -34,44 +37,54 @@ public class AdministradorLogado extends PrincipalPresenterState implements Even
         presenter.view.getBtnUsuario().setVisible(true);
         presenter.view.getBtnUsuario().setEnabled(true);
         
-        UsuarioLogadoService.getInstance().subcribe(this);
+        UsuarioLogadoServiceProxy.getInstance().subcribe(this);
     }
 
     @Override
     public void configurarSenha() {
-        new ConfigurarSenha().executar();
+        new ConfigurarSenha(presenter).executar();
     }
 
     @Override
     public void verNotificacoes() {
-        new VerNotificacoes().executar();
+        new VerNotificacoes(presenter).executar();
     }
 
     @Override
     public void addUsuario() {
-        new AdicionarUsuario().executar();
+        new AdicionarUsuario(presenter).executar();
     }
 
     @Override
     public void listarUsuario() {
-        new ListarUsuarios().executar();
+        new ListarUsuarios(presenter).executar();
     }
 
     @Override
     public void abrirConfiguracoes() {
-        new AbrirConfiguracoes().executar();
+        new AbrirConfiguracoes(presenter).executar();
     }
 
     @Override
     public void deslogar() {
         new Deslogar(presenter, presenter.view).executar();
-        UsuarioLogadoService.getInstance().unsubcribe(this);
+        UsuarioLogadoServiceProxy.getInstance().unsubcribe(this);
     }
 
     @Override
     public void update(String mensagem) {
-        if(mensagem.equals(UsuarioLogadoService.MARCADO_LIDO)){
+        if(mensagem.equals(UsuarioLogadoServiceProxy.MARCADO_LIDO)){
             new AtualizarNumeroDeNotificacoes(presenter.view).executar();
         }
+    }
+
+    @Override
+    public void addComponente(Component c) {
+        new AddComponente(presenter.view, c).executar();
+    }
+
+    @Override
+    public void removerComponente(Component c) {
+        new RemoverComponente(presenter.view, c).executar();
     }
 }

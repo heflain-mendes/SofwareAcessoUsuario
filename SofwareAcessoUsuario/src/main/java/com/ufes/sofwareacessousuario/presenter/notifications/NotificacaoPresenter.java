@@ -4,7 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.view.NotificacaoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +19,10 @@ public class NotificacaoPresenter {
     NotificacaoView view;
     NotificacaoTable table;
     NotificacaoPresenterState state;
+    private PrincipalPresenter principalPresenter;
 
-    public NotificacaoPresenter() {
+    public NotificacaoPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         view = new NotificacaoView();
         table = new NotificacaoTable();
         
@@ -35,7 +37,7 @@ public class NotificacaoPresenter {
 
         new CarregandoTabela(this);
 
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
         view.setVisible(true);
     }
 

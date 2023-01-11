@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ufes.sofwareacessousuario.configuracao;
+package com.ufes.sofwareacessousuario.util;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
 import com.ufes.sofwareacessousuario.presenter.principal.UsuarioLogado;
@@ -77,7 +75,7 @@ public class ArquivoDeCofiguracaoService {
     }
 
     public void setFormatoLog(String typeLog) throws Exception {
-        if(!UsuarioLogadoService.getInstance().getType().equals(UsuarioRetorno.ADMINISTRADOR)){
+        if(!UsuarioLogadoServiceProxy.getInstance().getType().equals(UsuarioRetorno.ADMINISTRADOR)){
             return;
         }
         

@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ufes.sofwareacessousuario.dao.sqlite;
+package com.ufes.sofwareacessousuario.dao;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
 import com.ufes.sofwareacessousuario.model.UsuarioRegistro;
-import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
-import com.ufes.sofwareacessousuario.validacaonome.ValidadorNome;
-import com.ufes.sofwareacessousuario.validacaosenha.VerificadorSenha;
+import com.ufes.sofwareacessousuario.util.UsuarioRetorno;
+import java.util.List;
+import com.ufes.sofwareacessousuario.dao.IUsuarioDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,18 +15,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import com.ufes.sofwareacessousuario.dao.interfaces.IUsuarioDAOProxy;
 
 /**
  *
  * @author Heflain
  */
-public class UsuarioSQLiteReal implements IUsuarioDAOProxy {
+class UsuarioSQLiteDAO implements IUsuarioDAO {
 
     private String caminho;
 
-    UsuarioSQLiteReal(String caminho) throws Exception {
+    UsuarioSQLiteDAO(String caminho) throws Exception {
         String sql = "CREATE TABLE IF NOT EXISTS usuarios ("
                 + "    id     INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,"
                 + "    nome   TEXT    NOT NULL,"
@@ -253,4 +250,5 @@ public class UsuarioSQLiteReal implements IUsuarioDAOProxy {
 
         return false;
     }
+
 }

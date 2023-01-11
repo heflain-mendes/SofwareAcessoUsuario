@@ -4,18 +4,22 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
-import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.RegistrarUsuarioPresenter;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 
 /**
  *
  * @author Heflain
  */
-public class AdicionarUsuario implements Command{
+public class AdicionarUsuario extends PrincipalCommand{
+
+    public AdicionarUsuario(PrincipalPresenter principalPresenter) {
+        super(principalPresenter);
+    }
 
     @Override
     public void executar() {
-        new RegistrarUsuarioPresenter();
+        new RegistrarUsuarioPresenter(principalPresenter);
     }
     
 }

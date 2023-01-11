@@ -4,10 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioRetorno;
+import com.ufes.sofwareacessousuario.util.UsuarioRetorno;
 import com.ufes.sofwareacessousuario.presenter.listusers.UsuarioTable;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
-import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.util.UsuariosDAOServiceProxy;
 import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
@@ -29,7 +29,7 @@ public class AutorizarUsuarioCommand extends ListarUsuariosCommand {
                 view.getTblUsuarios().getSelectedRow()
         );
         
-        UsuariosDAOService.getInstance().autorizarUsuario(u);
+        UsuariosDAOServiceProxy.getInstance().autorizarUsuario(u);
         model.atualizarTabela();
     }
 }

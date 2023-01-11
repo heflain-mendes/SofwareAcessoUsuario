@@ -4,8 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
-import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+import com.ufes.sofwareacessousuario.util.UsuariosDAOServiceProxy;
 import com.ufes.sofwareacessousuario.view.OpcaoAcessoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,11 +17,13 @@ import java.awt.event.ActionListener;
 public class OpcoesAcessoPresenter {
 
     private OpcaoAcessoView view;
+    private PrincipalPresenter principalPresenter;
 
-    public OpcoesAcessoPresenter() {
+    public OpcoesAcessoPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         view = new OpcaoAcessoView();
 
-        if (!UsuariosDAOService.getInstance().possuiCadastrosDeUsuario()) {
+        if (!UsuariosDAOServiceProxy.getInstance().possuiUsuariosCadastrados()) {
             view.getBtnEntra().setVisible(false);
             view.getLblLogin().setVisible(false);
         } else {
@@ -40,17 +42,19 @@ public class OpcoesAcessoPresenter {
             }
         });
 
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
         view.setVisible(true);
     }
 
     private void logar() {
         view.dispose();
-        new LoginPresenter();
+        principalPresenter.removerView(view);
+        new LoginPresenter(principalPresenter);
     }
 
     private void cadastrar() {
         view.dispose();
-        new RegistrarUsuarioPresenter();
+        principalPresenter.removerView(view);
+        new RegistrarUsuarioPresenter(principalPresenter);
     }
 }

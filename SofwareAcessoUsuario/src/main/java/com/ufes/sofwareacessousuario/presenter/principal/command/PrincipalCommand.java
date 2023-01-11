@@ -5,21 +5,16 @@
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
 import com.ufes.sofwareacessousuario.command.Command;
-import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
 import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 
 /**
  *
  * @author Heflain
  */
-public class ListarUsuarios extends PrincipalCommand{
+public abstract class PrincipalCommand implements Command {
+    PrincipalPresenter principalPresenter;
 
-    public ListarUsuarios(PrincipalPresenter principalPresenter) {
-        super(principalPresenter);
+    public PrincipalCommand(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
     }
-    @Override
-    public void executar() {
-        new ListaUsuarioPresenter(principalPresenter);
-    }
-    
 }

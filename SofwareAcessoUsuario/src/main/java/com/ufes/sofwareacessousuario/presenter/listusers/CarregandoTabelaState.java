@@ -4,14 +4,17 @@
  */
 package com.ufes.sofwareacessousuario.presenter.listusers;
 
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+
 /**
  *
  * @author heflainrmendes
  */
 public class CarregandoTabelaState extends ListUserPresenterState{
-
-    public CarregandoTabelaState(ListaUsuarioPresenter presenter) {
+    PrincipalPresenter principalPresenter;
+    public CarregandoTabelaState(ListaUsuarioPresenter presenter, PrincipalPresenter principalPresenter) {
         super(presenter);
+        this.principalPresenter = principalPresenter;
         
         view.getBtnAutorizar().setEnabled(false);
         view.getBtnEnviarNotificacao().setEnabled(false);
@@ -19,7 +22,7 @@ public class CarregandoTabelaState extends ListUserPresenterState{
         
         model.atualizarTabela();
         
-        new TabelaCarregadaState(presenter);
+        new TabelaCarregadaState(presenter, principalPresenter);
     }
 
     @Override

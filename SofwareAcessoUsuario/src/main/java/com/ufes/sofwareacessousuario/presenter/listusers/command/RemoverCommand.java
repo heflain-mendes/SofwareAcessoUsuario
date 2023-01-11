@@ -6,7 +6,7 @@ package com.ufes.sofwareacessousuario.presenter.listusers.command;
 
 import com.ufes.sofwareacessousuario.presenter.listusers.UsuarioTable;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
-import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.util.UsuariosDAOServiceProxy;
 import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
@@ -24,7 +24,7 @@ public class RemoverCommand extends ListarUsuariosCommand {
             return;
         }
 
-        UsuariosDAOService.getInstance().removerUsuario(
+        UsuariosDAOServiceProxy.getInstance().removerUsuario(
                 model.getUser(
                         view.getTblUsuarios().getSelectedRow()
                 )

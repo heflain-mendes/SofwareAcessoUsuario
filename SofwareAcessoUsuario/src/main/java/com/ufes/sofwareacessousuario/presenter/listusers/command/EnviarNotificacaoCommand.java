@@ -7,6 +7,7 @@ package com.ufes.sofwareacessousuario.presenter.listusers.command;
 import com.ufes.sofwareacessousuario.presenter.listusers.UsuarioTable;
 import com.ufes.sofwareacessousuario.presenter.EnviarNotificacaoPresenter;
 import com.ufes.sofwareacessousuario.presenter.listusers.ListaUsuarioPresenter;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
 
 /**
@@ -14,21 +15,30 @@ import com.ufes.sofwareacessousuario.view.ListaUsuarioView;
  * @author heflainrmendes
  */
 public class EnviarNotificacaoCommand extends ListarUsuariosCommand {
+    private PrincipalPresenter principalPresenter;
 
-    public EnviarNotificacaoCommand(ListaUsuarioPresenter presenter, ListaUsuarioView view, UsuarioTable model) {
+    public EnviarNotificacaoCommand(
+            ListaUsuarioPresenter presenter,
+            ListaUsuarioView view,
+            UsuarioTable model,
+            PrincipalPresenter principalPresenter
+    ) {
         super(presenter, view, model);
+        this.principalPresenter = principalPresenter;
+        
+        
     }
 
     public void executar() {
         if (view.getTblUsuarios().getSelectedRow() == -1) {
             return;
         }
+        
+        model.getUser(view.getTblUsuarios().getSelectedRow());
 
-        String id = String.valueOf(view.getTblUsuarios().getValueAt(
-                view.getTblUsuarios().getSelectedRow(), 0)
+        new EnviarNotificacaoPresenter(
+                model.getUser(view.getTblUsuarios().getSelectedRow()),
+                principalPresenter
         );
-
-        new EnviarNotificacaoPresenter(Long.parseLong(id));
     }
-
 }

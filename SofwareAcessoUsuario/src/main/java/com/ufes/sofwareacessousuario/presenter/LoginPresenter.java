@@ -4,10 +4,11 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.view.LoginView;
+import com.ufes.sofwareacessousuario.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -19,8 +20,11 @@ import javax.swing.JOptionPane;
 public class LoginPresenter implements EventListerners{
 
     private LoginView view;
+    private PrincipalView principalView;
+    private PrincipalPresenter principalPresenter;
 
-    public LoginPresenter() {
+    public LoginPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         this.view = new LoginView();
 
         view.getLblNomeDeUsuarioOuSenhaInvalidos().setVisible(false);
@@ -39,9 +43,9 @@ public class LoginPresenter implements EventListerners{
             }
         });
 
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
 
-        UsuarioLogadoService.getInstance().subcribe(this);
+        UsuarioLogadoServiceProxy.getInstance().subcribe(this);
         
         view.setVisible(true);
     }
@@ -51,7 +55,7 @@ public class LoginPresenter implements EventListerners{
         String password = String.valueOf(this.view.getTxtSenha().getPassword());
 
         try {
-            if (!UsuarioLogadoService.getInstance().login(name, password)) {
+            if (!UsuarioLogadoServiceProxy.getInstance().login(name, password)) {
                 view.getLblNomeDeUsuarioOuSenhaInvalidos().setVisible(true);
             } 
         } catch (Exception ex) {
@@ -66,17 +70,20 @@ public class LoginPresenter implements EventListerners{
     }
 
     private void fechar() {
+        UsuarioLogadoServiceProxy.getInstance().unsubcribe(this);
         view.dispose();
-        if (!UsuarioLogadoService.getInstance().userLogged()) {
-            new OpcoesAcessoPresenter();
+        principalPresenter.removerView(view);
+        if (!UsuarioLogadoServiceProxy.getInstance().isLogado()) {
+            new OpcoesAcessoPresenter(principalPresenter);
         }
     }
 
     @Override
     public void update(String mensagem) {
-        if(mensagem.equals(UsuarioLogadoService.USUARIO_LOGADO)){
+        if(mensagem.equals(UsuarioLogadoServiceProxy.USUARIO_LOGADO)){
+            principalPresenter.removerView(view);
             view.dispose();
-            UsuarioLogadoService.getInstance().unsubcribe(this);
+            UsuarioLogadoServiceProxy.getInstance().unsubcribe(this);
         }
     }
 }

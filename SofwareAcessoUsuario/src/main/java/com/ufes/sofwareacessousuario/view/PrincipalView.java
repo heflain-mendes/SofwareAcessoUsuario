@@ -4,11 +4,11 @@
  */
 package com.ufes.sofwareacessousuario.view;
 
+import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
@@ -265,5 +265,12 @@ public class PrincipalView extends javax.swing.JFrame {
         return pnlBottom;
     }
     
+    public void addView(Component c){
+        pnlPrincipal.add(c);
+    }
+    
+    public void removerView(Component c){
+        pnlPrincipal.remove(c);
+    }
     
 }

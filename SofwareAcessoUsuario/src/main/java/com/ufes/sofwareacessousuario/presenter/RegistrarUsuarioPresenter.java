@@ -4,10 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.presenter;
 
-import com.ufes.sofwareacessousuario.dao.service.UsuarioLogadoService;
-import com.ufes.sofwareacessousuario.presenter.principal.PrincipalViewService;
-import com.ufes.sofwareacessousuario.dao.service.UsuariosDAOService;
+import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
+import com.ufes.sofwareacessousuario.util.UsuariosDAOServiceProxy;
 import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.view.RegistraUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,20 +19,16 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarUsuarioPresenter {
 
-    private static final int TAMNHO_MIN_NOME = 6;
-
     private RegistraUsuarioView view;
+    private PrincipalPresenter principalPresenter;
 
-    public RegistrarUsuarioPresenter() {
+    public RegistrarUsuarioPresenter(PrincipalPresenter principalPresenter) {
+        this.principalPresenter = principalPresenter;
         view = new RegistraUsuarioView();
 
         view.getLblInvalidPassword().setVisible(false);
         view.getLblInvalidName().setVisible(false);
         view.getLblNomeUsuarioUso().setVisible(false);
-
-        view.getLblInvalidName().setText(
-                view.getLblInvalidName().getText() + " " + TAMNHO_MIN_NOME
-        );
 
         view.getBtnRegistre().addActionListener(new ActionListener() {
             @Override
@@ -48,7 +44,7 @@ public class RegistrarUsuarioPresenter {
             }
         });
 
-        PrincipalViewService.add(view);
+        principalPresenter.addView(view);
         view.setVisible(true);
     }
 
@@ -64,7 +60,7 @@ public class RegistrarUsuarioPresenter {
         }
         view.getLblInvalidPassword().setVisible(false);
 
-        VerificacoesRegistro verificao = UsuariosDAOService.getInstance().registered(nome, senha);
+        VerificacoesRegistro verificao = UsuariosDAOServiceProxy.getInstance().RegistrarUsuario(nome, senha);
 
         if (verificao.possuiRecusas()) {
             if (verificao.nomeEstaEmUso()) {
@@ -104,8 +100,9 @@ public class RegistrarUsuarioPresenter {
 
     public void fechar() {
         view.dispose();
-        if (!UsuarioLogadoService.getInstance().userLogged()) {
-            new OpcoesAcessoPresenter();
+        principalPresenter.removerView(view);
+        if (!UsuarioLogadoServiceProxy.getInstance().isLogado()) {
+            new OpcoesAcessoPresenter(principalPresenter);
         }
     }
 }
