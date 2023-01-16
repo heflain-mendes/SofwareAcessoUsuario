@@ -22,6 +22,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import com.ufes.sofwareacessousuario.dao.IUsuarioDAO;
 import com.ufes.sofwareacessousuario.dao.ConfiguracaoBD;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -71,7 +73,19 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
 
     @Override
     public boolean possuiUsuariosCadastrados() {
-        return !usuarios.isEmpty();
+        try {
+            return usuarioDAO.possuiCadastrosDeUsuario();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        
+        return true;
     }
 
     @Override

@@ -6,7 +6,6 @@ package com.ufes.sofwareacessousuario.dao;
 
 import com.ufes.sofwareacessousuario.model.UsuarioRegistro;
 import com.ufes.sofwareacessousuario.util.UsuarioRetorno;
-import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
 import java.util.List;
 
 /**
