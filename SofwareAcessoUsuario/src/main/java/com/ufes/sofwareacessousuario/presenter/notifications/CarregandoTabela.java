@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 
 /**
@@ -12,24 +13,31 @@ import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
  */
 public class CarregandoTabela extends NotificacaoPresenterState{
 
-    public CarregandoTabela(NotificacaoPresenter presenter) {
-        super(presenter);
+    public CarregandoTabela(NotificacaoPresenter presenter,
+            PrincipalPresenter principalPresenter) {
+        super(presenter, principalPresenter);
         
         presenter.view.getTxtAutor().setEnabled(false);
         presenter.view.getTxtMenssagem().setEnabled(false);
         presenter.view.getTxtSujeito().setEnabled(false);
         
         presenter.view.getBtnLer().setEnabled(false);
+        presenter.view.getBtnFechar().setEnabled(false);
         
         presenter.table.setList(UsuarioLogadoServiceProxy.getInstance().getNotificacoes());
 
         presenter.view.getTblNotificacoes().setModel(presenter.table);
         
-        new TabelaCarregada(presenter);
+        new TabelaCarregada(presenter, principalPresenter);
     }
 
     @Override
     public void ler() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void fechar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

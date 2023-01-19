@@ -4,17 +4,24 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications;
 
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
+
 /**
  *
  * @author Heflain
  */
 public abstract class NotificacaoPresenterState {
     NotificacaoPresenter presenter;
+    PrincipalPresenter principalPresenter;
 
-    public NotificacaoPresenterState(NotificacaoPresenter presenter) {
+    public NotificacaoPresenterState(
+            NotificacaoPresenter presenter,
+            PrincipalPresenter principalPresenter) {
         this.presenter = presenter;
+        this.principalPresenter = principalPresenter;
         presenter.setState(this);
     }
     
     public abstract void ler();
+    public abstract void fechar();
 }

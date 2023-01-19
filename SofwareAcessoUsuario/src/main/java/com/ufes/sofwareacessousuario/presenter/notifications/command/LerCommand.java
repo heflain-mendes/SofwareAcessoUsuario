@@ -4,8 +4,8 @@
  */
 package com.ufes.sofwareacessousuario.presenter.notifications.command;
 
+import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.notifications.NotificacaoTable;
-import com.ufes.sofwareacessousuario.util.NotificacaoRetorno;
 import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.view.NotificacaoView;
 
@@ -13,10 +13,17 @@ import com.ufes.sofwareacessousuario.view.NotificacaoView;
  *
  * @author Heflain
  */
-public class LerCommand implements NotificacaoCommand {
+public class LerCommand implements Command {
+    private NotificacaoView view;
+    private NotificacaoTable table;
+
+    public LerCommand(NotificacaoView view, NotificacaoTable table) {
+        this.table = table;
+        this.view = view;
+    }
 
     @Override
-    public void executar(NotificacaoView view, NotificacaoTable table) {
+    public void executar() {
         int linha = view.getTblNotificacoes().getSelectedRow();
         if (linha == -1) {
             return;

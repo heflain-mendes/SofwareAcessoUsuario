@@ -6,7 +6,9 @@ package com.ufes.sofwareacessousuario.presenter.notifications;
 
 import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
+import com.ufes.sofwareacessousuario.presenter.notifications.command.FecharCommand;
 import com.ufes.sofwareacessousuario.presenter.notifications.command.LerCommand;
+import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 
 /**
  *
@@ -14,22 +16,29 @@ import com.ufes.sofwareacessousuario.presenter.notifications.command.LerCommand;
  */
 public class TabelaCarregada extends NotificacaoPresenterState implements EventListerners{
 
-    public TabelaCarregada(NotificacaoPresenter presenter) {
-        super(presenter);
+    public TabelaCarregada(NotificacaoPresenter presenter, 
+            PrincipalPresenter principalPresenter) {
+        super(presenter, principalPresenter);
         UsuarioLogadoServiceProxy.getInstance().subcribe(this);
         presenter.view.getBtnLer().setEnabled(true);
+        presenter.view.getBtnFechar().setEnabled(true);
     }
 
     @Override
     public void ler() {
-        new LerCommand().executar(presenter.view, presenter.table);
+        new LerCommand(presenter.view, presenter.table).executar();
     }
 
     @Override
     public void update(String mensagem) {
         if(mensagem.equals(UsuarioLogadoServiceProxy.MARCADO_LIDO)){
-            new CarregandoTabela(presenter);
+            new CarregandoTabela(presenter, principalPresenter);
             UsuarioLogadoServiceProxy.getInstance().unsubcribe(this);
         }
+    }
+
+    @Override
+    public void fechar() {
+        new FecharCommand(presenter.view, principalPresenter).executar();
     }
 }

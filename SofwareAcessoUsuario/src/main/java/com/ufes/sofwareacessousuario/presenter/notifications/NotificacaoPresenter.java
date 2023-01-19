@@ -34,8 +34,15 @@ public class NotificacaoPresenter {
                 ler();
             }
         });
+        
+        view.getBtnFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
+            }
+        });
 
-        new CarregandoTabela(this);
+        new CarregandoTabela(this, principalPresenter);
 
         principalPresenter.addView(view);
         view.setVisible(true);
@@ -47,5 +54,9 @@ public class NotificacaoPresenter {
 
     private void ler() {
         state.ler();
+    }
+    
+    private void fechar(){
+        state.fechar();
     }
 }
