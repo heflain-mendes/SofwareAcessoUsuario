@@ -6,7 +6,6 @@ package com.ufes.sofwareacessousuario.util;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.observable.EventManager;
-import com.ufes.sofwareacessousuario.presenter.principal.UsuarioLogado;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;

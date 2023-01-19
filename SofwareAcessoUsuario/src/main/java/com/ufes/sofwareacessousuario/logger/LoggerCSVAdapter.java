@@ -13,15 +13,12 @@ import java.util.List;
  *
  * @author heflainrmendes
  */
-public class LoggerCSVAdapter extends LoggerAdapter{
+class LoggerCSVAdapter extends LoggerAdapter{
 
     private LogCSVAdapter adapter;
     private ConversorLog conversor;
-
-    public LoggerCSVAdapter(String caminho) {
-        conversor = new ConversorLog();
-        adapter = new LogCSVAdapter(openFile(caminho + ".csv"));
-    }
+    
+    
 
     @Override
     public void escrever(SystemLog... log) throws IOException {
@@ -36,5 +33,12 @@ public class LoggerCSVAdapter extends LoggerAdapter{
     @Override
     public String getNome() {
         return "CSV";
+    }
+
+    @Override
+    LoggerAdapter iniciar(String caminho) {
+        conversor = new ConversorLog();
+        adapter = new LogCSVAdapter(openFile(caminho + ".csv"));
+        return this;
     }
 }

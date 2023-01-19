@@ -27,5 +27,5 @@ public interface IUsuariosDAOServiceProxy {
     public UsuarioRetorno getUsuario(long id);
     public void enviarNoticacao(UsuarioRetorno user, String assunto, String mensagem);
     public boolean nomeEmUso(String nome);
-    public void update(String mensagem);
+    void atualizarService(String mensagem);
 }

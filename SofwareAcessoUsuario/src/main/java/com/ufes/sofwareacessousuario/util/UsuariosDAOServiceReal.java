@@ -73,16 +73,8 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
 
     @Override
     public boolean possuiUsuariosCadastrados() {
-        try {
-            return usuarioDAO.possuiCadastrosDeUsuario();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    null,
-                    ex.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-            );
+        if(usuarios.isEmpty()){
+            return usuarioLogado.isLogado();
         }
         
         return true;
@@ -271,7 +263,7 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
     }
 
     @Override
-    public void update(String mensagem) {
+    public void atualizarService(String mensagem) {
         if (UsuarioLogadoServiceProxy.USUARIO_DESLOGADO.equals(mensagem)) {
             usuarios.add(usuarioLogado.getUser());
         } else if (mensagem.equals(UsuarioLogadoServiceProxy.USUARIO_LOGADO)) {

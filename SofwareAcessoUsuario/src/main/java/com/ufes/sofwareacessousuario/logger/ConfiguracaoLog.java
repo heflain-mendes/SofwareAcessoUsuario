@@ -11,17 +11,19 @@ import java.util.List;
  *
  * @author Heflain
  */
-public class ConfiguracaoLog {
+class ConfiguracaoLog {
     private List<LoggerAdapter> logs;
-
-    public ConfiguracaoLog(String caminho) {
+    private String caminho;
+    
+    ConfiguracaoLog(String caminho) {
+        this.caminho = caminho;
         logs = new ArrayList();
         
-        logs.add(new LoggerJSONAdapter(caminho));
-        logs.add(new LoggerCSVAdapter(caminho)); 
+        logs.add(new LoggerJSONAdapter());
+        logs.add(new LoggerCSVAdapter()); 
     }
 
-    public List<String> getTiposLogs(){
+    List<String> getTiposLogs(){
         List<String> nomes = new ArrayList();
         
         for(var l : logs){
@@ -31,10 +33,10 @@ public class ConfiguracaoLog {
         return nomes;
     }
     
-    public LoggerAdapter getLog(String formatoLog){ 
+    LoggerAdapter getLog(String formatoLog){ 
         for(var l : logs){
             if(l.getLog(formatoLog)){
-                return l;
+                return l.iniciar(caminho);
             }
         }
         

@@ -14,8 +14,10 @@ import javax.swing.JOptionPane;
  *
  * @author heflainrmendes
  */
-public abstract class LoggerAdapter {
-    protected File openFile(String caminho){
+abstract class LoggerAdapter {
+    abstract LoggerAdapter iniciar(String caminho);
+    
+    File openFile(String caminho){
         File file = new File(caminho);
         
         if(!file.exists()){
@@ -35,14 +37,10 @@ public abstract class LoggerAdapter {
     }
     public abstract void escrever(SystemLog... log) throws IOException;
     public abstract List<SystemLog> exportaTodos() throws IOException;
-    
     public abstract String getNome();
-
     public boolean getLog(String nome) {
         if(nome.equals(getNome())){
             return true;
-            
-            
         }
         
         return false;

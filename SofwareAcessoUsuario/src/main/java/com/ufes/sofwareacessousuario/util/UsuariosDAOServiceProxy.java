@@ -5,11 +5,9 @@
 package com.ufes.sofwareacessousuario.util;
 
 import com.ufes.sofwareacessousuario.observable.EventListerners;
-import com.ufes.sofwareacessousuario.observable.EventManager;
 import java.util.List;
 import javax.swing.JOptionPane;
 import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
-import com.ufes.sofwareacessousuario.dao.INotificacoesDAO;
 import com.ufes.sofwareacessousuario.dao.IUsuarioDAO;
 
 /**
@@ -21,9 +19,6 @@ public class UsuariosDAOServiceProxy implements EventListerners, IUsuariosDAOSer
 
     private static UsuariosDAOServiceProxy instance;
     private IUsuarioDAO usuarioDAO;
-    private INotificacoesDAO notificacoesDAO;
-    private List<UsuarioRetorno> usuarios;
-    private EventManager eventManager;
     private UsuarioLogadoServiceProxy usuarioLogado;
 
     private IUsuariosDAOServiceProxy instanciaReal;
@@ -148,9 +143,14 @@ public class UsuariosDAOServiceProxy implements EventListerners, IUsuariosDAOSer
     public boolean nomeEmUso(String nome) {
         return instanciaReal.nomeEmUso(nome);
     }
+    
+    @Override
+    public void atualizarService(String mensagem){
+        instanciaReal.atualizarService(mensagem);
+    }
 
     public void update(String mensagem) {
-        instanciaReal.update(mensagem);
+        atualizarService(mensagem);
     }
 
     private void falhaDeSeguranca(String mensagem) {
