@@ -34,7 +34,7 @@ public class ArquivoDeCofiguracaoService {
     private ArquivoDeCofiguracaoService() {
         properties = new Properties();
         file = new File(
-                "./resources/project.properties");
+                "src/main/resources/project.properties");
 
         try (FileReader f = new FileReader(file)) {
             properties.load(f);
