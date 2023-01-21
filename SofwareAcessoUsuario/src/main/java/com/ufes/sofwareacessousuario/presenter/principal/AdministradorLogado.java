@@ -7,7 +7,7 @@ package com.ufes.sofwareacessousuario.presenter.principal;
 import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AdicionarUsuario;
-import com.ufes.sofwareacessousuario.presenter.principal.command.ConfigurarSenha;
+import com.ufes.sofwareacessousuario.presenter.principal.command.AlterarSenha;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AbrirConfiguracoes;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AddComponente;
 import com.ufes.sofwareacessousuario.presenter.principal.command.ListarUsuarios;
@@ -42,7 +42,7 @@ public class AdministradorLogado extends PrincipalPresenterState implements Even
 
     @Override
     public void configurarSenha() {
-        new ConfigurarSenha(presenter).executar();
+        new AlterarSenha(presenter).executar();
     }
 
     @Override

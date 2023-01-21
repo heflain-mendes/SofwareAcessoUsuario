@@ -7,7 +7,7 @@ package com.ufes.sofwareacessousuario.presenter.principal;
 import com.ufes.sofwareacessousuario.util.UsuarioLogadoServiceProxy;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AddComponente;
-import com.ufes.sofwareacessousuario.presenter.principal.command.ConfigurarSenha;
+import com.ufes.sofwareacessousuario.presenter.principal.command.AlterarSenha;
 import com.ufes.sofwareacessousuario.presenter.principal.command.Deslogar;
 import com.ufes.sofwareacessousuario.presenter.principal.command.AtualizarNumeroDeNotificacoes;
 import com.ufes.sofwareacessousuario.presenter.principal.command.RemoverComponente;
@@ -39,7 +39,7 @@ public class UsuarioLogado extends PrincipalPresenterState implements EventListe
 
     @Override
     public void configurarSenha() {
-        new ConfigurarSenha(presenter).executar();
+        new AlterarSenha(presenter).executar();
     }
 
     @Override

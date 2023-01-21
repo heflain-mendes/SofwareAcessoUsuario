@@ -11,9 +11,9 @@ import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
  *
  * @author Heflain
  */
-public class ConfigurarSenha extends PrincipalCommand{
+public class AlterarSenha extends PrincipalCommand{
 
-    public ConfigurarSenha(PrincipalPresenter principalPresenter) {
+    public AlterarSenha(PrincipalPresenter principalPresenter) {
         super(principalPresenter);
     }
     @Override
