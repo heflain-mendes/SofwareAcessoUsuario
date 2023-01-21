@@ -4,7 +4,6 @@
  */
 package com.ufes.sofwareacessousuario.presenter.principal.command;
 
-import com.ufes.sofwareacessousuario.command.Command;
 import com.ufes.sofwareacessousuario.presenter.AtualizarUsuarioPresenter;
 import com.ufes.sofwareacessousuario.presenter.principal.PrincipalPresenter;
 
