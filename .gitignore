@@ -1,5 +1,5 @@
-/SofwareAcessoUsuario/target/
-/SofwareAcessoUsuario/jar/
-/SofwareAcessoUsuario/resources/logger.json
-/SofwareAcessoUsuario/resources/logger.csv
-/SofwareAcessoUsuario/bd/database
+/target/
+/jar/
+/resources/logger.json
+/resources/logger.csv
+/bd/database
