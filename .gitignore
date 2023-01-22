@@ -2,4 +2,4 @@
 /SofwareAcessoUsuario/jar/
 /SofwareAcessoUsuario/resources/logger.json
 /SofwareAcessoUsuario/resources/logger.csv
-*.bd
+/SofwareAcessoUsuario/bd/database
