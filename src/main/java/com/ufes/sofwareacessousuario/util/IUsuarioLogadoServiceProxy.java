@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Heflain
  */
-public interface IUsuarioLogadoServiceProxy {
+public interface IUsuarioLogadoServiceProxy{
     public static String MARCADO_LIDO = "marcado como lido";
     public static String USUARIO_LOGADO = "user logged";
     public static String FALHA_LOGAR_USUARIO = "falha logar usuario";

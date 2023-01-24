@@ -4,11 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.util;
 
-import com.ufes.sofwareacessousuario.util.ArquivoDeCofiguracaoService;
+import com.mycompany.model.Log;
 import com.ufes.sofwareacessousuario.dao.IAbstractFactoryDAO;
 import com.ufes.sofwareacessousuario.dao.INotificacoesDAO;
 import com.ufes.sofwareacessousuario.logger.LogService;
-import com.ufes.sofwareacessousuario.logger.SystemLog;
 import com.ufes.sofwareacessousuario.model.Notificacao;
 import com.ufes.sofwareacessousuario.model.UsuarioRegistro;
 import com.ufes.sofwareacessousuario.model.VerificacoesRegistro;
@@ -22,8 +21,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import com.ufes.sofwareacessousuario.dao.IUsuarioDAO;
 import com.ufes.sofwareacessousuario.dao.ConfiguracaoBD;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -118,7 +115,7 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
             eventManager.notify(USUARIO_ADICIONADO);
 
             u = usuarioLogado.getUser();
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.INCLUSAO,
                     name,
                     LocalDateTime.now(),
@@ -168,7 +165,7 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
             usuarioDAO.autorizarUsuario(user);
             user.setEstado(UsuarioRetorno.AUTORIZADO);
 
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.AUTORIZACAO_USUARIO,
                     user.getNome(),
                     LocalDateTime.now(),
@@ -190,7 +187,7 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
             usuarioDAO.removerUsuario(user);
             usuarios.remove(user);
             eventManager.notify(USUARIO_REMOVIDO);
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.EXCLUSAO,
                     user.getNome(),
                     LocalDateTime.now(),
@@ -229,7 +226,7 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
                     mensagem
             ));
 
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.ENVIO_NOTIFICAO,
                     user.getNome(),
                     LocalDateTime.now(),
@@ -263,7 +260,7 @@ class UsuariosDAOServiceReal implements IUsuariosDAOServiceProxy {
     }
 
     @Override
-    public void atualizarService(String mensagem) {
+    public void update(String mensagem) {
         if (UsuarioLogadoServiceProxy.USUARIO_DESLOGADO.equals(mensagem)) {
             usuarios.add(usuarioLogado.getUser());
         } else if (mensagem.equals(UsuarioLogadoServiceProxy.USUARIO_LOGADO)) {

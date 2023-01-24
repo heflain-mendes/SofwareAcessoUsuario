@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Heflain
  */
-public interface IUsuariosDAOServiceProxy {
+public interface IUsuariosDAOServiceProxy extends EventListerners{
     public static final String USUARIO_ADICIONADO = "usuário adiciondo";
     public static final String USUARIO_REMOVIDO = "usuario removido";
     public static final String USUARIO_AUTORIZADO = "usuario autorizado";
@@ -27,5 +27,4 @@ public interface IUsuariosDAOServiceProxy {
     public UsuarioRetorno getUsuario(long id);
     public void enviarNoticacao(UsuarioRetorno user, String assunto, String mensagem);
     public boolean nomeEmUso(String nome);
-    void atualizarService(String mensagem);
 }
