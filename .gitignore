@@ -1,5 +1,3 @@
 /target/
 /jar/
-/resources/logger.json
-/resources/logger.csv
-/database.*
+/resources/logger.txt

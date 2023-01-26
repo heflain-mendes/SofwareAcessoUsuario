@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author heflainrmendes
  */
-public class UsuarioLogadoServiceProxy implements IUsuarioLogadoServiceProxy {
+public class UsuarioLogadoServiceProxy implements IUsuarioLogadoServiceProxy{
 
     private static UsuarioLogadoServiceProxy instancia;
     private IUsuarioLogadoServiceProxy instanciaReal;

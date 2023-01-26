@@ -4,6 +4,10 @@
  */
 package com.ufes.sofwareacessousuario.logger;
 
+import com.mycompany.adaptador.LogAdapter;
+import com.mycompany.adaptador.LogCSVAdapter;
+import com.mycompany.adaptador.LogJSONAdapter;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,31 +16,29 @@ import java.util.List;
  * @author Heflain
  */
 class ConfiguracaoLog {
-    private List<LoggerAdapter> logs;
-    private String caminho;
+    private List<LogAdapter> logs;
     
-    ConfiguracaoLog(String caminho) {
-        this.caminho = caminho;
+    ConfiguracaoLog(File file) {
         logs = new ArrayList();
         
-        logs.add(new LoggerJSONAdapter());
-        logs.add(new LoggerCSVAdapter()); 
+        logs.add(new LogJSONAdapter(file));
+        logs.add(new LogCSVAdapter(file)); 
     }
 
-    List<String> getTiposLogs(){
-        List<String> nomes = new ArrayList();
+    List<String> getFormatosLog(){
+        List<String> formatos = new ArrayList();
         
         for(var l : logs){
-            nomes.add(l.getNome());
+            formatos.add(l.toString());
         }
         
-        return nomes;
+        return formatos;
     }
     
-    LoggerAdapter getLog(String formatoLog){ 
+    LogAdapter getLog(String formatoLog){ 
         for(var l : logs){
-            if(l.getLog(formatoLog)){
-                return l.iniciar(caminho);
+            if(l.toString().equals(formatoLog)){
+                return l;
             }
         }
         

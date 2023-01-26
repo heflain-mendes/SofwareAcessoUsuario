@@ -4,6 +4,7 @@
  */
 package com.ufes.sofwareacessousuario.util;
 
+import com.mycompany.model.Log;
 import com.ufes.sofwareacessousuario.dao.IAbstractFactoryDAO;
 import com.ufes.sofwareacessousuario.dao.INotificacoesDAO;
 import com.ufes.sofwareacessousuario.dao.IUsuarioDAO;
@@ -12,7 +13,6 @@ import static com.ufes.sofwareacessousuario.util.IUsuarioLogadoServiceProxy.MARC
 import static com.ufes.sofwareacessousuario.util.IUsuarioLogadoServiceProxy.USUARIO_DESLOGADO;
 import static com.ufes.sofwareacessousuario.util.IUsuarioLogadoServiceProxy.USUARIO_LOGADO;
 import com.ufes.sofwareacessousuario.logger.LogService;
-import com.ufes.sofwareacessousuario.logger.SystemLog;
 import com.ufes.sofwareacessousuario.model.Notificacao;
 import com.ufes.sofwareacessousuario.model.NotificacaoDTO;
 import com.ufes.sofwareacessousuario.observable.EventListerners;
@@ -126,7 +126,7 @@ class UsuarioLogadoServiceReal implements IUsuarioLogadoServiceProxy{
                     mensagem
             ));
 
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.ENVIO_NOTIFICAO,
                     user.getNome(),
                     LocalDateTime.now(),
@@ -254,7 +254,7 @@ class UsuarioLogadoServiceReal implements IUsuarioLogadoServiceProxy{
              * nomeContato: usuario que leu a mensagem nomeUsuario: usuario que
              * enviu a mensagem
              */
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.LEITURA_NOTIFICACAO,
                     user.getNome(),
                     LocalDateTime.now(),
@@ -281,7 +281,7 @@ class UsuarioLogadoServiceReal implements IUsuarioLogadoServiceProxy{
 
         try {
             userDAO.atualizarSenha(getUser(), password);
-            LogService.getInstance().escrever(new SystemLog(
+            LogService.getInstance().escrever(new Log(
                     LogService.ALTERACAO_SENHA,
                     getNome(),
                     LocalDateTime.now(),

@@ -143,14 +143,9 @@ public class UsuariosDAOServiceProxy implements EventListerners, IUsuariosDAOSer
     public boolean nomeEmUso(String nome) {
         return instanciaReal.nomeEmUso(nome);
     }
-    
-    @Override
-    public void atualizarService(String mensagem){
-        instanciaReal.atualizarService(mensagem);
-    }
 
     public void update(String mensagem) {
-        atualizarService(mensagem);
+        instanciaReal.update(mensagem);
     }
 
     private void falhaDeSeguranca(String mensagem) {
