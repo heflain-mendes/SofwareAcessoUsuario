@@ -31,14 +31,14 @@ public class NotificacaoPresenter {
         view.getBtnLer().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ler();
+                state.ler();
             }
         });
         
         view.getBtnFechar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fechar();
+                state.fechar();
             }
         });
 
@@ -50,13 +50,5 @@ public class NotificacaoPresenter {
 
     public void setState(NotificacaoPresenterState state) {
         this.state = state;
-    }
-
-    private void ler() {
-        state.ler();
-    }
-    
-    private void fechar(){
-        state.fechar();
     }
 }

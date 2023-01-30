@@ -32,28 +32,28 @@ public class ListaUsuarioPresenter {
         view.getBtnAutorizar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                autorizar();
+                state.autorizar();
             }
         });
         
         view.getBtnExcluir().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                remover();
+                state.remover();
             }
         });
         
         view.getBtnfechar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fechar();
+                state.fechar();
             }
         });
         
         view.getBtnEnviarNotificacao().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                enviarNotificacao();
+                state.enviarNotificacao();
             }
         });
         
@@ -61,22 +61,6 @@ public class ListaUsuarioPresenter {
         
         principalPresenter.addView(view);
         view.setVisible(true);
-    }
-    
-    private void autorizar() {
-        state.autorizar();
-    }
-    
-    private void remover() {
-        state.remover();
-    }
-    
-    private void fechar(){
-        state.fechar();
-    }
-    
-    private void enviarNotificacao() {
-        state.enviarNotificacao();
     }
 
     protected ListaUsuarioView getView() {

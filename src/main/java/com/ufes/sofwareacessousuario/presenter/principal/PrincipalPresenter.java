@@ -24,79 +24,55 @@ public class PrincipalPresenter {
         view.getBtnAddUsuario().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addUser();
+                state.addUsuario();
             }
         });
 
         view.getBtnVerNotificacoes().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewNotification();
+                state.verNotificacoes();
             }
         });
 
         view.getBtnListarUsuario().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listUser();
+                state.listarUsuario();
             }
         });
 
         view.getBtnAlterarSenha().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                changePassword();
+                state.configurarSenha();
             }
         });
 
         view.getBtnConfig().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                config();
+                state.abrirConfiguracoes();
             }
         });
 
         view.getBtnSair().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                logout();
+                state.deslogar();
             }
         });
 
         view.getBtnQtdNotificacoes().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewNotification();
+                state.verNotificacoes();
             }
         });
 
         state = new UsuarioDeslogado(this);
 
         view.setVisible(true);
-    }
-
-    private void changePassword() {
-        state.configurarSenha();
-    }
-
-    private void viewNotification() {
-        state.verNotificacoes();
-    }
-
-    private void addUser() {
-        state.addUsuario();
-    }
-
-    private void listUser() {
-        state.listarUsuario();
-    }
-
-    private void config() {
-        state.abrirConfiguracoes();
-    }
-
-    private void logout() {
-        state.deslogar();
     }
 
     void setState(PrincipalPresenterState state) {
